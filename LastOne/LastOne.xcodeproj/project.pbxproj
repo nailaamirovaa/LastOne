@@ -45,6 +45,21 @@
 			path = LastOneUITests;
 			sourceTree = "<group>";
 		};
+		109889A12FCFFA7500BE26DF /* Presentation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		109889A22FCFFA7C00BE26DF /* Data */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Data;
+			sourceTree = "<group>";
+		};
+		109889A32FCFFA8100BE26DF /* Domain */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Domain;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +90,9 @@
 		1098895A2FCFF2D600BE26DF = {
 			isa = PBXGroup;
 			children = (
+				109889A32FCFFA8100BE26DF /* Domain */,
+				109889A22FCFFA7C00BE26DF /* Data */,
+				109889A12FCFFA7500BE26DF /* Presentation */,
 				109889652FCFF2D600BE26DF /* LastOne */,
 				109889732FCFF2D800BE26DF /* LastOneTests */,
 				1098897D2FCFF2D800BE26DF /* LastOneUITests */,
@@ -109,6 +127,9 @@
 			);
 			fileSystemSynchronizedGroups = (
 				109889652FCFF2D600BE26DF /* LastOne */,
+				109889A12FCFFA7500BE26DF /* Presentation */,
+				109889A22FCFFA7C00BE26DF /* Data */,
+				109889A32FCFFA8100BE26DF /* Domain */,
 			);
 			name = LastOne;
 			packageProductDependencies = (
