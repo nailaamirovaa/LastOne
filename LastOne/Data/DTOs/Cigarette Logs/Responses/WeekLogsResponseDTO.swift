@@ -15,7 +15,7 @@ struct WeekLogsResponseDTO: Decodable {
 
 struct WeekLogsDataDTO: Decodable {
 
-    let logs: [Log]
+    let logs: [LogDTO]
     let count: Int
     let from: String
     let to: String

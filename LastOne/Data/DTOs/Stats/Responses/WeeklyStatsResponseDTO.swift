@@ -10,14 +10,14 @@ import Foundation
 // MARK: - Response
 struct WeeklyStatsResponseDTO: Decodable {
     let success: Bool
-    let data: WeeklyStatsDataTO
+    let data: WeeklyStatsDataDTO
 }
 
 // MARK: - Data
-struct WeeklyStatsDataTO: Decodable {
+struct WeeklyStatsDataDTO: Decodable {
     let week: String
     let total: Int
     let dailyAverage: Double
-    let days: [Day]
+    let days: [DayDTO]
 }
 

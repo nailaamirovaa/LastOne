@@ -8,11 +8,6 @@
 import Foundation
 
 struct LogCigaretteRequestDTO: Encodable {
-    let smokedAt: Date
-    let note, triggerID: String
-
-    enum CodingKeys: String, CodingKey {
-        case smokedAt, note
-        case triggerID = "triggerId"
-    }
+    let smokedAt: String
+    let note, triggerId: String
 }

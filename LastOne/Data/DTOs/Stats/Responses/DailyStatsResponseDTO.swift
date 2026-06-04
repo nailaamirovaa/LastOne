@@ -17,5 +17,5 @@ struct DailyStatsResponseDTO: Decodable {
 struct DailyStatsDataDTO: Decodable {
     let date: String
     let count, dailyGoal: Int
-    let logs: [Log]
+    let logs: [LogDTO]
 }

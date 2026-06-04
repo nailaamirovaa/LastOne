@@ -18,11 +18,11 @@ struct GetProfileResponseDTO: Decodable {
 struct GetProfileDataDTO: Decodable {
     let id, email, subscriptionStatus: String
     let isOnboardingComplete: Bool
-    let profile: GetProfileProfileDTO
+    let profile: ProfileDTO
 }
 
 // MARK: - Profile
-struct GetProfileProfileDTO: Decodable {
+struct ProfileDTO: Decodable {
     let dailyGoalStart, dailyGoalCurrent, dailyGoalFinal, reductionPaceWeeks: Int
     let timezone: String
 }

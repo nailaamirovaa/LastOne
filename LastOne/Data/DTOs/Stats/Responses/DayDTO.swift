@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Day
-struct Day: Decodable {
+struct DayDTO: Decodable {
     let date: String
     let count, goal: Int
 }

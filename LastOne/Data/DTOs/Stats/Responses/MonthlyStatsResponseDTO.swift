@@ -17,6 +17,6 @@ struct MonthlyStatsResponseDTO: Decodable {
 struct MonthlyStatsDataDTO: Decodable {
     let month: String
     let total: Int
-    let days: [Day]
+    let days: [DayDTO]
 }
 

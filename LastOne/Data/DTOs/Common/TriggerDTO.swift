@@ -7,7 +7,7 @@
 
 
 // MARK: - Trigger
-struct Trigger: Decodable {
+struct TriggerDTO: Decodable {
     let id, name: String
     let isDefault: Bool
     let userID: String?

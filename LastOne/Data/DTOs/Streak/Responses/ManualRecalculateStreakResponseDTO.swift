@@ -15,12 +15,12 @@ struct ManualRecalculateStreakResponseDTO: Decodable {
 
 // MARK: - DataClass
 struct ManualRecalculateStreakDataDTO: Decodable {
-    let streak: Streak
+    let streak: StreakDTO
     let message: String
 }
 
 // MARK: - Streak
-struct Streak: Decodable {
+struct StreakDTO: Decodable {
     let currentStreak, longestStreak: Int
     let lastUpdatedDate: String
 }

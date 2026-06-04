@@ -9,19 +9,13 @@
 import Foundation
 
 enum AuthEndpoint: Endpoint {
-
     case register(RegisterRequestDTO)
-
     case login(LoginRequestDTO)
-
     case refreshToken(TokenRequestDTO)
-
     case logout(TokenRequestDTO)
     
     var path: String {
-
         switch self {
-
         case .register:
             return "/auth/register"
 
@@ -50,16 +44,11 @@ enum AuthEndpoint: Endpoint {
     }
     
     var body: Data? {
-
         switch self {
-
         case .register(let request):
-
-            return try? JSONEncoder()
-                .encode(request)
+            return try? JSONEncoder().encode(request)
 
         case .login(let request):
-
             return try? JSONEncoder()
                 .encode(request)
 

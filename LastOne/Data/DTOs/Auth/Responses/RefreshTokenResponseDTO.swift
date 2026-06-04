@@ -8,7 +8,14 @@
 
 import Foundation
 
+// MARK: - Response
 struct RefreshTokenResponseDTO : Decodable {
     let success: Bool
     let data: RefreshTokenDataDTO
+}
+
+// MARK: - Data
+struct RefreshTokenDataDTO: Decodable {
+    let accessToken: String
+    let refreshToken: String
 }

@@ -15,18 +15,7 @@ struct TodaysLogsResponseDTO: Decodable {
 
 // MARK: - DataClass
 struct TodaysLogsData: Decodable {
-    let logs: [TodaysLogsLog]
+    let logs: [Log]
     let count, dailyGoal, remaining: Int
     let exceeded: Bool
-}
-
-// MARK: - Log
-struct TodaysLogsLog: Decodable {
-    let id, smokedAt, note: String
-    let trigger: TodaysLogsTrigger
-}
-
-// MARK: - Trigger
-struct TodaysLogsTrigger: Decodable {
-    let name: String
 }

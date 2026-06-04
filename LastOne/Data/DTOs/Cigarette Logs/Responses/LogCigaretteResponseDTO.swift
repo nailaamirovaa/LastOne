@@ -15,7 +15,7 @@ struct LogCigaretteResponseDTO: Decodable {
 
 // MARK: - Data
 struct LogCigaretteDataDTO: Decodable {
-    let log: Log
+    let log: LogDTO
 }
 
 

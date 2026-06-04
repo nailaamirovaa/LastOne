@@ -10,8 +10,7 @@ import Foundation
 
 public final class AuthService {
 
-    private let networkManager =
-        NetworkManager.shared
+    private let networkManager = NetworkManager.shared
 
     // MARK: - Register
 

@@ -11,11 +11,11 @@
 import Foundation
 
 final class NetworkManager: Sendable {
-
     static let shared = NetworkManager()
     private init() {}
 
     // MARK: - Base Request
+    
     func request<T: Decodable>(
         _ endpoint: Endpoint,
         responseType: T.Type
@@ -60,6 +60,7 @@ final class NetworkManager: Sendable {
     }
 
     // MARK: - Wrapped Request (APIResponse<T>)
+    
     func requestWrapped<T: Decodable>(
         _ endpoint: Endpoint,
         responseType: T.Type
@@ -75,5 +76,52 @@ final class NetworkManager: Sendable {
         } else {
             throw NetworkError.apiError("Request failed")
         }
+    }
+    
+    
+    // MARK: -  Request Data
+    
+    func requestData(
+        _ endpoint: Endpoint
+    ) async throws -> Data {
+
+        var components = URLComponents(
+            string: NetworkingHelper.baseURL + endpoint.path
+        )
+
+        components?.queryItems = endpoint.queryItems
+
+        guard let url = components?.url else {
+            throw NetworkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+
+        request.httpMethod = endpoint.method.rawValue
+        request.httpBody = endpoint.body
+
+        NetworkingHelper.defaultHeaders.forEach {
+            request.setValue($1, forHTTPHeaderField: $0)
+        }
+
+        endpoint.headers?.forEach {
+            request.setValue($1, forHTTPHeaderField: $0)
+        }
+
+        let (data, response) = try await URLSession.shared.data(
+            for: request
+        )
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+
+        guard 200...299 ~= httpResponse.statusCode else {
+            throw NetworkError.serverError(
+                httpResponse.statusCode
+            )
+        }
+
+        return data
     }
 }
