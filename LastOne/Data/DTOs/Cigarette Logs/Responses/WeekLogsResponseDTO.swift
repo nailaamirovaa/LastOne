@@ -7,16 +7,10 @@
 
 import Foundation
 
-struct WeekLogsResponseDTO: Decodable {
-
-    let success: Bool
-    let data: WeekLogsDataDTO
-}
-
 struct WeekLogsDataDTO: Decodable {
 
-    let logs: [LogDTO]
-    let count: Int
-    let from: String
-    let to: String
+    let logs: [LogDTO]?
+    let count: Int?
+    let from: String?
+    let to: String?
 }

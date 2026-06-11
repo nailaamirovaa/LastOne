@@ -10,93 +10,53 @@ import Foundation
 
 public final class StatsService {
     
-    private let networkManager =
-        NetworkManager.shared
+    private let networkManager = NetworkManager.shared
     
     // MARK: - Daily Stats
-    
-    func getDailyStats(
-        date: String?
-    ) async throws -> DailyStatsResponseDTO {
-
-        try await networkManager.request(
-
-            StatsEndpoint.dailyStats(
-                date: date
-            ),
-
-            responseType:
-                DailyStatsResponseDTO.self
+    func getDailyStats(date: String?) async throws -> DailyStatsDataDTO {
+        try await networkManager.requestWrapped(
+            StatsRequest.dailyStats(date: date),
+            responseType:DailyStatsDataDTO.self
         )
     }
     
     // MARK: - Weekly Stats
-    
-    func getWeeklyStats(
-        week: String?
-    ) async throws -> WeeklyStatsResponseDTO {
-
-        try await networkManager.request(
-
-            StatsEndpoint.weeklyStats(
-                week: week),
-
-            responseType:
-                WeeklyStatsResponseDTO.self
+    func getWeeklyStats(week: String?) async throws -> WeeklyStatsDataDTO {
+        try await networkManager.requestWrapped(
+            StatsRequest.weeklyStats(week: week),
+            responseType:WeeklyStatsDataDTO.self
         )
     }
     
     // MARK: - Monthly Stats
-    
-    func getMonthlyStats(
-        month: String?
-    ) async throws -> MonthlyStatsResponseDTO {
-
-        try await networkManager.request(
-
-            StatsEndpoint.montlhyStats(
-                month: month
-            ),
-
-            responseType:
-                MonthlyStatsResponseDTO.self
+    func getMonthlyStats(month: String?) async throws -> MonthlyStatsDataDTO {
+        try await networkManager.requestWrapped(
+            StatsRequest.monthlyStats(month: month),
+            responseType:MonthlyStatsDataDTO.self
         )
     }
     
     // MARK: - Overview
-    
-    func getOverview()
-    async throws -> OverviewResponseDTO {
-
+    func getOverview() async throws -> OverviewDataDTO {
         try await networkManager.request(
-
-            StatsEndpoint.overview,
-
-            responseType:
-                OverviewResponseDTO.self
+            StatsRequest.overview,
+            responseType:OverviewDataDTO.self
         )
     }
     
     // MARK: - Daily Stats
-    
-    func gettriggerAnalysisStats()
-    async throws -> TriggerAnalysisResponseDTO {
+    func getTriggerAnalysisStats() async throws -> TriggerAnalysisDataDTO {
 
-        try await networkManager.request(
-
-            StatsEndpoint.triggerAnalysis,
-
-            responseType:
-                TriggerAnalysisResponseDTO.self
+        try await networkManager.requestWrapped(
+            StatsRequest.triggerAnalysis,
+            responseType:TriggerAnalysisDataDTO.self
         )
     }
     
     // MARK: - Export CSV
-    
     func exportCSV() async throws -> Data {
-
         try await networkManager.requestData(
-            StatsEndpoint.exportCSV
+            StatsRequest.exportCSV
         )
     }
 }

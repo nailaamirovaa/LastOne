@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct DeleteCustomTriggerResponseDTO: Decodable {
-    let success: Bool
-    let data: DeleteCustomTriggerDataDTO
-}
-
+//MARK: - Data
 struct DeleteCustomTriggerDataDTO: Decodable {
-    let message: String
+    let message: String?
 }

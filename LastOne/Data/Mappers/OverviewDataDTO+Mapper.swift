@@ -10,15 +10,15 @@ extension OverviewDataDTO {
     func toEntity() -> OverviewStats {
 
         OverviewStats(
-            totalCigarettesSmoked: totalCigarettesSmoked,
-            daysActive: daysActive,
-            averagePerDay: averagePerDay,
-            reductionPercent: reductionPercent,
-            currentStreak: currentStreak,
-            longestStreak: longestStreak,
-            dailyGoalStart: dailyGoalStart,
-            dailyGoalCurrent: dailyGoalCurrent,
-            dailyGoalFinal: dailyGoalFinal
+            totalCigarettesSmoked: totalCigarettesSmoked ?? 0,
+            daysActive: daysActive ?? 0,
+            averagePerDay: averagePerDay ?? 0,
+            reductionPercent: reductionPercent ?? 0,
+            currentStreak: currentStreak ?? 0,
+            longestStreak: longestStreak ?? 0,
+            dailyGoalStart: dailyGoalStart ?? 0,
+            dailyGoalCurrent: dailyGoalCurrent ?? 0,
+            dailyGoalFinal: dailyGoalFinal ?? 0
         )
     }
 }

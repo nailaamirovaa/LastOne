@@ -9,35 +9,22 @@ import Foundation
 
 public final class SubscriptionService {
     
-    private let networkManager =
-        NetworkManager.shared
+    private let networkManager = NetworkManager.shared
     
     // MARK: - Subscription Status
-    
-    func getSubscriptionStatus()
-    async throws -> SubscriptionStatusResponseDTO {
+    func getSubscriptionStatus() async throws -> SubscriptionStatusDataDTO {
 
-        try await networkManager.request(
-
-            SubscriptionEndpoint.subscriptionStatus,
-
-            responseType:
-                SubscriptionStatusResponseDTO.self
+        try await networkManager.requestWrapped(
+            SubscriptionRequest.subscriptionStatus,
+            responseType: SubscriptionStatusDataDTO.self
         )
     }
     
     // MARK: - Verify Subscription
-    
-    func verifySubscription(
-        request: VerifySubscriptionRequestDTO
-    )async throws -> VerifySubscriptionResponseDTO {
-
-        try await networkManager.request(
-
-            SubscriptionEndpoint.verifySubscription(request),
-
-            responseType:
-                VerifySubscriptionResponseDTO.self
+    func verifySubscription(request: VerifySubscriptionRequestDTO) async throws -> SubscriptionDataDTO {
+        try await networkManager.requestWrapped(
+            SubscriptionRequest.verifySubscription(request),
+            responseType: SubscriptionDataDTO.self
         )
     }
 }

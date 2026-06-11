@@ -10,9 +10,9 @@ extension UserDTO {
     func toEntity() -> User {
 
         User(
-            id: id,
-            email: email,
-            isOnboardingComplete: isOnboardingComplete,
+            id: id ?? "",
+            email: email ?? "",
+            isOnboardingComplete: isOnboardingComplete ?? false,
             subscriptionStatus: subscriptionStatus
         )
     }

@@ -7,13 +7,7 @@
 
 import Foundation
 
-// MARK: - Response
-struct DeleteLogResponseDTO: Decodable {
-    let success: Bool
-    let data: DeleteLogDataDTO
-}
-
 // MARK: - Data
 struct DeleteLogDataDTO: Decodable {
-    let message: String
+    let message: String?
 }

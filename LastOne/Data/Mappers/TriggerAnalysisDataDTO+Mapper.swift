@@ -10,7 +10,7 @@ extension TriggerAnalysisDataDTO {
     func toEntity() -> TriggerAnalysis {
 
         TriggerAnalysis(
-            triggers: triggers.map {
+            triggers: (triggers ?? []).map {
                 $0.toEntity()
             }
         )

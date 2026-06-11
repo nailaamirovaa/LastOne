@@ -7,20 +7,8 @@
 
 import Foundation
 
-// MARK: - Response
-struct ManualRecalculateStreakResponseDTO: Decodable {
-    let success: Bool
-    let data: ManualRecalculateStreakDataDTO
-}
-
 // MARK: - DataClass
 struct ManualRecalculateStreakDataDTO: Decodable {
-    let streak: StreakDTO
-    let message: String
-}
-
-// MARK: - Streak
-struct StreakDTO: Decodable {
-    let currentStreak, longestStreak: Int
-    let lastUpdatedDate: String
+    let streak: StreakDTO?
+    let message: String?
 }

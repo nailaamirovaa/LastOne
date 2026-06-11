@@ -12,13 +12,13 @@ extension LogDTO {
     func toEntity() -> CigaretteLog {
 
         CigaretteLog(
-            id: id,
-            userID: userId,
-            smokedAt: smokedAt,
-            note: note,
-            triggerID: triggerId,
-            trigger: trigger.toEntity(),
-            createdAt: createdAt
+            id: id ?? "",
+            userID: userId ?? "",
+            smokedAt: smokedAt ?? "",
+            note: note ?? "",
+            triggerID: triggerId ?? "",
+            trigger: trigger?.toEntity() ?? .init(id: "", name: "", isDefault: false, userID: ""),
+            createdAt: createdAt ?? ""
         )
     }
 }

@@ -8,13 +8,7 @@
 
 import Foundation
 
-// MARK: - Response
-struct CreateCustomTriggerResponseDTO: Decodable {
-    let success: Bool
-    let data: CreateCustomTriggerDataDTO
-}
-
-// MARK: - DataClass
+// MARK: - Data
 struct CreateCustomTriggerDataDTO: Decodable {
-    let trigger: Trigger
+    let trigger: TriggerDTO?
 }

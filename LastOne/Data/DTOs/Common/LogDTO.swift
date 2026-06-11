@@ -8,8 +8,8 @@
 
 // MARK: - Log
 struct LogDTO: Decodable {
-    let id, userId, smokedAt, note: String
-    let triggerId: String
-    let trigger: TriggerDTO
-    let createdAt: String
+    let id, userId, smokedAt, note: String?
+    let triggerId: String?
+    let trigger: TriggerDTO?
+    let createdAt: String?
 }

@@ -13,51 +13,38 @@ public final class AuthService {
     private let networkManager = NetworkManager.shared
 
     // MARK: - Register
+    func register(request: RegisterRequestDTO) async throws -> AuthDataDTO {
 
-    func register(
-        request: RegisterRequestDTO
-    ) async throws -> AuthResponseDTO {
-
-        try await networkManager.request(
-            AuthEndpoint.register(request),
-            responseType:AuthResponseDTO.self
+        try await networkManager.requestWrapped(
+            AuthRequest.register(request),
+            responseType:AuthDataDTO.self
         )
     }
 
     // MARK: - Login
+    func login( request: LoginRequestDTO) async throws -> AuthDataDTO {
 
-    func login(
-        request: LoginRequestDTO
-    ) async throws -> AuthResponseDTO {
-
-        try await networkManager.request(
-            AuthEndpoint.login(request),
-            responseType:AuthResponseDTO.self
+        try await networkManager.requestWrapped(
+            AuthRequest.login(request),
+            responseType:AuthDataDTO.self
         )
     }
 
     // MARK: - Refresh Token
+    func refreshToken(request: TokenRequestDTO) async throws -> RefreshTokenDataDTO {
 
-    func refreshToken(
-        request: TokenRequestDTO
-    ) async throws -> RefreshTokenResponseDTO {
-
-        try await networkManager.request(
-            AuthEndpoint.refreshToken(request),
-            responseType:
-                RefreshTokenResponseDTO.self
+        try await networkManager.requestWrapped(
+            AuthRequest.refreshToken(request),
+            responseType: RefreshTokenDataDTO.self
         )
     }
 
     // MARK: - Logout
+    func logout(request: TokenRequestDTO) async throws -> LogoutDataDTO {
 
-    func logout(
-        request: TokenRequestDTO
-    ) async throws -> LogoutResponseDTO {
-
-        try await networkManager.request(
-            AuthEndpoint.logout(request),
-            responseType:LogoutResponseDTO.self
+        try await networkManager.requestWrapped(
+            AuthRequest.logout(request),
+            responseType:LogoutDataDTO.self
         )
     }
 }

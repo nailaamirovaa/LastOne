@@ -10,50 +10,29 @@ import Foundation
 
 public final class ProfileService {
 
-    private let networkManager =
-        NetworkManager.shared
+    private let networkManager = NetworkManager.shared
 
     // MARK: - Setup Profile
-
-    func setupProfile(
-        request: SetupProfileRequestDTO
-    ) async throws -> SetupProfileResponseDTO {
-
-        try await networkManager.request(
-
-            ProfileEndpoint.setupProfile(request),
-
-            responseType:
-                SetupProfileResponseDTO.self
+    func setupProfile(request: SetupProfileRequestDTO) async throws -> SetupProfileDataDTO {
+        try await networkManager.requestWrapped(
+            ProfileRequest.setupProfile(request),
+            responseType: SetupProfileDataDTO.self
         )
     }
 
     // MARK: - Get Profile
-
-    func getProfile()
-    async throws -> GetProfileResponseDTO {
-
-        try await networkManager.request(
-
-            ProfileEndpoint.getProfile,
-
-            responseType:
-                GetProfileResponseDTO.self
+    func getProfile()async throws -> GetProfileDataDTO {
+        try await networkManager.requestWrapped(
+            ProfileRequest.getProfile,
+            responseType: GetProfileDataDTO.self
         )
     }
 
     // MARK: - Update Profile
-
-    func updateProfile(
-        request: UpdateProfileRequestDTO
-    ) async throws -> UpdateProfileResponseDTO {
-
-        try await networkManager.request(
-
-            ProfileEndpoint.updateProfile(request),
-
-            responseType:
-                UpdateProfileResponseDTO.self
+    func updateProfile(request: UpdateProfileRequestDTO) async throws -> UpdateProfileDataDTO {
+        try await networkManager.requestWrapped(
+            ProfileRequest.updateProfile(request),
+            responseType:UpdateProfileDataDTO.self
         )
     }
 }

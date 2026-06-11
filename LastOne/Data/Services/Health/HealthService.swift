@@ -9,20 +9,14 @@ import Foundation
 
 public final class HealthService {
     
-    private let networkManager =
-        NetworkManager.shared
+    private let networkManager = NetworkManager.shared
     
     // MARK: - Health Check
-    
-    func revenueCatWebhook()
-    async throws -> HealthCheckResponseDTO {
+    func revenueCatWebhook() async throws -> HealthCheckDataDTO {
 
-        try await networkManager.request(
-
-            HealthEndpoint.healthCheck,
-
-            responseType:
-                HealthCheckResponseDTO.self
+        try await networkManager.requestWrapped(
+            HealthRequest.healthCheck,
+            responseType: HealthCheckDataDTO.self
         )
     }
 }

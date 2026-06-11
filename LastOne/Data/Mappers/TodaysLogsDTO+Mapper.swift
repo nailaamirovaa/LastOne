@@ -7,16 +7,16 @@
 
 import Foundation
 
-extension TodaysLogsData {
+extension TodaysLogsDataDTO {
 
     func toEntity() -> TodayLogs {
 
         TodayLogs(
-            logs: logs.map { $0.toEntity() },
-            count: count,
-            dailyGoal: dailyGoal,
-            remaining: remaining,
-            exceeded: exceeded
+            logs: (logs ?? []).map { $0.toEntity() },
+            count: count ?? 0,
+            dailyGoal: dailyGoal ?? 0,
+            remaining: remaining ?? 0,
+            exceeded: exceeded ?? false
         )
     }
 }

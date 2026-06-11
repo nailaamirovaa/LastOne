@@ -10,9 +10,9 @@ extension StreakDTO {
     func toEntity() -> Streak {
 
         Streak(
-            currentStreak: currentStreak,
-            longestStreak: longestStreak,
-            lastUpdatedDate: lastUpdatedDate
+            currentStreak: currentStreak ?? 0,
+            longestStreak: longestStreak ?? 0,
+            lastUpdatedDate: lastUpdatedDate ?? ""
         )
     }
 }

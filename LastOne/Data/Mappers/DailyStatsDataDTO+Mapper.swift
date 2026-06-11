@@ -10,10 +10,10 @@ extension DailyStatsDataDTO {
     func toEntity() -> DailyStats {
 
         DailyStats(
-            date: date,
-            count: count,
-            dailyGoal: dailyGoal,
-            logs: logs.map { $0.toEntity() }
+            date: date ?? "",
+            count: count ?? 0,
+            dailyGoal: dailyGoal ?? 0,
+            logs: (logs ?? []).map { $0.toEntity() }
         )
     }
 }

@@ -7,17 +7,11 @@
 
 import Foundation
 
-// MARK: - Response
-struct WeeklyStatsResponseDTO: Decodable {
-    let success: Bool
-    let data: WeeklyStatsDataDTO
-}
-
 // MARK: - Data
 struct WeeklyStatsDataDTO: Decodable {
-    let week: String
-    let total: Int
-    let dailyAverage: Double
-    let days: [DayDTO]
+    let week: String?
+    let total: Int?
+    let dailyAverage: Double?
+    let days: [DayDTO]?
 }
 

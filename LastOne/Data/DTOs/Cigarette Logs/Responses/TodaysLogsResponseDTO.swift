@@ -7,15 +7,9 @@
 
 import Foundation
 
-// MARK: - Response
-struct TodaysLogsResponseDTO: Decodable {
-    let success: Bool
-    let data: TodaysLogsData
-}
-
 // MARK: - DataClass
-struct TodaysLogsData: Decodable {
-    let logs: [Log]
-    let count, dailyGoal, remaining: Int
-    let exceeded: Bool
+struct TodaysLogsDataDTO: Decodable {
+    let logs: [LogDTO]?
+    let count, dailyGoal, remaining: Int?
+    let exceeded: Bool?
 }

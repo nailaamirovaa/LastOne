@@ -7,12 +7,8 @@
 
 import Foundation
 
-struct HealthCheckResponseDTO: Decodable {
-    let succes: Bool
-    let data: HealthCheckDataDTO
-}
-
+//MARK: - Data
 struct HealthCheckDataDTO: Decodable {
-    let status: String
-    let timestamp: String
+    let status: String?
+    let timestamp: String?
 }

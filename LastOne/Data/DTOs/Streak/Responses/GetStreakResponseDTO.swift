@@ -7,14 +7,8 @@
 
 import Foundation
 
-// MARK: - Response
-struct GetStreakResponseDTO: Decodable {
-    let success: Bool
-    let data: GetStreakDataDTO
-}
-
 // MARK: - Data
 struct GetStreakDataDTO: Decodable {
-    let currentStreak, longestStreak: Int
-    let lastUpdatedDate: String
+    let currentStreak, longestStreak: Int?
+    let lastUpdatedDate: String?
 }

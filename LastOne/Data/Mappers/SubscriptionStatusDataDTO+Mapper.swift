@@ -13,7 +13,7 @@ extension SubscriptionStatusDataDTO {
             isPremium: plan != "FREE",
             expiresAt: expiresAt,
             plan: plan,
-            revenueCatUserID: revenueCatUserID
+            revenueCatUserID: revenueCatUserId
         )
     }
 }

@@ -17,25 +17,25 @@ final class NetworkManager: Sendable {
     // MARK: - Base Request
     
     func request<T: Decodable>(
-        _ endpoint: Endpoint,
+        _ apiRequest: APIRequest,
         responseType: T.Type
     ) async throws -> T {
 
-        var components = URLComponents(string: NetworkingHelper.baseURL + endpoint.path)
-        components?.queryItems = endpoint.queryItems
+        var components = URLComponents(string: NetworkingHelper.baseURL + apiRequest.path)
+        components?.queryItems = apiRequest.queryItems
 
         guard let url = components?.url else {
             throw NetworkError.invalidURL
         }
 
         var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method.rawValue
-        request.httpBody = endpoint.body
+        request.httpMethod = apiRequest.method.rawValue
+        request.httpBody = apiRequest.body
 
         NetworkingHelper.defaultHeaders.forEach {
             request.setValue($1, forHTTPHeaderField: $0)
         }
-        endpoint.headers?.forEach {
+        apiRequest.headers?.forEach {
             request.setValue($1, forHTTPHeaderField: $0)
         }
 
@@ -62,7 +62,7 @@ final class NetworkManager: Sendable {
     // MARK: - Wrapped Request (APIResponse<T>)
     
     func requestWrapped<T: Decodable>(
-        _ endpoint: Endpoint,
+        _ endpoint: APIRequest,
         responseType: T.Type
     ) async throws -> T {
 
@@ -82,7 +82,7 @@ final class NetworkManager: Sendable {
     // MARK: -  Request Data
     
     func requestData(
-        _ endpoint: Endpoint
+        _ endpoint: APIRequest
     ) async throws -> Data {
 
         var components = URLComponents(

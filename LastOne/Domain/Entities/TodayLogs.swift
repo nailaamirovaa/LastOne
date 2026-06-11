@@ -9,7 +9,7 @@
 import Foundation
 
 struct TodayLogs {
-
+    
     let logs: [CigaretteLog]
     let count: Int
     let dailyGoal: Int

@@ -10,9 +10,9 @@ extension TriggerAnalysisTriggerDTO {
     func toEntity() -> TriggerStat {
 
         TriggerStat(
-            triggerID: triggerID,
-            triggerName: triggerName,
-            count: count
+            triggerID: triggerId  ?? "",
+            triggerName: triggerName ?? "",
+            count: count ?? 0
         )
     }
 }

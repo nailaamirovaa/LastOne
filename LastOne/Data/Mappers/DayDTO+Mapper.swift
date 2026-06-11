@@ -10,9 +10,9 @@ extension DayDTO {
     func toEntity() -> StatsDay {
 
         StatsDay(
-            date: date,
-            count: count,
-            goal: goal
+            date: date ?? "",
+            count: count ?? 0,
+            goal: goal ?? 0
         )
     }
 }

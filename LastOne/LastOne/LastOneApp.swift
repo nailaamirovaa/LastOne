@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct LastOneApp: App {
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+
+            NavigationStack {
+                OnboardingView()
+            }
         }
     }
 }

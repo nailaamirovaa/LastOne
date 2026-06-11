@@ -7,15 +7,9 @@
 
 import Foundation
 
-// MARK: - Response
-struct LogCigaretteResponseDTO: Decodable {
-    let success: Bool
-    let data: LogCigaretteDataDTO
-}
-
 // MARK: - Data
 struct LogCigaretteDataDTO: Decodable {
-    let log: LogDTO
+    let log: LogDTO?
 }
 
 

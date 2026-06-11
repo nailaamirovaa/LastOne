@@ -7,13 +7,7 @@
 
 import Foundation
 
-// MARK: - Welcome
-struct RevenueCatWebhookResponseDTO: Decodable {
-    let success: Bool
-    let data: RevenueCatWebhookDataDTO
-}
-
 // MARK: - Data
 struct RevenueCatWebhookDataDTO: Decodable {
-    let received: Bool
+    let received: Bool?
 }

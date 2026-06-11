@@ -16,11 +16,11 @@ enum NetworkError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .invalidURL:           return "URL düzgün deyil"
-        case .invalidResponse:      return "Cavab alınmadı"
+        case .invalidURL:            return "URL düzgün deyil"
+        case .invalidResponse:       return "Cavab alınmadı"
         case .serverError(let code): return "Server xətası: \(code)"
-        case .decodingError:        return "Məlumat oxunmadı"
-        case .apiError(let msg):    return msg
+        case .decodingError:         return "Məlumat oxunmadı"
+        case .apiError(let msg):     return msg
         }
     }
 }

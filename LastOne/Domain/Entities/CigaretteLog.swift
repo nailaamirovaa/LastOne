@@ -13,6 +13,6 @@ struct CigaretteLog {
     let smokedAt: String
     let note: String
     let triggerID: String
-    let trigger: TriggerDTO
+    let trigger: Trigger
     let createdAt: String
 }

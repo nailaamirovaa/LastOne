@@ -10,9 +10,10 @@ extension TriggerDTO {
     func toEntity() -> Trigger {
 
         Trigger(
-            id: id,
-            name: name,
-            isDefault: isDefault
+            id: id ?? "",
+            name: name ?? "",
+            isDefault: isDefault ?? false,
+            userID: ""
         )
     }
 }

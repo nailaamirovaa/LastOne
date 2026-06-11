@@ -8,9 +8,6 @@
 
 struct UserProfile {
 
-    let id: String
-    let email: String
-    let subscriptionStatus: String
-    let isOnboardingComplete: Bool
+    let user: User
     let profile: Profile
 }

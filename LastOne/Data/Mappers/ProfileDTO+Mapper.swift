@@ -10,11 +10,11 @@ extension ProfileDTO {
     func toEntity() -> Profile {
 
         Profile(
-            dailyGoalStart: dailyGoalStart,
-            dailyGoalCurrent: dailyGoalCurrent,
-            dailyGoalFinal: dailyGoalFinal,
-            reductionPaceWeeks: reductionPaceWeeks,
-            timezone: timezone
+            dailyGoalStart: dailyGoalStart ?? 0,
+            dailyGoalCurrent: dailyGoalCurrent ?? 0,
+            dailyGoalFinal: dailyGoalFinal ?? 0,
+            reductionPaceWeeks: reductionPaceWeeks ?? 0,
+            timezone: timezone ?? ""
         )
     }
 }

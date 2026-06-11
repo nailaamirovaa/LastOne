@@ -8,12 +8,7 @@
 
 // MARK: - Trigger
 struct TriggerDTO: Decodable {
-    let id, name: String
-    let isDefault: Bool
-    let userID: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case id, name, isDefault
-        case userID = "userId"
-    }
+    let id, name: String?
+    let isDefault: Bool?
+    let userId: String?
 }

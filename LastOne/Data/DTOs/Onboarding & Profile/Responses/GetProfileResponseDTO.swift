@@ -8,21 +8,8 @@
 
 import Foundation
 
-// MARK: - GetProfileResponseDTO
-struct GetProfileResponseDTO: Decodable {
-    let success: Bool
-    let data: GetProfileDataDTO
-}
-
 // MARK: - Data
 struct GetProfileDataDTO: Decodable {
-    let id, email, subscriptionStatus: String
-    let isOnboardingComplete: Bool
-    let profile: ProfileDTO
-}
-
-// MARK: - Profile
-struct ProfileDTO: Decodable {
-    let dailyGoalStart, dailyGoalCurrent, dailyGoalFinal, reductionPaceWeeks: Int
-    let timezone: String
+    let user: UserDTO?
+    let profile: ProfileDTO?
 }

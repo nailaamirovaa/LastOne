@@ -10,8 +10,8 @@ extension SubscriptionDataDTO {
     func toEntity() -> Subscription {
 
         Subscription(
-            isPremium: isPremium,
-            expiresAt: expiresAt,
+            isPremium: isPremium ?? false,
+            expiresAt: expiresAt ?? "",
             plan: nil,
             revenueCatUserID: nil
         )

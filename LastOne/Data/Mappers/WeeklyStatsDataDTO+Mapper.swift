@@ -10,10 +10,10 @@ extension WeeklyStatsDataDTO {
     func toEntity() -> WeeklyStats {
 
         WeeklyStats(
-            week: week,
-            total: total,
-            dailyAverage: dailyAverage,
-            days: days.map { $0.toEntity() }
+            week: week ?? "",
+            total: total ?? 0,
+            dailyAverage: dailyAverage ?? 0,
+            days: (days ?? []).map { $0.toEntity() }
         )
     }
 }

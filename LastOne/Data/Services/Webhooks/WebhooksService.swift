@@ -9,21 +9,13 @@ import Foundation
 
 public final class WebhooksService {
     
-    private let networkManager =
-        NetworkManager.shared
+    private let networkManager = NetworkManager.shared
     
     // MARK: - RevenueCat Webhook
-    
-    func revenueCatWebhook(
-        request: RevenueCatWebhookRequestDTO
-    )async throws -> RevenueCatWebhookResponseDTO {
-
-        try await networkManager.request(
-
-            WebhooksEndpoint.revenueCatWebhook(request),
-
-            responseType:
-                RevenueCatWebhookResponseDTO.self
+    func revenueCatWebhook( request: RevenueCatWebhookRequestDTO) async throws -> RevenueCatWebhookDataDTO {
+        try await networkManager.requestWrapped(
+            WebhooksRequest.revenueCatWebhook(request),
+            responseType: RevenueCatWebhookDataDTO.self
         )
     }
 }

@@ -7,18 +7,7 @@
 
 import Foundation
 
-// MARK: - Response
-struct SubscriptionStatusResponseDTO: Decodable {
-    let success: Bool
-    let data: SubscriptionStatusDataDTO
-}
-
 // MARK: - Data
 struct SubscriptionStatusDataDTO: Decodable {
-    let plan, expiresAt, revenueCatUserID: String
-
-    enum CodingKeys: String, CodingKey {
-        case plan, expiresAt
-        case revenueCatUserID = "revenueCatUserId"
-    }
+    let plan, expiresAt, revenueCatUserId: String?
 }

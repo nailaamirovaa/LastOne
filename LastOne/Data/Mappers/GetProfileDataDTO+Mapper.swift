@@ -10,11 +10,8 @@ extension GetProfileDataDTO {
     func toEntity() -> UserProfile {
 
         UserProfile(
-            id: id,
-            email: email,
-            subscriptionStatus: subscriptionStatus,
-            isOnboardingComplete: isOnboardingComplete,
-            profile: profile.toEntity()
+            user: user?.toEntity() ?? .init(id: "", email: "", isOnboardingComplete: false, subscriptionStatus: ""),
+            profile: profile?.toEntity() ?? .init(dailyGoalStart: 0, dailyGoalCurrent: 0, dailyGoalFinal: 0, reductionPaceWeeks: 0, timezone: "")
         )
     }
 }

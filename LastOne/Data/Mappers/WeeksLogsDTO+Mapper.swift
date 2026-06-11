@@ -12,10 +12,10 @@ extension WeekLogsDataDTO {
     func toEntity() -> WeekLogs {
 
         WeekLogs(
-            logs: logs.map { $0.toEntity() },
-            count: count,
-            from: from,
-            to: to
+            logs: (logs ?? []).map { $0.toEntity() },
+            count: count ?? 0,
+            from: from ?? "",
+            to: to ?? ""
         )
     }
 }

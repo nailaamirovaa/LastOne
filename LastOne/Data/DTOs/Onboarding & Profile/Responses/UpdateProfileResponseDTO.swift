@@ -7,19 +7,8 @@
 
 import Foundation
 
-// MARK: - Response
-struct UpdateProfileResponseDTO: Decodable {
-    let success: Bool
-    let data: UpdateProfileDataDTO
-}
-
 // MARK: - Data
 struct UpdateProfileDataDTO: Decodable {
-    let profile: UpdateProfileProfileDTO
+    let profile: ProfileDTO?
 }
 
-// MARK: - Profile
-struct UpdateProfileProfileDTO: Decodable {
-    let dailyGoalFinal, reductionPaceWeeks: Int
-    let timezone: String
-}

@@ -9,64 +9,41 @@ import Foundation
 
 public final class CigaretteLogsService {
     
-    private let networkManager =
-    NetworkManager.shared
+    private let networkManager = NetworkManager.shared
     
     // MARK: - Log A Cigarette
-    
-    func logCigarette(
-        request: LogCigaretteRequestDTO
-    ) async throws -> LogCigaretteResponseDTO {
+    func logCigarette( request: LogCigaretteRequestDTO) async throws -> LogCigaretteDataDTO {
         
-        try await networkManager.request(
-            
-            CigaretteLogsEndpoint.logCigarette(request),
-            
-            responseType:
-                LogCigaretteResponseDTO.self
+        try await networkManager.requestWrapped(
+            CigaretteLogsRequest.logCigarette(request),
+            responseType:LogCigaretteDataDTO.self
         )
     }
     
     //MARK: - Today's Logs
-    
-    func todaysLogs()
-    async throws -> TodaysLogsResponseDTO {
+    func todaysLogs() async throws -> TodaysLogsDataDTO {
         
-        try await networkManager.request(
-            
-            CigaretteLogsEndpoint.todaysLogs,
-            
-            responseType:
-                TodaysLogsResponseDTO.self
+        try await networkManager.requestWrapped(
+            CigaretteLogsRequest.todaysLogs,
+            responseType: TodaysLogsDataDTO.self
         )
     }
     
     //MARK: - Week Logs
-    
-    func weekLogs()
-    async throws -> WeekLogsResponseDTO {
+    func weekLogs() async throws -> WeekLogsDataDTO {
         
-        try await networkManager.request(
-            
-            CigaretteLogsEndpoint.weekLogs,
-            
-            responseType:
-                WeekLogsResponseDTO.self
+        try await networkManager.requestWrapped(
+            CigaretteLogsRequest.weekLogs,
+            responseType:WeekLogsDataDTO.self
         )
     }
     
     //MARK: - Delete Log
-    
-    func deleteLog(
-        id: String
-    ) async throws -> DeleteLogResponseDTO {
+    func deleteLog(id: String) async throws -> DeleteLogDataDTO {
         
-        try await networkManager.request(
-            
-            CigaretteLogsEndpoint.deleteLog(id: id),
-            
-            responseType:
-                DeleteLogResponseDTO.self
+        try await networkManager.requestWrapped(
+            CigaretteLogsRequest.deleteLog(id: id),
+            responseType:DeleteLogDataDTO.self
         )
     }
 }

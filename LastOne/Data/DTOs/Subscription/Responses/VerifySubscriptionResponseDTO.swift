@@ -8,14 +8,9 @@
 
 import Foundation
 
-struct  VerifySubscriptionResponseDTO: Decodable {
-
-    let success: Bool
-    let data: SubscriptionDataDTO
-}
-
+//MARK: - Data
 struct SubscriptionDataDTO: Decodable {
 
-    let isPremium: Bool
+    let isPremium: Bool?
     let expiresAt: String?
 }

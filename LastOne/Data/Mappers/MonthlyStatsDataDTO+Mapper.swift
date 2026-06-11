@@ -10,9 +10,9 @@ extension MonthlyStatsDataDTO {
     func toEntity() -> MonthlyStats {
 
         MonthlyStats(
-            month: month,
-            total: total,
-            days: days.map { $0.toEntity() }
+            month: month ?? "",
+            total: total ?? 0,
+            days: (days ?? []).map { $0.toEntity() }
         )
     }
 }

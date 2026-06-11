@@ -8,15 +8,9 @@
 
 import Foundation
 
-// MARK: - Response
-struct OverviewResponseDTO: Decodable {
-    let success: Bool
-    let data: OverviewDataDTO
-}
-
 // MARK: - Data
 struct OverviewDataDTO: Decodable  {
-    let totalCigarettesSmoked, daysActive, averagePerDay, reductionPercent: Int
-    let currentStreak, longestStreak, dailyGoalStart, dailyGoalCurrent: Int
-    let dailyGoalFinal: Int
+    let totalCigarettesSmoked, daysActive, averagePerDay, reductionPercent: Int?
+    let currentStreak, longestStreak, dailyGoalStart, dailyGoalCurrent: Int?
+    let dailyGoalFinal: Int?
 }
