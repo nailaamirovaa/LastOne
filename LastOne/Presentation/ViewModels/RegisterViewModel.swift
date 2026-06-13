@@ -1,17 +1,17 @@
 //
-//  LoginViewModel.swift
+//  RegisterViewModel.swift
 //  LastOne
 //
-//  Created by Naila Amirova on 11.06.26.
+//  Created by Naila Amirova on 12.06.26.
 //
 
 import Foundation
 import Combine
 
-final class LoginViewModel: ObservableObject {
-
+final class RegisterViewModel: ObservableObject {
+    
     // MARK: - Published Properties
-
+    
     @Published var user: User?
     @Published var email = ""
     @Published var password = ""
@@ -19,21 +19,21 @@ final class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
-    @Published var isLoggedIn = false
-
+    @Published var isRegistered = false
+    
     // MARK: - Dependencies
 
-    private let loginUseCase: LoginUseCase
+    private let registerUseCase: RegisterUseCase
 
     // MARK: - Init
 
-    init(loginUseCase: LoginUseCase) {
-        self.loginUseCase = loginUseCase
+    init(registerUseCase: RegisterUseCase) {
+        self.registerUseCase = registerUseCase
     }
 
     // MARK: - Actions
 
-    func login() {
+    func register() {
 
         guard !email.isEmpty else {
             errorMessage = "Email cannot be empty."
@@ -44,46 +44,46 @@ final class LoginViewModel: ObservableObject {
             errorMessage = "Password cannot be empty."
             return
         }
-        
+
         Task {
-            
+
             isLoading = true
             errorMessage = nil
-            
+
             defer {
                 isLoading = false
             }
             do {
-                let user = try await loginUseCase.execute(
+                let user = try await registerUseCase.execute(
                     email: email,
                     password: password
                 )
-                
+
                 self.user = user
-                
-                isLoggedIn = true
-                
+
+                isRegistered = true
+
             } catch let error as NetworkError {
-                
+
                 switch error {
-                    
+
                 case .apiError(_, let code):
-                    
+
                     switch code {
-                        
-                    case "INVALID_CREDENTIALS":
-                        errorMessage = "Invalid credentials"
-                        
+
+                    case "EMAIL_EXISTS":
+                        errorMessage = "This email is already registered."
+
                     default:
                         errorMessage = error.localizedDescription
                     }
-                    
+
                 default:
                     errorMessage = error.localizedDescription
                 }
-                
+
             } catch {
-                
+
                 errorMessage = error.localizedDescription
             }
         }

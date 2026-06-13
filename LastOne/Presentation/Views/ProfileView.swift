@@ -36,6 +36,7 @@ struct ProfileView: View {
             VStack(spacing: 0) {
                 HStack {
                     Text("Starting Goal")
+                        .foregroundStyle(.tertiaryText)
                     Spacer()
                     Text("20 / day")
                         .foregroundStyle(.secondaryText)
@@ -46,6 +47,7 @@ struct ProfileView: View {
                 
                 HStack {
                     Text("Join Date")
+                        .foregroundStyle(.tertiaryText)
                     Spacer()
                     Text("08.06")
                         .foregroundStyle(.secondaryText)
@@ -66,6 +68,7 @@ struct ProfileView: View {
             VStack(spacing: 0) {
                 HStack {
                     Text("Reduction Pace")
+                        .foregroundStyle(.tertiaryText)
                     Spacer()
                     Text("Moderate")
                         .foregroundStyle(.secondaryText)

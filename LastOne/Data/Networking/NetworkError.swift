@@ -12,15 +12,15 @@ enum NetworkError: LocalizedError {
     case invalidResponse
     case serverError(Int)
     case decodingError
-    case apiError(String)
+    case apiError(message:String,code:String?)
     
     var errorDescription: String? {
         switch self {
-        case .invalidURL:            return "URL düzgün deyil"
-        case .invalidResponse:       return "Cavab alınmadı"
-        case .serverError(let code): return "Server xətası: \(code)"
-        case .decodingError:         return "Məlumat oxunmadı"
-        case .apiError(let msg):     return msg
+        case .invalidURL:            return "Invalid URL"
+        case .invalidResponse:       return "No response"
+        case .serverError(let code): return "Server error: \(code)"
+        case .decodingError:         return "Failed to decode response."
+        case .apiError(let msg, _):     return msg
         }
     }
 }

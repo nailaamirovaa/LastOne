@@ -7,8 +7,6 @@ struct AuthInputModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.bodyText)
-            .foregroundColor(.primaryText)
-            .tint(.primaryAccent)
             .padding(.horizontal, AppSpacing.md)
             .padding(.vertical, 13)
             .background(Color.secondarySurface)

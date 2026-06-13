@@ -6,7 +6,7 @@
 //
 
 
-struct CigaretteLog {
+struct CigaretteLog: Identifiable {
 
     let id: String
     let userID: String

@@ -14,5 +14,5 @@ struct APIResponse<T: Decodable>: Decodable {
 struct APIError: Decodable {
     let success: Bool
     let error: String?
-    let code: Int?
+    let code: String?
 }

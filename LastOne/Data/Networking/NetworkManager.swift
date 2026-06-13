@@ -47,7 +47,8 @@ final class NetworkManager: Sendable {
         
         guard 200...299 ~= httpResponse.statusCode else {
             if let apiError = try? JSONDecoder().decode(APIError.self, from: data) {
-                throw NetworkError.apiError(apiError.error ?? "Server error")
+                throw NetworkError.apiError(message: apiError.error ?? "Server error",
+                                            code: apiError.code)
             }
             throw NetworkError.serverError(httpResponse.statusCode)
         }
@@ -74,7 +75,7 @@ final class NetworkManager: Sendable {
         if response.success, let result = response.data {
             return result
         } else {
-            throw NetworkError.apiError("Request failed")
+            throw NetworkError.apiError(message: "Request failed", code: "")
         }
     }
     

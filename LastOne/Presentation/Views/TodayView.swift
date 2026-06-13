@@ -8,6 +8,22 @@
 import SwiftUI
 
 struct TodayView: View {
+    
+    @StateObject private var viewModel: TodayViewModel
+    
+    init(getProfileUseCase: GetProfileUseCase,
+        getTodayLogsUseCase: GetTodaysLogsUseCase,
+        getStreakUseCase: GetStreakUseCase
+    ) {
+
+        _viewModel = StateObject(
+            wrappedValue: TodayViewModel(
+                getProfileUseCase: getProfileUseCase,
+                getTodayLogsUseCase: getTodayLogsUseCase,
+                getStreakUseCase: getStreakUseCase
+            )
+        )
+    }
 
     var body: some View {
 
@@ -32,7 +48,11 @@ struct TodayView: View {
                 .padding(.bottom, 120)
             }
         }
+        .task {
+            viewModel.load()
+        }
     }
+    
 }
 
 // MARK: - HEADER
@@ -78,11 +98,11 @@ private extension TodayView {
         VStack(spacing: AppSpacing.lg) {
 
             ProgressRingView(
-                current: 6,
-                target: 14
+                current: viewModel.todayCount,
+                target: viewModel.dailyGoal
             )
 
-            Text("8 left — you're pacing well")
+            Text("\(viewModel.remaining) left — you're pacing well")
                 .font(.title3)
                 .foregroundStyle(.primaryAccent)
         }
@@ -112,7 +132,7 @@ private extension TodayView {
                 spacing: 4
             ) {
 
-                Text("12-day streak")
+                Text("\(viewModel.currentStreak)-day streak")
                     .foregroundStyle(.primaryText)
                     .font(.headline)
 
@@ -123,7 +143,7 @@ private extension TodayView {
 
             Spacer()
 
-            Text("12")
+            Text("\(viewModel.currentStreak)")
                 .font(.system(size: 48))
                 .foregroundStyle(.primaryAccent)
         }
@@ -171,20 +191,13 @@ private extension TodayView {
 
             VStack(spacing: AppSpacing.md) {
 
-                LogRowView(
-                    time: "7:10 AM",
-                    trigger: "Coffee • porch"
-                )
+                ForEach(viewModel.todayLogs) { log in
 
-                LogRowView(
-                    time: "9:32 AM",
-                    trigger: "Commute"
-                )
-
-                LogRowView(
-                    time: "1:15 PM",
-                    trigger: "After lunch"
-                )
+                    LogRowView(
+                        time: log.smokedAt,
+                        trigger: log.trigger?.name ?? "No trigger"
+                    )
+                }
             }
         }
     }
@@ -194,7 +207,7 @@ private extension TodayView {
 struct LogRowView: View {
 
     let time: String
-    let trigger: String
+    let trigger: String?
 
     var body: some View {
 

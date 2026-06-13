@@ -1,13 +1,24 @@
+
+
+
+
+
 import SwiftUI
 
 struct RegisterView: View {
-    @State private var email = ""
-    @State private var password = ""
+   
+    @EnvironmentObject private var coordinator: AppCoordinator
+    @StateObject private var viewModel: RegisterViewModel
+
     @State private var confirmPassword = ""
     @State private var agreed = false
     @State private var showPassword = false
     @State private var errors: [String: String] = [:]
-    @Binding var isShowingRegister: Bool
+    
+    init(registerUseCase: RegisterUseCase) {
+
+        _viewModel = StateObject(wrappedValue: RegisterViewModel(registerUseCase: registerUseCase))
+    }
 
     var body: some View {
         ZStack {
@@ -44,7 +55,7 @@ struct RegisterView: View {
 
                     // Email
                     AuthFieldLabel("EMAIL")
-                    TextField("you@example.com", text: $email)
+                    TextField("you@example.com", text: $viewModel.email)
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
@@ -59,9 +70,9 @@ struct RegisterView: View {
                     HStack {
                         Group {
                             if showPassword {
-                                TextField("At least 8 characters", text: $password)
+                                TextField("At least 8 characters", text: $viewModel.password)
                             } else {
-                                SecureField("At least 8 characters", text: $password)
+                                SecureField("At least 8 characters", text: $viewModel.password)
                             }
                         }
                         .autocapitalization(.none)
@@ -109,13 +120,24 @@ struct RegisterView: View {
                         }
                         .padding(.top, 2)
 
-                        (
-                            Text("I agree to the ").font(.callout).foregroundColor(.secondaryText)
-                            + Text("Terms of Service").font(.callout).foregroundColor(.primaryAccent)
-                            + Text(" and ").font(.callout).foregroundColor(.secondaryText)
-                            + Text("Privacy Policy").font(.callout).foregroundColor(.primaryAccent)
-                            + Text(".").font(.callout).foregroundColor(.secondaryText)
-                        )
+                        HStack(alignment: .top, spacing: 0) {
+
+                            Text("I agree to the ")
+                                .foregroundStyle(.secondaryText)
+
+                            Text("Terms of Service")
+                                .foregroundStyle(.primaryAccent)
+
+                            Text(" and ")
+                                .foregroundStyle(.secondaryText)
+
+                            Text("Privacy Policy")
+                                .foregroundStyle(.primaryAccent)
+
+                            Text(".")
+                                .foregroundStyle(.secondaryText)
+                        }
+                        .font(.callout)
                     }
                     .padding(.bottom, errors["terms"] != nil ? AppSpacing.xs : 0)
                     if let termsErr = errors["terms"] {
@@ -142,7 +164,7 @@ struct RegisterView: View {
                             .font(.subhead)
                             .foregroundColor(.tertiaryText)
                         Button("Sign in") {
-                            isShowingRegister = false
+                            coordinator.route = .login
                         }
                         .font(.subhead)
                         .foregroundColor(.primaryAccent)
@@ -159,14 +181,14 @@ struct RegisterView: View {
 
     private func handleRegister() {
         var newErrors: [String: String] = [:]
-        if !email.contains("@")          { newErrors["email"]    = "Enter a valid email." }
-        if password.count < 8            { newErrors["password"] = "At least 8 characters." }
-        if password != confirmPassword   { newErrors["confirm"]  = "Passwords don't match." }
+        if !viewModel.email.contains("@")          { newErrors["email"]    = "Enter a valid email." }
+        if viewModel.password.count < 8            { newErrors["password"] = "At least 8 characters." }
+        if viewModel.password != confirmPassword   { newErrors["confirm"]  = "Passwords don't match." }
         if !agreed                       { newErrors["terms"]    = "You must agree to continue." }
         errors = newErrors
         guard errors.isEmpty else { return }
         // TODO: connect your auth logic here
-        print("Register: \(email)")
+        viewModel.register()
     }
 }
 

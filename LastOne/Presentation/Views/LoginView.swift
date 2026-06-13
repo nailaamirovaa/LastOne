@@ -1,18 +1,25 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var password = ""
+    
+    @EnvironmentObject private var coordinator: AppCoordinator
+    @StateObject private var viewModel: LoginViewModel
+    
     @State private var showPassword = false
-    @Binding var isShowingRegister: Bool
+    
+    init(loginUseCase: LoginUseCase) {
 
+        _viewModel = StateObject(wrappedValue: LoginViewModel(
+                loginUseCase: loginUseCase))
+    }
+    
     var body: some View {
         ZStack {
             Color.surface.ignoresSafeArea()
-
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-
+                    
                     // Logo
                     HStack(spacing: AppSpacing.sm) {
                         ZStack {
@@ -27,40 +34,49 @@ struct LoginView: View {
                             .kerning(2)
                     }
                     .padding(.bottom, AppSpacing.xxl)
-
+                    
                     // Heading
                     Text("Welcome back.")
                         .font(.heading2)
                         .foregroundColor(.primaryText)
                         .padding(.bottom, AppSpacing.xs)
-
+                    
                     Text("Sign in to continue your progress.")
                         .font(.subhead)
                         .foregroundColor(.secondaryText)
                         .padding(.bottom, AppSpacing.xl)
-
+                    
                     // Email
                     AuthFieldLabel("EMAIL")
-                    TextField("you@example.com", text: $email)
-                        .autocapitalization(.none)
-                        .keyboardType(.emailAddress)
-                        .disableAutocorrection(true)
-                        .authInputStyle()
-                        .padding(.bottom, AppSpacing.md)
-
+                    
+                    ZStack(alignment: .leading) {
+                        if viewModel.email.isEmpty {
+                            Text("you@example.com")
+                                .foregroundColor(.tertiaryText)
+                                .font(.bodyText)
+                        }
+                        TextField("", text: $viewModel.email)
+                            .foregroundColor(.primaryText)
+                            .autocapitalization(.none)
+                            .keyboardType(.emailAddress)
+                            .disableAutocorrection(true)
+                    }
+                    .authInputStyle()
+                    .padding(.bottom, AppSpacing.md)
+                    
                     // Password
                     AuthFieldLabel("PASSWORD")
                     HStack {
                         Group {
                             if showPassword {
-                                TextField("••••••••", text: $password)
+                                TextField("••••••••", text: $viewModel.password)
                             } else {
-                                SecureField("••••••••", text: $password)
+                                SecureField("••••••••", text: $viewModel.password)
                             }
                         }
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
-
+                        
                         Button(action: { showPassword.toggle() }) {
                             Image(systemName: showPassword ? "eye.slash" : "eye")
                                 .foregroundColor(.tertiaryText)
@@ -69,7 +85,7 @@ struct LoginView: View {
                     }
                     .authInputStyle()
                     .padding(.bottom, AppSpacing.sm)
-
+                    
                     // Forgot password
                     HStack {
                         Spacer()
@@ -78,9 +94,13 @@ struct LoginView: View {
                             .foregroundColor(.primaryAccent)
                     }
                     .padding(.bottom, AppSpacing.xl)
-
+                    
                     // Sign in button
-                    Button(action: handleSignIn) {
+                    Button {
+                        viewModel.login()
+                        //print(viewModel.errorMessage)
+                        coordinator.route = .main
+                    } label: {
                         Text("Sign in")
                             .font(.headline)
                             .foregroundColor(.surface)
@@ -90,7 +110,7 @@ struct LoginView: View {
                             .cornerRadius(AppRadius.pill)
                     }
                     .padding(.bottom, AppSpacing.xl)
-
+                    
                     // Switch to register
                     HStack(spacing: 4) {
                         Spacer()
@@ -98,7 +118,7 @@ struct LoginView: View {
                             .font(.subhead)
                             .foregroundColor(.tertiaryText)
                         Button("Sign up") {
-                            isShowingRegister = true
+                            coordinator.route = .register
                         }
                         .font(.subhead)
                         .foregroundColor(.primaryAccent)
@@ -111,11 +131,36 @@ struct LoginView: View {
             }
         }
         .preferredColorScheme(.dark)
-    }
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: {
+                    viewModel.errorMessage != nil
+                },
+                set: { _ in
+                    viewModel.errorMessage = nil
+                }
+            )
+        ) {
+            
+            Button("OK") { }
+            
+        } message: {
+            
+            Text(viewModel.errorMessage ?? "")
+        }
+        .onChange(of: viewModel.isLoggedIn) { _, isLoggedIn in
 
-    private func handleSignIn() {
-        // TODO: connect your auth logic here
-        print("Sign in: \(email)")
+            guard isLoggedIn,
+                  let user = viewModel.user
+            else { return }
+
+            if user.isOnboardingComplete {
+                coordinator.route = .main
+            } else {
+                coordinator.route = .onboarding
+            }
+        }
     }
 }
 

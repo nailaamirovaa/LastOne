@@ -10,12 +10,14 @@ import SwiftUI
 @main
 struct LastOneApp: App {
 
+    @StateObject private var coordinator = AppCoordinator()
+
     var body: some Scene {
+
         WindowGroup {
 
-            NavigationStack {
-                OnboardingView()
-            }
+            RootView()
+                .environmentObject(coordinator)
         }
     }
 }
