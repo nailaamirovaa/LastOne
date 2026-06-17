@@ -98,8 +98,7 @@ struct LoginView: View {
                     // Sign in button
                     Button {
                         viewModel.login()
-                        //print(viewModel.errorMessage)
-                        coordinator.route = .main
+                       // coordinator.route = .main
                     } label: {
                         Text("Sign in")
                             .font(.headline)

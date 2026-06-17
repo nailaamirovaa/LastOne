@@ -33,10 +33,28 @@ struct OnboardingView: View {
                 EmptyView()
             }
         }
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: {
+                    viewModel.errorMessage != nil
+                },
+                set: { _ in
+                    viewModel.errorMessage = nil
+                }
+            )
+        ) {
+            
+            Button("OK") { }
+            
+        } message: {
+            
+            Text(viewModel.errorMessage ?? "")
+        }
         .onChange(of: viewModel.isCompleted) { _, isCompleted in
 
             if isCompleted {
-                coordinator.route = .login
+                coordinator.route = .main
             }
         }
     }

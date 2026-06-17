@@ -24,6 +24,12 @@ struct TodayView: View {
             )
         )
     }
+    
+    private var todayText: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE • MMM d"
+        return formatter.string(from: Date())
+    }
 
     var body: some View {
 
@@ -48,7 +54,8 @@ struct TodayView: View {
                 .padding(.bottom, 120)
             }
         }
-        .task {
+        .onAppear() {
+            
             viewModel.load()
         }
     }
@@ -64,11 +71,11 @@ private extension TodayView {
 
             VStack(alignment: .leading, spacing: 4) {
 
-                Text("Tuesday • Jun 1")
+                Text(todayText)
                     .font(.subhead)
                     .foregroundStyle(.secondaryText)
 
-                Text("Good evening, Sam")
+                Text("Good evening")
                     .font(.headline)
                     .foregroundStyle(.primaryText)
             }
@@ -181,25 +188,44 @@ private extension TodayView {
                     .foregroundStyle(.secondaryText)
 
                 Spacer()
-
+                
                 Button("See all") {
-
+                    
                 }
                 .font(.bodyText)
                 .foregroundStyle(.primaryAccent)
             }
-
+            
             VStack(spacing: AppSpacing.md) {
-
+                
                 ForEach(viewModel.todayLogs) { log in
-
+                    
                     LogRowView(
-                        time: log.smokedAt,
-                        trigger: log.trigger?.name ?? "No trigger"
+                        time: logTime(from: log.smokedAt),
+                        trigger: log.trigger?.name
                     )
                 }
             }
+            
         }
+    }
+    
+    func logTime(from createdAt: String) -> String {
+
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [
+            .withInternetDateTime,
+            .withFractionalSeconds
+        ]
+
+        guard let date = isoFormatter.date(from: createdAt) else {
+            return "--:--"
+        }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+
+        return formatter.string(from: date)
     }
 }
 
@@ -226,7 +252,7 @@ struct LogRowView: View {
                     .font(.subhead.bold())
                     .foregroundStyle(.primaryText)
 
-                Text(trigger)
+                Text(trigger ?? "No trigger")
                     .font(.footnote)
                     .foregroundStyle(.secondaryText)
             }

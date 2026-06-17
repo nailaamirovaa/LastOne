@@ -9,5 +9,6 @@ import Foundation
 
 struct LogCigaretteRequestDTO: Encodable {
     let smokedAt: String
-    let note, triggerId: String
+    let note: String
+    let triggerId: String?
 }

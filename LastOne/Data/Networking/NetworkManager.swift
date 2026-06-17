@@ -31,6 +31,13 @@ final class NetworkManager: Sendable {
         var request = URLRequest(url: url)
         request.httpMethod = apiRequest.method.rawValue
         request.httpBody = apiRequest.body
+        
+        if let token = UserDefaults.standard.string(forKey: "accessToken") {
+            request.setValue("Bearer \(token)",
+                             forHTTPHeaderField: "Authorization")
+        }
+        
+        print(request.allHTTPHeaderFields ?? [:])
 
         NetworkingHelper.defaultHeaders.forEach {
             request.setValue($1, forHTTPHeaderField: $0)

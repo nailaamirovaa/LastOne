@@ -28,19 +28,28 @@ struct MainTabView: View {
     private var activeContent: some View {
         switch selectedTab {
         case .today:
-            TodayView()
+            TodayView(getProfileUseCase: GetProfileUseCaseImpl(repository: UserRepositoryImpl(service: ProfileService())),
+                      getTodayLogsUseCase: GetTodaysLogsUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())),
+                      getStreakUseCase: GetStreakUseCaseImpl(repository: StreakRepositoryImpl(service: StreakService())))
 
         case .trends:
-            TrendsView()
+            TrendsView(
+                getDailyStatsUseCase: GetDailyStatsUseCaseImpl(repository: StatsRepositoryImpl(service: StatsService())),
+                getWeeklyStatsUseCase: GetWeeklyStatsUseCaseImpl(repository: StatsRepositoryImpl(service: StatsService())),
+                getMonthlyStatsUseCase: GetMonthlyStatsUseCaseImpl(repository: StatsRepositoryImpl(service: StatsService())),
+                getOverallStatsUseCase: GetOverviewUseCaseImpl(repository: StatsRepositoryImpl(service: StatsService())))
 
         case .add:
-            LogView()
+            LogView(getTriggersUseCase: GetTriggersUseCaseImpl(repository: TriggerRepositoryImpl(service: TriggersService())),
+                    getTodayLogsUseCase: GetTodaysLogsUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())),
+                    logCigaretteUseCase: LogCigaretteUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())))
 
         case .insights:
             InsightsView()
 
         case .you:
-            ProfileView()
+            ProfileView(getProfileUseCase: GetProfileUseCaseImpl(repository: UserRepositoryImpl(service: ProfileService())),
+                        logoutUseCase: LogoutUseCaseImpl(repository: AuthRepositoryImpl(service: AuthService())))
         }
     }
 }

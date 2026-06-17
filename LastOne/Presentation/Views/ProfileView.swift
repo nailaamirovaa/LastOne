@@ -8,6 +8,20 @@
 import SwiftUI
 
 struct ProfileView: View {
+    
+    @EnvironmentObject private var coordinator: AppCoordinator
+    @StateObject private var viewModel: ProfileViewModel
+    
+    init(getProfileUseCase: GetProfileUseCase, logoutUseCase: LogoutUseCase) {
+
+        _viewModel = StateObject(
+            wrappedValue: ProfileViewModel(
+                getProfileUseCase: getProfileUseCase,
+                logoutUseCase: logoutUseCase
+            )
+        )
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 32) {
@@ -38,7 +52,7 @@ struct ProfileView: View {
                     Text("Starting Goal")
                         .foregroundStyle(.tertiaryText)
                     Spacer()
-                    Text("20 / day")
+                    Text("\(viewModel.startingGoal)")
                         .foregroundStyle(.secondaryText)
                 }
                 .padding()
@@ -49,7 +63,7 @@ struct ProfileView: View {
                     Text("Join Date")
                         .foregroundStyle(.tertiaryText)
                     Spacer()
-                    Text("08.06")
+                    Text(viewModel.joinDate)
                         .foregroundStyle(.secondaryText)
                 }
                 .padding()
@@ -87,11 +101,12 @@ struct ProfileView: View {
                 .foregroundStyle(.error)
             
             Button {
-                // Action
+                viewModel.logout()
+                coordinator.route = .login
             } label: {
                 HStack {
-                    Image(systemName: "trash.fill")
-                    Text("Reset All Progress")
+                    Image(systemName: "door.left.hand.open")
+                    Text("Logout")
                     Spacer()
                 }
                 .foregroundStyle(.white)

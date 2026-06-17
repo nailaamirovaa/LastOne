@@ -5,6 +5,8 @@
 //  Created by Naila Amirova on 11.06.26.
 //
 
+import Foundation
+
 
 final class AuthRepositoryImpl: AuthRepository {
 
@@ -28,6 +30,12 @@ final class AuthRepositoryImpl: AuthRepository {
             throw NetworkError.invalidResponse
         }
         
+        UserDefaults.standard.set(dto.accessToken,
+                                  forKey: "accessToken")
+
+        UserDefaults.standard.set(dto.refreshToken,
+                                  forKey: "refreshToken")
+        
         return user.toEntity()
     }
 
@@ -44,6 +52,12 @@ final class AuthRepositoryImpl: AuthRepository {
         guard let user = dto.user else {
             throw NetworkError.invalidResponse
         }
+        
+        UserDefaults.standard.set(dto.accessToken,
+                                  forKey: "accessToken")
+
+        UserDefaults.standard.set(dto.refreshToken,
+                                  forKey: "refreshToken")
         
         return user.toEntity()
     }

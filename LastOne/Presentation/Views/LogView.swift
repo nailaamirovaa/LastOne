@@ -9,8 +9,19 @@ import SwiftUI
 
 struct LogView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedTriggers: Set<String> = []
-    @State private var note: String = ""
+    
+    @StateObject private var viewModel: LogViewModel
+    
+    init(getTriggersUseCase: GetTriggersUseCase,getTodayLogsUseCase: GetTodaysLogsUseCase, logCigaretteUseCase: LogCigaretteUseCase) {
+
+        _viewModel = StateObject(
+            wrappedValue: LogViewModel(
+                getTriggersUseCase: getTriggersUseCase,
+                getTodayLogsUseCase: getTodayLogsUseCase,
+                logCigaretteUseCase: logCigaretteUseCase
+            )
+        )
+    }
 
     let triggers = [
         "Coffee",
@@ -27,7 +38,7 @@ struct LogView: View {
                 VStack(alignment: .center, spacing: 32) {
                     
                     LogProgressButton {
-                        
+                        viewModel.logCigarette()
                     }
                     
                     statsSection
@@ -38,6 +49,27 @@ struct LogView: View {
                 }
             }
             .padding(24)
+        }
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: {
+                    viewModel.errorMessage != nil
+                },
+                set: { _ in
+                    viewModel.errorMessage = nil
+                }
+            )
+        ) {
+            
+            Button("OK") { }
+            
+        } message: {
+            
+            Text(viewModel.errorMessage ?? "")
+        }
+        .onAppear {
+            viewModel.load()
         }
     }
 }
@@ -51,12 +83,12 @@ private extension LogView {
             
             LogStatCard(
                 title: "Last one",
-                value: "2h 14m ago"
+                value: viewModel.lastLogText
             )
 
             LogStatCard(
                 title: "Left today",
-                value: "8",
+                value: "\(viewModel.remaining)",
                 valueColor: .primaryAccent
             )
         }
@@ -72,17 +104,17 @@ private extension LogView {
 
             FlowLayout(spacing: 12) {
 
-                ForEach(triggers, id: \.self) { trigger in
+                ForEach(viewModel.triggers, id: \.id) { trigger in
 
                     TriggerChip(
-                        title: trigger,
-                        isSelected: selectedTriggers.contains(trigger)
+                        title: trigger.name,
+                        isSelected: viewModel.selectedTrigger?.id == trigger.id
                     ) {
 
-                        if selectedTriggers.contains(trigger) {
-                            selectedTriggers.remove(trigger)
+                        if viewModel.selectedTrigger?.id == trigger.id {
+                            viewModel.selectedTrigger = nil
                         } else {
-                            selectedTriggers.insert(trigger)
+                            viewModel.selectedTrigger = trigger
                         }
                     }
                 }

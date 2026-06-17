@@ -12,7 +12,7 @@ struct CigaretteLog: Identifiable {
     let userID: String
     let smokedAt: String
     let note: String
-    let triggerID: String
-    let trigger: Trigger
+    let triggerID: String?
+    let trigger: Trigger?
     let createdAt: String
 }

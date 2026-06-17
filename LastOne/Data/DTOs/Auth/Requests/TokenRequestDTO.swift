@@ -8,6 +8,5 @@
 import Foundation
 
 struct TokenRequestDTO: Encodable {
-
     let refreshToken: String
 }

@@ -7,7 +7,7 @@
 
 enum NetworkingHelper {
     
-    static let baseURL = "http://localhost:3000"
+    static let baseURL = "https://lastonebackend-production-36b9.up.railway.app"
     
     static let defaultHeaders: [String: String] = [
         "Content-Type": "application/json",

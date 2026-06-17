@@ -99,7 +99,7 @@ struct RegisterView: View {
                     if let confirmErr = errors["confirm"] {
                         AuthErrorText(confirmErr).padding(.bottom, AppSpacing.sm)
                     }
-
+                    
                     // Terms checkbox
                     HStack(alignment: .top, spacing: AppSpacing.sm) {
                         Button(action: { agreed.toggle() }) {
@@ -119,9 +119,9 @@ struct RegisterView: View {
                             }
                         }
                         .padding(.top, 2)
-
+                        
                         HStack(alignment: .top, spacing: 0) {
-
+                            
                             Text("I agree to the ")
                                 .foregroundStyle(.secondaryText)
 
@@ -175,20 +175,48 @@ struct RegisterView: View {
                 .padding(.top, AppSpacing.xxl)
                 .padding(.bottom, AppSpacing.xxl)
             }
+            .alert(
+                "Error",
+                isPresented: Binding(
+                    get: {
+                        viewModel.errorMessage != nil
+                    },
+                    set: { _ in
+                        viewModel.errorMessage = nil
+                    }
+                )
+            ) {
+                
+                Button("OK") { }
+                
+            } message: {
+                
+                Text(viewModel.errorMessage ?? "")
+            }
         }
         .preferredColorScheme(.dark)
     }
 
     private func handleRegister() {
         var newErrors: [String: String] = [:]
-        if !viewModel.email.contains("@")          { newErrors["email"]    = "Enter a valid email." }
-        if viewModel.password.count < 8            { newErrors["password"] = "At least 8 characters." }
-        if viewModel.password != confirmPassword   { newErrors["confirm"]  = "Passwords don't match." }
-        if !agreed                       { newErrors["terms"]    = "You must agree to continue." }
+        
+        if !viewModel.email.contains("@"){
+            newErrors["email"] = "Enter a valid email."
+        }
+        if viewModel.password.count < 8{
+            newErrors["password"] = "At least 8 characters."
+        }
+        if viewModel.password != confirmPassword{
+            newErrors["confirm"]  = "Passwords don't match."
+        }
+        if !agreed{
+            newErrors["terms"] = "You must agree to continue."
+        }
         errors = newErrors
         guard errors.isEmpty else { return }
-        // TODO: connect your auth logic here
+        
         viewModel.register()
+        coordinator.route = .login
     }
 }
 

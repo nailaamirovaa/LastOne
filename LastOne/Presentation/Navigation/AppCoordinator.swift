@@ -12,7 +12,14 @@ import Combine
 @MainActor
 final class AppCoordinator: ObservableObject {
 
-    @Published var route: Route = .onboarding
+    @Published var route: Route
+
+    init() {
+
+        let hasToken = UserDefaults.standard.string(forKey: "accessToken") != nil
+
+        route = hasToken ? .main : .login
+    }
 
     enum Route {
         case login

@@ -13,7 +13,7 @@ extension UserDTO {
             id: id ?? "",
             email: email ?? "",
             isOnboardingComplete: isOnboardingComplete ?? false,
-            subscriptionStatus: subscriptionStatus
+            subscriptionStatus: subscriptionStatus,
         )
     }
 }

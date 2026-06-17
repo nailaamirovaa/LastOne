@@ -41,6 +41,24 @@ struct OnboardingStep1View: View {
                 .padding(.bottom, 16)
             }
         }
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: {
+                    viewModel.errorMessage != nil
+                },
+                set: { _ in
+                    viewModel.errorMessage = nil
+                }
+            )
+        ) {
+            
+            Button("OK") { }
+            
+        } message: {
+            
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 }
 

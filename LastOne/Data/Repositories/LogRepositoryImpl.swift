@@ -5,6 +5,8 @@
 //  Created by Naila Amirova on 11.06.26.
 //
 
+import Foundation
+
 
 final class LogRepositoryImpl: LogRepository {
 
@@ -15,11 +17,13 @@ final class LogRepositoryImpl: LogRepository {
     }
 
     // MARK: - Log Cigarette
-    func logCigarette(smokedAt: String, note: String, triggerID: String) async throws -> CigaretteLog {
+    func logCigarette(smokedAt: Date, note: String, triggerID: String?) async throws -> CigaretteLog {
+        
+        let formatter = ISO8601DateFormatter()
 
         let dto = try await service.logCigarette(
             request: LogCigaretteRequestDTO(
-                smokedAt: smokedAt,
+                smokedAt: formatter.string(from: smokedAt),
                 note: note,
                 triggerId: triggerID
             )

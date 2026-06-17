@@ -41,6 +41,24 @@ struct OnboardingStep3View: View {
                 .padding(.bottom, 16)
             }
         }
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: {
+                    viewModel.errorMessage != nil
+                },
+                set: { _ in
+                    viewModel.errorMessage = nil
+                }
+            )
+        ) {
+            
+            Button("OK") { }
+            
+        } message: {
+            
+            Text(viewModel.errorMessage ?? "")
+        }
     }
  
     private var headerSection: some View {
@@ -127,6 +145,7 @@ struct OnboardingStep3View: View {
     private var primaryButton: some View {
         Button {
             viewModel.isCompleted = true
+            viewModel.setupProfile()
         } label:{
             Text("Set my plan")
                 .font(.headline)

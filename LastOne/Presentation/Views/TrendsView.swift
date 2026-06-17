@@ -8,7 +8,25 @@
 import SwiftUI
 
 struct TrendsView: View {
-    @State private var selectedRange: TrendRange = .week
+    
+    @StateObject private var viewModel: TrendsViewModel
+    
+    init(
+        getDailyStatsUseCase: GetDailyStatsUseCase,
+        getWeeklyStatsUseCase: GetWeeklyStatsUseCase,
+        getMonthlyStatsUseCase: GetMonthlyStatsUseCase,
+        getOverallStatsUseCase: GetOverviewUseCase
+    ) {
+        
+        _viewModel = StateObject(
+            wrappedValue: TrendsViewModel(
+                getDailyStatsUseCase: getDailyStatsUseCase,
+                getWeeklyStatsUseCase: getWeeklyStatsUseCase,
+                getMonthlyStatsUseCase: getMonthlyStatsUseCase,
+                getOverallStatsUseCase: getOverallStatsUseCase
+            )
+        )
+    }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -31,6 +49,9 @@ struct TrendsView: View {
             .padding(.horizontal, 24)
             .padding(.top, 30)
         }
+        .onAppear {
+            viewModel.load()
+        }
         .background(Color.appBackground.ignoresSafeArea())
     }
 }
@@ -41,15 +62,16 @@ private extension TrendsView {
         HStack(spacing: 0) {
             ForEach(TrendRange.allCases, id: \.self) { range in
                 Button {
-                    selectedRange = range
+                    viewModel.selectedRange = range
+                    viewModel.load()
                 } label: {
                     Text(range.title)
                         .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(selectedRange == range ? Color.primaryText : Color.secondaryText)
+                        .foregroundStyle(viewModel.selectedRange == range ? Color.primaryText : Color.secondaryText)
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
                         .background {
-                            if selectedRange == range {
+                            if viewModel.selectedRange == range {
                                 Capsule()
                                     .fill(Color.surface)
                                     .shadow(color: .black.opacity(0.14), radius: 8, y: 4)
@@ -68,11 +90,11 @@ private extension TrendsView {
         VStack(alignment: .leading, spacing: 28) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Avg / day this week")
+                    Text(summaryTitle)
                         .font(.callout)
                         .foregroundStyle(.secondaryText)
 
-                    Text("12.9")
+                    Text(summaryValue)
                         .font(.custom("Newsreader-Medium", size: 56))
                         .foregroundStyle(.primaryText)
                 }
@@ -88,7 +110,7 @@ private extension TrendsView {
                     .clipShape(Capsule())
             }
 
-            WeeklyBarChart()
+            WeeklyBarChart(days: chartDays)
         }
         .padding(24)
         .background(Color.surface)
@@ -96,9 +118,56 @@ private extension TrendsView {
     }
 
     var miniStats: some View {
+
         HStack(spacing: 14) {
-            StatTile(title: "vs last week", value: "-2.8", valueColor: .success)
-            StatTile(title: "Under budget", value: "6 / 7 days", valueColor: .primaryText)
+
+            switch viewModel.selectedRange {
+
+            case .week:
+
+                StatTile(
+                    title: "Total",
+                    value: "\(viewModel.weeklyStats?.total ?? 0)",
+                    valueColor: .success
+                )
+
+                StatTile(
+                    title: "Avg / day",
+                    value: String(
+                        format: "%.1f",
+                        viewModel.weeklyStats?.dailyAverage ?? 0
+                    ),
+                    valueColor: .primaryText
+                )
+
+            case .month:
+
+                StatTile(
+                    title: "Total",
+                    value: "\(viewModel.monthlyStats?.total ?? 0)",
+                    valueColor: .success
+                )
+
+                StatTile(
+                    title: "Days",
+                    value: "\(viewModel.monthlyStats?.days.count ?? 0)",
+                    valueColor: .primaryText
+                )
+
+            case .year:
+
+                StatTile(
+                    title: "Streak",
+                    value: "\(viewModel.overallStats?.currentStreak ?? 0)",
+                    valueColor: .success
+                )
+
+                StatTile(
+                    title: "Reduction",
+                    value: "\(viewModel.overallStats?.reductionPercent ?? 0)%",
+                    valueColor: .primaryText
+                )
+            }
         }
     }
 
@@ -133,6 +202,64 @@ private extension TrendsView {
                 .stroke(Color.primaryAccent.opacity(0.45), lineWidth: 1)
         }
     }
+    
+    private var summaryTitle: String {
+
+        switch viewModel.selectedRange {
+
+        case .week:
+            return "Avg / day this week"
+
+        case .month:
+            return "Total this month"
+
+        case .year:
+            return "Total smoked"
+        }
+    }
+    
+    private var summaryValue: String {
+
+        switch viewModel.selectedRange {
+
+        case .week:
+
+            return String(
+                format: "%.1f",
+                viewModel.weeklyStats?.dailyAverage ?? 0
+            )
+
+        case .month:
+
+            return "\(viewModel.monthlyStats?.total ?? 0)"
+
+        case .year:
+
+            return "\(viewModel.overallStats?.totalCigarettesSmoked ?? 0)"
+        }
+    }
+    
+    private var chartDays: [Int] {
+
+        switch viewModel.selectedRange {
+
+        case .week:
+
+            return viewModel.weeklyStats?.days.map {
+                $0.count
+            } ?? []
+
+        case .month:
+
+            return viewModel.monthlyStats?.days.map {
+                $0.count
+            } ?? []
+
+        case .year:
+
+            return []
+        }
+    }
 }
 
 enum TrendRange: CaseIterable {
@@ -147,12 +274,21 @@ enum TrendRange: CaseIterable {
 }
 
 struct WeeklyBarChart: View {
+
+    let days: [Int]
+
     var body: some View {
+
         HStack(alignment: .bottom, spacing: 16) {
-            ForEach(0..<7) { index in
+
+            ForEach(days.indices, id: \.self) { index in
+
                 Capsule()
-                    .fill(index == 6 ? Color.primaryAccent : Color.secondarySurface)
-                    .frame(width: 24, height: CGFloat.random(in: 40...140))
+                    .fill(Color.primaryAccent)
+                    .frame(
+                        width: 24,
+                        height: CGFloat(days[index] * 8)
+                    )
             }
         }
         .frame(height: 160)

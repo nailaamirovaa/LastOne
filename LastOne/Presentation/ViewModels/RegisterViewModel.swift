@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 final class RegisterViewModel: ObservableObject {
     
     // MARK: - Published Properties
@@ -62,6 +63,8 @@ final class RegisterViewModel: ObservableObject {
                 self.user = user
 
                 isRegistered = true
+                
+                UserDefaults.standard.set(Date(), forKey: "joinDate")
 
             } catch let error as NetworkError {
 

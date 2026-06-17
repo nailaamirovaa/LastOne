@@ -13,7 +13,7 @@ extension TriggerDTO {
             id: id ?? "",
             name: name ?? "",
             isDefault: isDefault ?? false,
-            userID: ""
+            userId: ""
         )
     }
 }
