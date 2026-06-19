@@ -12,7 +12,8 @@ extension TriggerAnalysisTriggerDTO {
         TriggerStat(
             triggerID: triggerId ?? "",
             triggerName: triggerName ?? "",
-            count: count ?? 0
+            count: count ?? 0,
+            percentage: 0
         )
     }
 }

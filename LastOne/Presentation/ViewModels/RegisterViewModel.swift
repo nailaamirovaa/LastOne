@@ -65,6 +65,8 @@ final class RegisterViewModel: ObservableObject {
                 isRegistered = true
                 
                 UserDefaults.standard.set(Date(), forKey: "joinDate")
+                
+                UserDefaults().set(user.subscriptionStatus, forKey: "subscription")
 
             } catch let error as NetworkError {
 

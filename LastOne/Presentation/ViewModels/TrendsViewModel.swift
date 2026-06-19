@@ -1,12 +1,4 @@
-//
-//  TrendsViewModel.swift
-//  LastOne
-//
-//  Created by Naila Amirova on 15.06.26.
-//
-
-
-import Foundation
+import SwiftUI
 import Combine
 
 @MainActor
@@ -18,10 +10,9 @@ final class TrendsViewModel: ObservableObject {
         }
     }
 
-    @Published var dailyStats: DailyStats?
-    @Published var weeklyStats: WeeklyStats?
-    @Published var monthlyStats: MonthlyStats?
-    @Published var overallStats: OverviewStats?
+    @Published private(set) var weeklyStats: WeeklyStats?
+    @Published private(set) var monthlyStats: MonthlyStats?
+    @Published private(set) var overallStats: OverviewStats?
 
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -42,82 +33,182 @@ final class TrendsViewModel: ObservableObject {
         self.getMonthlyStatsUseCase = getMonthlyStatsUseCase
         self.getOverallStatsUseCase = getOverallStatsUseCase
     }
-    
-    private var currentWeek: String {
 
-        let calendar = Calendar.current
+    // MARK: - Formatted Properties
 
-        let week = calendar.component(
-            .weekOfYear,
-            from: Date()
-        )
-
-        let year = calendar.component(
-            .yearForWeekOfYear,
-            from: Date()
-        )
-
-        return String(
-            format: "%04d-W%02d",
-            year,
-            week
-        )
+    var summaryTitle: String {
+        switch selectedRange {
+        case .week: return "Avg / day this week"
+        case .month: return "Total this month"
+        case .year: return "Total smoked"
+        }
     }
-    
-    private var currentMonth: String {
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM"
+    var summaryValue: String {
+        switch selectedRange {
+        case .week:
+            guard let stats = weeklyStats else { return "0" }
+            return String(format: "%.1f", stats.dailyAverage)
+        case .month:
+            guard let stats = monthlyStats else { return "0" }
+            return "\(stats.total)"
+        case .year:
+            guard let stats = overallStats else { return "0" }
+            return "\(stats.totalCigarettesSmoked)"
+        }
+    }
 
-        return formatter.string(
-            from: Date()
-        )
+    var tile1: (title: String, value: String)? {
+        switch selectedRange {
+        case .week:
+            let val = weeklyStats?.total ?? 0
+            return ("Total", "\(val)")
+        case .month:
+            let val = monthlyStats?.total ?? 0
+            return ("Total", "\(val)")
+        case .year:
+            let val = overallStats?.totalCigarettesSmoked ?? 0
+            return ("Total", "\(val)")
+        }
+    }
+
+    var tile2: (title: String, value: String)? {
+        switch selectedRange {
+        case .week:
+            let val = weeklyStats?.dailyAverage ?? 0
+            return ("Avg / day", String(format: "%.1f", val))
+        case .month:
+            let val = monthlyStats?.days.count ?? 0
+            return ("Days", "\(val)")
+        case .year:
+            let val = overallStats?.currentStreak ?? 0
+            return ("Streak", "\(val)")
+        }
+    }
+
+    var tile3: (title: String, value: String)? {
+        if selectedRange == .year {
+            let val = overallStats?.reductionPercent ?? 0
+            return ("Reduction", "\(val)%")
+        }
+        return nil
+    }
+
+    var showChart: Bool {
+        switch selectedRange {
+        case .week:
+            return weeklyStats != nil
+        case .month:
+            return monthlyStats != nil
+        case .year:
+            return false
+        }
+    }
+
+    struct ChartBar: Identifiable {
+        let id = UUID()
+        let value: Int
+        let label: String
+    }
+
+    var chartData: [ChartBar] {
+        switch selectedRange {
+        case .week:
+            return weeklyStats?.days.map { day in
+                ChartBar(value: day.count, label: day.date.toWeekday())
+            } ?? []
+        case .month:
+            return monthlyStats?.days.map { day in
+                ChartBar(value: day.count, label: day.date.toDayNumber())
+            } ?? []
+        case .year:
+            return []
+        }
+    }
+
+    var hasData: Bool {
+        if overallStats != nil { return true }
+        
+        switch selectedRange {
+        case .week: return weeklyStats != nil
+        case .month: return monthlyStats != nil
+        case .year: return overallStats != nil
+        }
     }
 
     func load() {
-
         Task {
-
             isLoading = true
             errorMessage = nil
-
-            defer {
-                isLoading = false
-            }
+            defer { isLoading = false }
 
             do {
-
+                
                 overallStats = try await getOverallStatsUseCase.execute()
-
+                
+                // Fetch specific range stats
                 switch selectedRange {
-
                 case .week:
+                    let stats = try await getWeeklyStatsUseCase.execute(week:currentWeek)
 
-                    weeklyStats =
-                    try await getWeeklyStatsUseCase.execute(week: currentWeek)
+                    print("DAYS COUNT:", stats.days.count)
 
+                    stats.days.forEach {
+                        print($0.date)
+                    }
+
+                    weeklyStats = stats
                 case .month:
-
-                    monthlyStats =
-                    try await getMonthlyStatsUseCase.execute(month: currentMonth)
-
+                    monthlyStats = try await getMonthlyStatsUseCase.execute(month: currentMonth)
                 case .year:
-
-                    monthlyStats =
-                    try await getMonthlyStatsUseCase.execute(month: currentMonth)
+                    break
                 }
-
             } catch {
-
-                errorMessage = error.localizedDescription
+                let errorMsg = error.localizedDescription
+        
+                if errorMsg.contains("Premium") || errorMsg.contains("subscription") {
+                    print("Handled backend premium restriction: \(errorMsg)")
+                    
+                } else if !hasData {
+                    errorMessage = errorMsg
+                }
             }
         }
     }
 
-    func selectRange(_ range: TrendRange) {
+    // MARK: - Private Helpers
 
-        selectedRange = range
+    private var currentWeek: String {
+        let calendar = Calendar.current
+        let week = calendar.component(.weekOfYear, from: Date())
+        let year = calendar.component(.yearForWeekOfYear, from: Date())
+        return String(format: "%04d-W%02d", year, week)
+    }
 
-        load()
+    private var currentMonth: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter.string(from: Date())
+    }
+}
+
+extension String {
+    func toWeekday() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let date = formatter.date(from: self) else { return "" }
+        formatter.dateFormat = "EE"
+        return String(formatter.string(from: date).prefix(1))
+    }
+
+    func toDayNumber() -> String {
+        let components = self.split(separator: "-")
+        guard components.count == 3, let last = components.last else { return "" }
+        let day = String(last)
+       
+        if let dayInt = Int(day), dayInt % 5 == 0 || dayInt == 1 {
+            return day
+        }
+        return ""
     }
 }

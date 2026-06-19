@@ -49,7 +49,6 @@ final class LogViewModel: ObservableObject {
     
     var lastLogText: String {
         
-        print("bla")
         guard let lastLogDate else {
             
             return "No logs"

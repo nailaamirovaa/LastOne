@@ -60,8 +60,7 @@ final class ProfileViewModel: ObservableObject {
 
                 joinDate = formatter.string(from:UserDefaults.standard.object(forKey: "joinDate") as! Date)
                 
-                refreshToken = UserDefaults.standard.object(forKey: "refreshToken") as! String
-
+                refreshToken = AuthSessionManager.shared.refreshToken ?? ""
             } catch {
                 
                 errorMessage = error.localizedDescription

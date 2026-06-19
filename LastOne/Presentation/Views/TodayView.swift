@@ -55,8 +55,9 @@ struct TodayView: View {
             }
         }
         .onAppear() {
-            
-            viewModel.load()
+            Task {
+                viewModel.load()
+            }
         }
     }
     

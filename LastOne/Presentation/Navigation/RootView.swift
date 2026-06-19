@@ -15,6 +15,8 @@ struct RootView: View {
     var body: some View {
 
         switch coordinator.route {
+        case .splash:
+            SplashView()
         case .login:
             LoginView(loginUseCase: LoginUseCaseImpl(repository: AuthRepositoryImpl(service: AuthService())))
         case .register:

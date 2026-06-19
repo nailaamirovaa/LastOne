@@ -24,9 +24,14 @@ Entities
  
  
  email, password validation yaz
- app icon elave ele
+ app icon elave ele+
  mumkunduse fontu yaz
  alertler yaz
+ starting, ending goal deyise bilsin profilede
+ forgot password
+ insights hesablasin umumi seyleri
+ todays logs see all sehifesi
+ 
  
  
  

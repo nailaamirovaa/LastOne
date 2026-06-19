@@ -14,7 +14,7 @@ public final class StreakService {
     
     // MARK: - Get Streak
     func getStreak() async throws -> GetStreakDataDTO {
-        try await networkManager.request(
+        try await networkManager.requestWrapped(
             StreakRequest.getStreak,
             responseType:GetStreakDataDTO.self
         )
@@ -22,7 +22,7 @@ public final class StreakService {
     
     // MARK: - Manual Recalculate Streak
     func manualRecalculateStreak() async throws -> ManualRecalculateStreakDataDTO {
-        try await networkManager.request(
+        try await networkManager.requestWrapped(
             StreakRequest.manualRecalculateStreak,
             responseType: ManualRecalculateStreakDataDTO.self
         )

@@ -1,21 +1,16 @@
-//
-//  TrendsView.swift
-//  LastOne
-//
-//  Created by Naila Amirova on 09.06.26.
-//
-
 import SwiftUI
 
 struct TrendsView: View {
     
     @StateObject private var viewModel: TrendsViewModel
     
+    @State private var showPaywall = false
+    
     init(
         getDailyStatsUseCase: GetDailyStatsUseCase,
         getWeeklyStatsUseCase: GetWeeklyStatsUseCase,
         getMonthlyStatsUseCase: GetMonthlyStatsUseCase,
-        getOverallStatsUseCase: GetOverviewUseCase
+        getOverallStatsUseCase: GetOverviewUseCase,
     ) {
         
         _viewModel = StateObject(
@@ -38,11 +33,15 @@ struct TrendsView: View {
                 
                 rangePicker
                 
-                weeklySummaryCard
-                
-                miniStats
-                
-                paceCard
+                if viewModel.isLoading {
+                    loadingView
+                } else if let error = viewModel.errorMessage {
+                    errorView(error)
+                } else if !viewModel.hasData {
+                    emptyView
+                } else {
+                    contentView
+                }
 
                 Spacer(minLength: 96)
             }
@@ -51,6 +50,26 @@ struct TrendsView: View {
         }
         .onAppear {
             viewModel.load()
+            if UserDefaults.standard.object(forKey: "subscription") as! String == "FREE" {
+                withAnimation {
+                    showPaywall = true
+                }
+            }
+        }
+        .sheet(isPresented: $showPaywall, content: {
+            PaywallView()
+                .presentationDetents([.height(520)])
+                .frame(maxWidth: .infinity ,)
+                .presentationDragIndicator(.visible)
+                
+        })
+        .overlay {
+            if UserDefaults.standard.object(forKey: "subscription") as! String == "FREE" {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .foregroundStyle(.hairline)
+                    .ignoresSafeArea()
+            }
         }
         .background(Color.appBackground.ignoresSafeArea())
     }
@@ -63,7 +82,6 @@ private extension TrendsView {
             ForEach(TrendRange.allCases, id: \.self) { range in
                 Button {
                     viewModel.selectedRange = range
-                    viewModel.load()
                 } label: {
                     Text(range.title)
                         .font(.system(size: 17, weight: .semibold))
@@ -86,178 +104,108 @@ private extension TrendsView {
         .clipShape(Capsule())
     }
 
-    var weeklySummaryCard: some View {
-        VStack(alignment: .leading, spacing: 28) {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(summaryTitle)
-                        .font(.callout)
-                        .foregroundStyle(.secondaryText)
+    var loadingView: some View {
+        VStack {
+            Spacer()
+            ProgressView()
+                .tint(.primaryAccent)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 300)
+    }
 
-                    Text(summaryValue)
-                        .font(.custom("Newsreader-Medium", size: 56))
-                        .foregroundStyle(.primaryText)
-                }
+    var emptyView: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            Image(systemName: "chart.bar.xaxis")
+                .font(.system(size: 48))
+                .foregroundStyle(.secondaryText)
+            Text("No data available")
+                .font(.headline)
+                .foregroundStyle(.secondaryText)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 300)
+    }
 
-                Spacer()
-
-                Text("-18%")
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(.primaryAccent)
-                    .padding(.horizontal, 24)
-                    .frame(height: 44)
-                    .background(Color.primaryAccent.opacity(0.12))
-                    .clipShape(Capsule())
+    func errorView(_ message: String) -> some View {
+        VStack(spacing: 12) {
+            Spacer()
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundStyle(.primaryAccent)
+            Text(message)
+                .font(.headline)
+                .foregroundStyle(.primaryText)
+                .multilineTextAlignment(.center)
+            Button("Try Again") {
+                viewModel.load()
             }
-
-            WeeklyBarChart(days: chartDays)
+            .buttonStyle(.borderedProminent)
+            .tint(.primaryAccent)
+            Spacer()
         }
         .padding(24)
+        .frame(maxWidth: .infinity)
+        .frame(height: 300)
+    }
+
+    var contentView: some View {
+        VStack(alignment: .leading, spacing: 24) {
+            summaryCard
+            miniStats
+        }
+    }
+
+    var summaryCard: some View {
+        VStack(alignment: .leading, spacing: 28) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(viewModel.summaryTitle)
+                    .font(.callout)
+                    .foregroundStyle(.secondaryText)
+
+                Text(viewModel.summaryValue)
+                    .font(.custom("Newsreader-Medium", size: 56))
+                    .foregroundStyle(.primaryText)
+            }
+
+            if viewModel.showChart {
+                TrendBarChart(data: viewModel.chartData)
+            }
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.surface)
         .cornerRadius(AppRadius.xl)
     }
 
     var miniStats: some View {
-
         HStack(spacing: 14) {
-
-            switch viewModel.selectedRange {
-
-            case .week:
-
+            if let tile1 = viewModel.tile1 {
                 StatTile(
-                    title: "Total",
-                    value: "\(viewModel.weeklyStats?.total ?? 0)",
+                    title: tile1.title,
+                    value: tile1.value,
                     valueColor: .success
                 )
+            }
 
+            if let tile2 = viewModel.tile2 {
                 StatTile(
-                    title: "Avg / day",
-                    value: String(
-                        format: "%.1f",
-                        viewModel.weeklyStats?.dailyAverage ?? 0
-                    ),
-                    valueColor: .primaryText
-                )
-
-            case .month:
-
-                StatTile(
-                    title: "Total",
-                    value: "\(viewModel.monthlyStats?.total ?? 0)",
-                    valueColor: .success
-                )
-
-                StatTile(
-                    title: "Days",
-                    value: "\(viewModel.monthlyStats?.days.count ?? 0)",
-                    valueColor: .primaryText
-                )
-
-            case .year:
-
-                StatTile(
-                    title: "Streak",
-                    value: "\(viewModel.overallStats?.currentStreak ?? 0)",
-                    valueColor: .success
-                )
-
-                StatTile(
-                    title: "Reduction",
-                    value: "\(viewModel.overallStats?.reductionPercent ?? 0)%",
+                    title: tile2.title,
+                    value: tile2.value,
                     valueColor: .primaryText
                 )
             }
-        }
-    }
 
-    var paceCard: some View {
-        HStack(spacing: 22) {
-            Image(systemName: "bolt.fill")
-                .font(.system(size: 42, weight: .bold))
-                .foregroundStyle(.primaryAccent)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text("At this pace you'll reach")
-                    .font(.callout)
-                    .foregroundStyle(.secondaryText)
-
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("9/day")
-                        .font(.headline)
-                        .foregroundStyle(.primaryText)
-
-                    Text("in about 4 weeks.")
-                        .font(.callout)
-                        .foregroundStyle(.secondaryText)
-                }
+            if let tile3 = viewModel.tile3 {
+                StatTile(
+                    title: tile3.title,
+                    value: tile3.value,
+                    valueColor: .primaryText
+                )
             }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(24)
-        .background(Color.primaryAccent.opacity(0.10))
-        .cornerRadius(AppRadius.xl)
-        .overlay {
-            RoundedRectangle(cornerRadius: AppRadius.xl)
-                .stroke(Color.primaryAccent.opacity(0.45), lineWidth: 1)
-        }
-    }
-    
-    private var summaryTitle: String {
-
-        switch viewModel.selectedRange {
-
-        case .week:
-            return "Avg / day this week"
-
-        case .month:
-            return "Total this month"
-
-        case .year:
-            return "Total smoked"
-        }
-    }
-    
-    private var summaryValue: String {
-
-        switch viewModel.selectedRange {
-
-        case .week:
-
-            return String(
-                format: "%.1f",
-                viewModel.weeklyStats?.dailyAverage ?? 0
-            )
-
-        case .month:
-
-            return "\(viewModel.monthlyStats?.total ?? 0)"
-
-        case .year:
-
-            return "\(viewModel.overallStats?.totalCigarettesSmoked ?? 0)"
-        }
-    }
-    
-    private var chartDays: [Int] {
-
-        switch viewModel.selectedRange {
-
-        case .week:
-
-            return viewModel.weeklyStats?.days.map {
-                $0.count
-            } ?? []
-
-        case .month:
-
-            return viewModel.monthlyStats?.days.map {
-                $0.count
-            } ?? []
-
-        case .year:
-
-            return []
         }
     }
 }
@@ -273,25 +221,44 @@ enum TrendRange: CaseIterable {
     }
 }
 
-struct WeeklyBarChart: View {
-
-    let days: [Int]
+struct TrendBarChart: View {
+    let data: [TrendsViewModel.ChartBar]
 
     var body: some View {
-
-        HStack(alignment: .bottom, spacing: 16) {
-
-            ForEach(days.indices, id: \.self) { index in
-
-                Capsule()
-                    .fill(Color.primaryAccent)
-                    .frame(
-                        width: 24,
-                        height: CGFloat(days[index] * 8)
-                    )
+        VStack(spacing: 12) {
+            HStack(alignment: .bottom, spacing: chartSpacing) {
+                let maxVal = Swift.max(data.map { $0.value }.max() ?? 1, 1)
+                
+                ForEach(data) { bar in
+                    
+                    VStack(spacing: 8) {
+                        Capsule()
+                            .fill(Color.primaryAccent)
+                            .frame(width: barWidth, height: calculateHeight(value: bar.value, maxValue: maxVal))
+                        
+                        Text(bar.label)
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(.secondaryText)
+                            .fixedSize()
+                    }
+                }
             }
+            .frame(height: 180)
+            .frame(maxWidth: .infinity)
         }
-        .frame(height: 160)
-        .frame(maxWidth: .infinity)
+    }
+
+    private var barWidth: CGFloat {
+        data.count > 8 ? 4 : 24
+    }
+
+    private var chartSpacing: CGFloat {
+        data.count > 8 ? 4 : 12
+    }
+
+    private func calculateHeight(value: Int, maxValue: Int) -> CGFloat {
+        let minHeight: CGFloat = 4
+        let maxHeight: CGFloat = 140
+        return max(minHeight, CGFloat(value) / CGFloat(maxValue) * maxHeight)
     }
 }

@@ -11,9 +11,11 @@ import Foundation
 final class AuthRepositoryImpl: AuthRepository {
 
     private let service: AuthService
+    private let sessionManager: AuthSessionManager
 
-    init(service: AuthService) {
+    init(service: AuthService, sessionManager: AuthSessionManager = .shared) {
         self.service = service
+        self.sessionManager = sessionManager
     }
 
     // MARK: - Register
@@ -22,7 +24,7 @@ final class AuthRepositoryImpl: AuthRepository {
         let dto = try await service.register(
             request: RegisterRequestDTO(
                 email: email,
-                password: password,
+                password: password
             )
         )
         
@@ -30,11 +32,8 @@ final class AuthRepositoryImpl: AuthRepository {
             throw NetworkError.invalidResponse
         }
         
-        UserDefaults.standard.set(dto.accessToken,
-                                  forKey: "accessToken")
-
-        UserDefaults.standard.set(dto.refreshToken,
-                                  forKey: "refreshToken")
+        sessionManager.saveSession(accessToken: dto.accessToken ?? "", 
+                                   refreshToken: dto.refreshToken ?? "")
         
         return user.toEntity()
     }
@@ -53,18 +52,21 @@ final class AuthRepositoryImpl: AuthRepository {
             throw NetworkError.invalidResponse
         }
         
-        UserDefaults.standard.set(dto.accessToken,
-                                  forKey: "accessToken")
-
-        UserDefaults.standard.set(dto.refreshToken,
-                                  forKey: "refreshToken")
+        sessionManager.saveSession(accessToken: dto.accessToken ?? "", 
+                                   refreshToken: dto.refreshToken ?? "")
         
         return user.toEntity()
     }
 
+    // MARK: - Refresh
+    func refresh(token: String) async throws -> RefreshTokenDataDTO {
+        let dto = try await service.refreshToken(request: TokenRequestDTO(refreshToken: token))
+        return dto
+    }
+
     // MARK: - Logout
     func logout(request: TokenRequestDTO) async throws {
-
         try await service.logout(request: request)
+        sessionManager.logout()
     }
 }

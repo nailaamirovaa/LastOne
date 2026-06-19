@@ -17,6 +17,7 @@ final class StreakRepositoryImpl: StreakRepository {
     // MARK: - Get Streak
     func getStreak() async throws -> Streak {
 
+        
         let dto = try await service.getStreak()
 
         return dto.toEntity()

@@ -8,8 +8,27 @@
 import SwiftUI
 
 struct InsightsView: View {
+    
+    @StateObject private var viewModel: InsightsViewModel
+    
+    @State private var showPaywall = false
+    
+    init(
+        getTriggerAnalysisUseCase: GetTriggerAnalysisUseCase
+    ) {
+        
+        _viewModel = StateObject(
+            wrappedValue: InsightsViewModel(
+                getTriggerAnalysisUseCase: getTriggerAnalysisUseCase
+            )
+        )
+    }
+    
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
+        
+            
             VStack(alignment: .leading, spacing: 32) {
                 Text("Insights")
                     .font(.display)
@@ -17,25 +36,59 @@ struct InsightsView: View {
                 
                 triggerAnalysisSection
                 recommendationSection
-
+                
                 Spacer()
             }
             .padding(.horizontal, 24)
             .padding(.top, 30)
         }
+        .onAppear() {
+            viewModel.load()
+            if UserDefaults.standard.object(forKey: "subscription") as! String == "FREE" {
+                withAnimation {
+                    showPaywall = true
+                }
+            }
+        }
+        .sheet(isPresented: $showPaywall, content: {
+            PaywallView()
+                .presentationDetents([.height(520)])
+                .frame(maxWidth: .infinity ,)
+                .presentationDragIndicator(.visible)
+            
+        })
+        .overlay {
+            if UserDefaults.standard.object(forKey: "subscription") as! String == "FREE" {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .foregroundStyle(.hairline)
+                    .ignoresSafeArea()
+            }
+        }
         .background(Color.appBackground.ignoresSafeArea())
     }
     
     private var triggerAnalysisSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Top Triggers")
-                .font(.headline)
-                .foregroundStyle(.secondaryText)
-            
-            VStack(spacing: 12) {
-                TriggerStatRow(name: "Coffee", percentage: 42)
-                TriggerStatRow(name: "Stress", percentage: 28)
-                TriggerStatRow(name: "Social", percentage: 15)
+        VStack(spacing: 12) {
+
+            if viewModel.isLoading {
+
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 40)
+
+            } else {
+
+                ForEach(
+                    viewModel.triggerStats,
+                    id: \.triggerID
+                ) { trigger in
+
+                    TriggerStatRow(
+                        name: trigger.triggerName,
+                        percentage: trigger.percentage
+                    )
+                }
             }
         }
     }

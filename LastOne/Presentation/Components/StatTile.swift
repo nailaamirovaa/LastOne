@@ -23,7 +23,7 @@ struct StatTile: View {
                 .foregroundStyle(.secondaryText)
 
             Text(value)
-                .font(.heading2)
+                .font(.heading3)
                 .foregroundStyle(valueColor)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

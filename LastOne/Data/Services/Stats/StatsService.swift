@@ -38,7 +38,7 @@ public final class StatsService {
     
     // MARK: - Overview
     func getOverview() async throws -> OverviewDataDTO {
-        try await networkManager.request(
+        try await networkManager.requestWrapped(
             StatsRequest.overview,
             responseType:OverviewDataDTO.self
         )

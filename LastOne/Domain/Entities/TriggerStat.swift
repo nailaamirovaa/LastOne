@@ -11,4 +11,5 @@ struct TriggerStat {
     let triggerID: String
     let triggerName: String
     let count: Int
+    let percentage: Int
 }

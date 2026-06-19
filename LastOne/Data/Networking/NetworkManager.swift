@@ -18,7 +18,8 @@ final class NetworkManager: Sendable {
     
     func request<T: Decodable>(
         _ apiRequest: APIRequest,
-        responseType: T.Type
+        responseType: T.Type,
+        isRetry: Bool = false
     ) async throws -> T {
 
         var components = URLComponents(string: NetworkingHelper.baseURL + apiRequest.path)
@@ -32,12 +33,10 @@ final class NetworkManager: Sendable {
         request.httpMethod = apiRequest.method.rawValue
         request.httpBody = apiRequest.body
         
-        if let token = UserDefaults.standard.string(forKey: "accessToken") {
+        if let token = AuthSessionManager.shared.accessToken {
             request.setValue("Bearer \(token)",
                              forHTTPHeaderField: "Authorization")
         }
-        
-        print(request.allHTTPHeaderFields ?? [:])
 
         NetworkingHelper.defaultHeaders.forEach {
             request.setValue($1, forHTTPHeaderField: $0)
@@ -52,10 +51,22 @@ final class NetworkManager: Sendable {
             throw NetworkError.invalidResponse
         }
         
+        // Handle 401 Unauthorized
+        if httpResponse.statusCode == 401 && !isRetry {
+            let refreshSuccess = await AuthSessionManager.shared.refreshSession()
+            if refreshSuccess {
+                // Retry the request exactly once with new token
+                return try await self.request(apiRequest, responseType: responseType, isRetry: true)
+            } else {
+                // Refresh failed, logout is already called inside refreshSession()
+                throw NetworkError.serverError(401)
+            }
+        }
+        
         guard 200...299 ~= httpResponse.statusCode else {
             if let apiError = try? JSONDecoder().decode(APIError.self, from: data) {
                 throw NetworkError.apiError(message: apiError.error ?? "Server error",
-                                            code: apiError.code)
+                                             code: apiError.code)
             }
             throw NetworkError.serverError(httpResponse.statusCode)
         }
@@ -63,6 +74,13 @@ final class NetworkManager: Sendable {
         do {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
+            
+            print("RAW JSON:")
+            print(String(data: data, encoding: .utf8) ?? "")
+            
+            print("DECODING ERROR:")
+            print(error)
+            
             throw NetworkError.decodingError
         }
     }
@@ -73,11 +91,16 @@ final class NetworkManager: Sendable {
         _ endpoint: APIRequest,
         responseType: T.Type
     ) async throws -> T {
-
+        
         let response: APIResponse<T> = try await request(
             endpoint,
             responseType: APIResponse<T>.self
         )
+        /*
+        if endpoint.path == "/stats/weekly"{
+            print(String(data: response.data as! Data, encoding: .utf8) ?? "")
+        }
+         */
 
         if response.success, let result = response.data {
             return result

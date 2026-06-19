@@ -38,6 +38,9 @@ struct ProfileView: View {
             .padding(.horizontal, 24)
             .padding(.top, 30)
         }
+        .onAppear(){
+            viewModel.load()
+        }
         .background(Color.appBackground.ignoresSafeArea())
     }
     

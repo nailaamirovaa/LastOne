@@ -10,8 +10,8 @@ struct OverviewStats {
 
     let totalCigarettesSmoked: Int
     let daysActive: Int
-    let averagePerDay: Int
-    let reductionPercent: Int
+    let averagePerDay: Double
+    let reductionPercent: Double
     let currentStreak: Int
     let longestStreak: Int
     let dailyGoalStart: Int

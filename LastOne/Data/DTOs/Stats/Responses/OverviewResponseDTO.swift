@@ -10,7 +10,9 @@ import Foundation
 
 // MARK: - Data
 struct OverviewDataDTO: Decodable  {
-    let totalCigarettesSmoked, daysActive, averagePerDay, reductionPercent: Int?
+    let totalCigarettesSmoked, daysActive: Int?
     let currentStreak, longestStreak, dailyGoalStart, dailyGoalCurrent: Int?
     let dailyGoalFinal: Int?
+    let reductionPercent, averagePerDay: Double?
 }
+

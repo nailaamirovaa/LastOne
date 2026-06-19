@@ -79,6 +79,7 @@ final class TodayViewModel: ObservableObject {
 
                 currentStreak = streakResult.currentStreak
                 longestStreak = streakResult.longestStreak
+                print("STREAK:\(currentStreak)")
 
             } catch {
 
