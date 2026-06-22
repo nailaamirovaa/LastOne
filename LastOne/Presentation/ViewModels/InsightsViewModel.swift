@@ -17,6 +17,8 @@ final class InsightsViewModel: ObservableObject {
 
     @Published var isLoading = false
     @Published var errorMessage: String?
+    
+    @Published var hasData: Bool = false
 
     // MARK: - Dependencies
 
@@ -31,6 +33,7 @@ final class InsightsViewModel: ObservableObject {
     }
 
     // MARK: - Load
+    
 
     func load() {
 
@@ -68,7 +71,10 @@ final class InsightsViewModel: ObservableObject {
 
                 triggerStats = mappedTriggers.sorted { lhs, rhs in
                     lhs.count > rhs.count
-                } 
+                }
+                
+                if !triggerStats.isEmpty  { hasData =  true }
+                else { hasData =  false }
 
             } catch {
 

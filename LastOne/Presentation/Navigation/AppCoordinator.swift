@@ -13,8 +13,9 @@ import Combine
 final class AppCoordinator: ObservableObject {
 
     @Published var route: Route
+    @Published var selectedTab: MainTab = .today
     private var cancellables = Set<AnyCancellable>()
-
+    
     init() {
         self.route = .splash
         

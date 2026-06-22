@@ -11,16 +11,20 @@ struct TodayView: View {
     
     @StateObject private var viewModel: TodayViewModel
     
+    @State private var showAllLogs = false
+    
     init(getProfileUseCase: GetProfileUseCase,
         getTodayLogsUseCase: GetTodaysLogsUseCase,
-        getStreakUseCase: GetStreakUseCase
+        getStreakUseCase: GetStreakUseCase,
+        recalculateStreakUseCase: RecalculateStreakUseCase
     ) {
 
         _viewModel = StateObject(
             wrappedValue: TodayViewModel(
                 getProfileUseCase: getProfileUseCase,
                 getTodayLogsUseCase: getTodayLogsUseCase,
-                getStreakUseCase: getStreakUseCase
+                getStreakUseCase: getStreakUseCase,
+                recalculateStreakUseCase: recalculateStreakUseCase
             )
         )
     }
@@ -32,27 +36,27 @@ struct TodayView: View {
     }
 
     var body: some View {
-
+        
         ZStack {
             Color.appBackground
                 .ignoresSafeArea()
-
-            ScrollView(showsIndicators: false) {
-
-                VStack(spacing: AppSpacing.xl) {
-                    
-                    header
-
-                    progressSection
-
-                    streakCard
-
-                    logSection
+            
+            
+            if viewModel.isLoading {
+                LoadingView()
+            } else if let error = viewModel.errorMessage {
+                ErrorView(message: error){
+                    viewModel.load()
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 16)
-                .padding(.bottom, 120)
+            } else {
+                contentView
             }
+        }
+        .sheet(isPresented: $showAllLogs) {
+
+            TodaysLogsView(
+                logs: viewModel.todayLogs
+            )
         }
         .onAppear() {
             Task {
@@ -65,6 +69,25 @@ struct TodayView: View {
 
 // MARK: - HEADER
 private extension TodayView {
+    
+    var contentView: some View {
+        
+        ScrollView {
+            VStack(spacing: AppSpacing.xl) {
+                
+                header
+                
+                progressSection
+                
+                streakCard
+                
+                logSection
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 16)
+            .padding(.bottom, 120)
+        }
+    }
 
     var header: some View {
 
@@ -191,7 +214,7 @@ private extension TodayView {
                 Spacer()
                 
                 Button("See all") {
-                    
+                    showAllLogs = true
                 }
                 .font(.bodyText)
                 .foregroundStyle(.primaryAccent)

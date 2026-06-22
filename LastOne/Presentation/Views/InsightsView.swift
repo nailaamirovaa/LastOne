@@ -26,16 +26,23 @@ struct InsightsView: View {
     
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-        
-            
+        ZStack {
             VStack(alignment: .leading, spacing: 32) {
                 Text("Insights")
                     .font(.display)
                     .foregroundStyle(.primaryText)
                 
-                triggerAnalysisSection
-                recommendationSection
+                if viewModel.isLoading {
+                    LoadingView()
+                } else if let error = viewModel.errorMessage {
+                    ErrorView(message: error){
+                        viewModel.load()
+                    }
+                } else if !viewModel.hasData {
+                    EmptyView()
+                } else {
+                    contentView
+                }
                 
                 Spacer()
             }
@@ -66,6 +73,17 @@ struct InsightsView: View {
             }
         }
         .background(Color.appBackground.ignoresSafeArea())
+    }
+    
+    private var contentView: some View {
+        
+        
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 32) {
+                triggerAnalysisSection
+                recommendationSection
+            }
+        }
     }
     
     private var triggerAnalysisSection: some View {

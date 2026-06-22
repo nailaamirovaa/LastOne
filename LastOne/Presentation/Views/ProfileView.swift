@@ -12,27 +12,38 @@ struct ProfileView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel: ProfileViewModel
     
-    init(getProfileUseCase: GetProfileUseCase, logoutUseCase: LogoutUseCase) {
+    @State private var showEditPlan = false
+    
+    init(getProfileUseCase: GetProfileUseCase, updateProfileUseCase: UpdateProfileUseCase,logoutUseCase: LogoutUseCase) {
 
         _viewModel = StateObject(
             wrappedValue: ProfileViewModel(
                 getProfileUseCase: getProfileUseCase,
+                updateProfileUseCase: updateProfileUseCase,
                 logoutUseCase: logoutUseCase
             )
         )
     }
     
     var body: some View {
-        ScrollView {
+        ZStack {
             VStack(alignment: .leading, spacing: 32) {
                 Text("Settings")
                     .font(.display)
                     .foregroundStyle(.primaryText)
                 
-                settingsSection
-                planSection
-                dangerZone
-
+                if viewModel.isLoading {
+                    LoadingView()
+                } else if let error = viewModel.errorMessage {
+                    ErrorView(message: error){
+                        viewModel.load()
+                    }
+                } else if !viewModel.hasData {
+                    EmptyView()
+                } else {
+                    contentView
+                }
+            
                 Spacer()
             }
             .padding(.horizontal, 24)
@@ -44,6 +55,14 @@ struct ProfileView: View {
         .background(Color.appBackground.ignoresSafeArea())
     }
     
+    var contentView: some View {
+        VStack(alignment: .leading, spacing: 32) {
+            settingsSection
+            planSection
+            dangerZone
+        }
+    }
+    
     private var settingsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Your Profile")
@@ -51,14 +70,47 @@ struct ProfileView: View {
                 .foregroundStyle(.secondaryText)
             
             VStack(spacing: 0) {
-                HStack {
-                    Text("Starting Goal")
-                        .foregroundStyle(.tertiaryText)
-                    Spacer()
-                    Text("\(viewModel.startingGoal)")
-                        .foregroundStyle(.secondaryText)
+                Button {
+                    showEditPlan = true
+                } label: {
+
+                    HStack {
+                        Text("Starting Goal")
+                            .foregroundStyle(.tertiaryText)
+
+                        Spacer()
+
+                        Text("\(viewModel.startingGoal)")
+                            .foregroundStyle(.secondaryText)
+
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.tertiaryText)
+                    }
+                    .padding()
                 }
-                .padding()
+                
+                Divider().background(Color.hairline).padding(.horizontal)
+                
+                Button {
+                    showEditPlan = true
+                } label: {
+
+                    HStack {
+                        Text("Ending Goal")
+                            .foregroundStyle(.tertiaryText)
+
+                        Spacer()
+
+                        Text("\(viewModel.endingGoal)")
+                            .foregroundStyle(.secondaryText)
+
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.tertiaryText)
+                    }
+                    .padding()
+                }
                 
                 Divider().background(Color.hairline).padding(.horizontal)
                 
@@ -73,6 +125,20 @@ struct ProfileView: View {
             }
             .background(Color.surface)
             .cornerRadius(AppRadius.lg)
+        }
+        .sheet(isPresented: $showEditPlan) {
+
+            EditPlanSheet(
+                startingGoal: viewModel.startingGoal,
+                endingGoal: viewModel.endingGoal,
+                reductionWeeks: viewModel.reductionWeeks
+            ) {  end, weeks in
+
+                viewModel.updateProfile(
+                    endingGoal: end,
+                    reductionWeeks: weeks
+                )
+            }
         }
     }
     

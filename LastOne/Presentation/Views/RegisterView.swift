@@ -55,7 +55,8 @@ struct RegisterView: View {
 
                     // Email
                     AuthFieldLabel("EMAIL")
-                    TextField("you@example.com", text: $viewModel.email)
+                    TextField("you\u{200B}@example.com", text: $viewModel.email)
+                        .tint(.tertiaryText)
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
@@ -71,8 +72,10 @@ struct RegisterView: View {
                         Group {
                             if showPassword {
                                 TextField("At least 8 characters", text: $viewModel.password)
+                                    .tint(.tertiaryText)
                             } else {
                                 SecureField("At least 8 characters", text: $viewModel.password)
+                                    .tint(.tertiaryText)
                             }
                         }
                         .autocapitalization(.none)
@@ -93,6 +96,7 @@ struct RegisterView: View {
                     // Confirm password
                     AuthFieldLabel("CONFIRM PASSWORD")
                     SecureField("Re-enter your password", text: $confirmPassword)
+                        .tint(.tertiaryText)
                         .autocapitalization(.none)
                         .authInputStyle(hasError: errors["confirm"] != nil)
                         .padding(.bottom, errors["confirm"] != nil ? AppSpacing.xs : AppSpacing.md)

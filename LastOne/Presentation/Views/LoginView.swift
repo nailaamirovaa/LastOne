@@ -50,12 +50,9 @@ struct LoginView: View {
                     AuthFieldLabel("EMAIL")
                     
                     ZStack(alignment: .leading) {
-                        if viewModel.email.isEmpty {
-                            Text("you@example.com")
-                                .foregroundColor(.tertiaryText)
-                                .font(.bodyText)
-                        }
-                        TextField("", text: $viewModel.email)
+                   
+                        TextField("you\u{200B}@example.com", text: $viewModel.email)
+                            .tint(.tertiaryText)
                             .foregroundColor(.primaryText)
                             .autocapitalization(.none)
                             .keyboardType(.emailAddress)
@@ -70,8 +67,10 @@ struct LoginView: View {
                         Group {
                             if showPassword {
                                 TextField("••••••••", text: $viewModel.password)
+                                    .tint(.tertiaryText)
                             } else {
                                 SecureField("••••••••", text: $viewModel.password)
+                                    .tint(.tertiaryText)
                             }
                         }
                         .autocapitalization(.none)

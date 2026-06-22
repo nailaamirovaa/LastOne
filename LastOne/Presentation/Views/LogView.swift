@@ -13,7 +13,7 @@ struct LogView: View {
     @StateObject private var viewModel: LogViewModel
     
     init(getTriggersUseCase: GetTriggersUseCase,getTodayLogsUseCase: GetTodaysLogsUseCase, logCigaretteUseCase: LogCigaretteUseCase) {
-
+        
         _viewModel = StateObject(
             wrappedValue: LogViewModel(
                 getTriggersUseCase: getTriggersUseCase,
@@ -22,33 +22,20 @@ struct LogView: View {
             )
         )
     }
-
-    let triggers = [
-        "Coffee",
-        "Stress",
-        "Social",
-        "Boredom"
-    ]
     
     var body: some View {
         ZStack {
             Color.appBackground.ignoresSafeArea()
             
-            ScrollView {
-                VStack(alignment: .center, spacing: 32) {
-                    
-                    LogProgressButton {
-                        viewModel.logCigarette()
-                    }
-                    
-                    statsSection
-                    
-                    triggerSection
-                    
-                    Spacer(minLength: 120)
+            if viewModel.isLoading {
+                LoadingView()
+            } else if let error = viewModel.errorMessage {
+                ErrorView(message: error){
+                    viewModel.load()
                 }
+            } else {
+               contentView
             }
-            .padding(24)
         }
         .alert(
             "Error",
@@ -76,6 +63,42 @@ struct LogView: View {
 
 
 private extension LogView {
+    
+    var contentView: some View {
+
+        ScrollView {
+            
+            VStack(alignment: .center, spacing: 32) {
+                
+                VStack() {
+                    Text("You've had today")
+                        .foregroundStyle(.tertiaryText)
+                        .font(.heading3)
+                    
+                    HStack(spacing: 8) {
+                        Text("\(viewModel.todayCount)")
+                            .foregroundStyle(.primaryText)
+                            .font(.display)
+                        Text("of \(viewModel.todayCount + viewModel.remaining)")
+                            .foregroundStyle(.tertiaryText)
+                            .font(.heading3)
+                    }
+                }
+                
+                LogProgressButton {
+                    viewModel.logCigarette()
+                }
+                
+                statsSection
+                
+                triggerSection
+                
+                Spacer(minLength: 120)
+            }
+            .padding(24)
+        }
+        
+    }
     
     var statsSection: some View {
         

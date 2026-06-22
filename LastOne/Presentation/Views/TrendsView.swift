@@ -24,7 +24,7 @@ struct TrendsView: View {
     }
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        ZStack {
             VStack(alignment: .leading, spacing: 24) {
     
                 Text("Trends")
@@ -34,11 +34,13 @@ struct TrendsView: View {
                 rangePicker
                 
                 if viewModel.isLoading {
-                    loadingView
+                    LoadingView()
                 } else if let error = viewModel.errorMessage {
-                    errorView(error)
+                    ErrorView(message: error){
+                        viewModel.load()
+                    }
                 } else if !viewModel.hasData {
-                    emptyView
+                    EmptyView()
                 } else {
                     contentView
                 }
@@ -104,58 +106,12 @@ private extension TrendsView {
         .clipShape(Capsule())
     }
 
-    var loadingView: some View {
-        VStack {
-            Spacer()
-            ProgressView()
-                .tint(.primaryAccent)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 300)
-    }
-
-    var emptyView: some View {
-        VStack(spacing: 12) {
-            Spacer()
-            Image(systemName: "chart.bar.xaxis")
-                .font(.system(size: 48))
-                .foregroundStyle(.secondaryText)
-            Text("No data available")
-                .font(.headline)
-                .foregroundStyle(.secondaryText)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 300)
-    }
-
-    func errorView(_ message: String) -> some View {
-        VStack(spacing: 12) {
-            Spacer()
-            Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 48))
-                .foregroundStyle(.primaryAccent)
-            Text(message)
-                .font(.headline)
-                .foregroundStyle(.primaryText)
-                .multilineTextAlignment(.center)
-            Button("Try Again") {
-                viewModel.load()
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.primaryAccent)
-            Spacer()
-        }
-        .padding(24)
-        .frame(maxWidth: .infinity)
-        .frame(height: 300)
-    }
-
     var contentView: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            summaryCard
-            miniStats
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 24) {
+                summaryCard
+                miniStats
+            }
         }
     }
 

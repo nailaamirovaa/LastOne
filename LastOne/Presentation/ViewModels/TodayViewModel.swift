@@ -33,18 +33,21 @@ final class TodayViewModel: ObservableObject {
     private let getProfileUseCase: GetProfileUseCase
     private let getTodayLogsUseCase: GetTodaysLogsUseCase
     private let getStreakUseCase: GetStreakUseCase
+    private let recalculateStreakUseCase: RecalculateStreakUseCase
 
     // MARK: - Init
 
     init(
         getProfileUseCase: GetProfileUseCase,
         getTodayLogsUseCase: GetTodaysLogsUseCase,
-        getStreakUseCase: GetStreakUseCase
+        getStreakUseCase: GetStreakUseCase,
+        recalculateStreakUseCase: RecalculateStreakUseCase
     ) {
 
         self.getProfileUseCase = getProfileUseCase
         self.getTodayLogsUseCase = getTodayLogsUseCase
         self.getStreakUseCase = getStreakUseCase
+        self.recalculateStreakUseCase = recalculateStreakUseCase
     }
 
     // MARK: - Actions
@@ -65,19 +68,21 @@ final class TodayViewModel: ObservableObject {
                 async let profile = getProfileUseCase.execute()
                 async let logs = getTodayLogsUseCase.execute()
                 async let streak = getStreakUseCase.execute()
+                async let recalculate = recalculateStreakUseCase.execute()
 
                 let profileResult = try await profile
                 let logsResult = try await logs
                 let streakResult = try await streak
+                let realStreak = try await recalculate
 
                 userProfile = profileResult
 
                 todayLogs = logsResult.logs
                 todayCount = logsResult.count
-                dailyGoal = logsResult.dailyGoal
+                dailyGoal = profileResult.profile.dailyGoalCurrent
                 remaining = logsResult.remaining
 
-                currentStreak = streakResult.currentStreak
+                currentStreak = realStreak.currentStreak
                 longestStreak = streakResult.longestStreak
                 print("STREAK:\(currentStreak)")
 

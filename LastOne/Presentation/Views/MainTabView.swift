@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var selectedTab: MainTab = .today
+    
+    @EnvironmentObject private var coordinator: AppCoordinator
 
     var body: some View {
         ZStack(alignment: .bottom) {
             
             activeContent
 
-            CustomTabBar(selected: $selectedTab)
+            CustomTabBar(selected: $coordinator.selectedTab)
 
         }
         .navigationBarBackButtonHidden(true)
@@ -26,11 +27,12 @@ struct MainTabView: View {
     private var activeContent: some View {
         ZStack {
             
-            switch selectedTab {
+            switch coordinator.selectedTab {
             case .today:
                 TodayView(getProfileUseCase: GetProfileUseCaseImpl(repository: UserRepositoryImpl(service: ProfileService())),
                           getTodayLogsUseCase: GetTodaysLogsUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())),
-                          getStreakUseCase: GetStreakUseCaseImpl(repository: StreakRepositoryImpl(service: StreakService())))
+                          getStreakUseCase: GetStreakUseCaseImpl(repository: StreakRepositoryImpl(service: StreakService())),
+                          recalculateStreakUseCase: RecalculateStreakUseCaseImpl(repository: StreakRepositoryImpl(service: StreakService())))
 
             case .trends:
                 TrendsView(
@@ -50,6 +52,7 @@ struct MainTabView: View {
 
             case .you:
                 ProfileView(getProfileUseCase: GetProfileUseCaseImpl(repository: UserRepositoryImpl(service: ProfileService())),
+                            updateProfileUseCase: UpdateProfileUseCaseImpl(repository: UserRepositoryImpl(service: ProfileService())),
                             logoutUseCase: LogoutUseCaseImpl(repository: AuthRepositoryImpl(service: AuthService())))
             }
     

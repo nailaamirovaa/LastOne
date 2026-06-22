@@ -119,10 +119,8 @@ final class LogViewModel: ObservableObject {
     func logCigarette() {
 
         Task {
-
             isSaving = true
             errorMessage = nil
-
             defer {
                 isSaving = false
             }
@@ -147,10 +145,13 @@ final class LogViewModel: ObservableObject {
 
                 todayCount = today.count
                 remaining = today.remaining
+                
+                print(today.count)
 
             } catch {
 
                 errorMessage = error.localizedDescription
+                print(errorMessage)
             }
         }
     }
