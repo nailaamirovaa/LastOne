@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 @MainActor
 final class LogViewModel: ObservableObject {
@@ -28,26 +29,35 @@ final class LogViewModel: ObservableObject {
     @Published var lastLogDate: Date?
 
     @Published var didSaveLog = false
+    
+   
+
+    @Published var customTriggerName = ""
+    @Published var showCreateTriggerSheet = false
+    @Published var showPaywall = false
 
     // MARK: - Dependencies
 
     private let getTriggersUseCase: GetTriggersUseCase
     private let getTodayLogsUseCase: GetTodaysLogsUseCase
     private let logCigaretteUseCase: LogCigaretteUseCase
+    private let createTriggerUseCase: CreateTriggerUseCase
 
     // MARK: - Init
 
     init(
         getTriggersUseCase: GetTriggersUseCase,
         getTodayLogsUseCase: GetTodaysLogsUseCase,
-        logCigaretteUseCase: LogCigaretteUseCase
+        logCigaretteUseCase: LogCigaretteUseCase,
+        createTriggerUseCase: CreateTriggerUseCase
     ) {
         self.getTriggersUseCase = getTriggersUseCase
         self.getTodayLogsUseCase = getTodayLogsUseCase
         self.logCigaretteUseCase = logCigaretteUseCase
+        self.createTriggerUseCase = createTriggerUseCase
     }
     
-    var lastLogText: String {
+    var lastLogText: LocalizedStringKey {
         
         guard let lastLogDate else {
             
@@ -60,9 +70,9 @@ final class LogViewModel: ObservableObject {
         let minutes = (interval % 3600) / 60
 
         if hours > 0 {
-            return "\(hours)h \(minutes)m ago"
+            return "\(hours) h \(minutes) m ago"
         } else {
-            return "\(minutes)m ago"
+            return "\(minutes) m ago"
         }
     }
 
@@ -151,7 +161,34 @@ final class LogViewModel: ObservableObject {
             } catch {
 
                 errorMessage = error.localizedDescription
-                print(errorMessage)
+                
+            }
+        }
+    }
+    
+    // MARK: - Create Trigger
+    func createTrigger() async {
+
+        guard !customTriggerName.isEmpty else { return }
+
+        do {
+
+            let trigger = try await createTriggerUseCase.execute(
+                name: customTriggerName
+            )
+
+            triggers.append(trigger)
+
+            selectedTrigger = trigger
+            customTriggerName = ""
+            showCreateTriggerSheet = false
+
+        } catch {
+
+            if error.localizedDescription.contains("Premium") {
+                showPaywall = true
+            } else {
+                errorMessage = error.localizedDescription
             }
         }
     }

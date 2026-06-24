@@ -10,8 +10,8 @@ import SwiftUI
 
 struct LogStatCard: View {
 
-    let title: String
-    let value: String
+    let title: LocalizedStringKey
+    let value: LocalizedStringKey
     var valueColor: Color = .primaryText
 
     var body: some View {

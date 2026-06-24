@@ -61,6 +61,7 @@ struct ProgressRingView: View {
                     .font(.bodyText)
                     .foregroundStyle(.secondaryText)
             }
+            .frame(width: 170)
         }
         .frame(width: 240, height: 240)
     }

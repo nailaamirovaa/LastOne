@@ -29,6 +29,8 @@ final class AppCoordinator: ObservableObject {
         case register
         case onboarding
         case main
+        case forgotPassword
+        case resetPassword(token: String)
     }
     
     private func setupBindings() {

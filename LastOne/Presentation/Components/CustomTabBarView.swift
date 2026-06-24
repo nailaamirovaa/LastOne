@@ -10,13 +10,7 @@ struct CustomTabBar: View {
             
             Spacer().frame(width: 70)
             
-            TabItem(
-                icon: "lightbulb.fill", 
-                label: "Insights", 
-                tab: .insights, 
-                selected: $selected,
-                isPremium: true,
-            )
+            TabItem(icon: "lightbulb.fill", label: "Insights", tab: .insights, selected: $selected, isPremium: true)
             TabItem(icon: "person.fill", label: "You", tab: .you, selected: $selected)
         }
         .padding(.horizontal, 12)
@@ -43,7 +37,7 @@ struct CustomTabBar: View {
 
 struct TabItem: View {
     let icon: String
-    let label: String
+    let label: LocalizedStringKey
     let tab: MainTab
     @Binding var selected: MainTab
     var isPremium: Bool = false

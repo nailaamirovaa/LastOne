@@ -34,9 +34,22 @@
 		10DBED442FDBD99000407E6E /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		102693622FEBF63100A6A466 /* Exceptions for "LastOne" folder in "LastOne" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 109889622FCFF2D600BE26DF /* LastOne */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		109889652FCFF2D600BE26DF /* LastOne */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				102693622FEBF63100A6A466 /* Exceptions for "LastOne" folder in "LastOne" target */,
+			);
 			path = LastOne;
 			sourceTree = "<group>";
 		};
@@ -431,6 +444,7 @@
 				DEVELOPMENT_TEAM = LWM6UNR833;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LastOne/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -463,6 +477,7 @@
 				DEVELOPMENT_TEAM = LWM6UNR833;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LastOne/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

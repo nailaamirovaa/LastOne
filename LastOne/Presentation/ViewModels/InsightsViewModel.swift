@@ -48,18 +48,13 @@ final class InsightsViewModel: ObservableObject {
 
             do {
 
-                let triggers =
-                    try await getTriggerAnalysisUseCase.execute()
+                let triggers = try await getTriggerAnalysisUseCase.execute()
 
-                let totalCount =
-                triggers.triggers.reduce(0) {
-                        $0 + $1.count
-                    }
+                let totalCount = triggers.triggers.reduce(0) { $0 + $1.count}
 
                 let mappedTriggers: [TriggerStat] = triggers.triggers.map { trigger in
 
-                    let percentage =
-                        totalCount > 0 ? Int(Double(trigger.count) / Double(totalCount) * 100) : 0
+                    let percentage = totalCount > 0 ? Int(Double(trigger.count) / Double(totalCount) * 100) : 0
 
                     return TriggerStat(
                         triggerID: trigger.triggerID,

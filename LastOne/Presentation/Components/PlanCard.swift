@@ -10,9 +10,9 @@ import SwiftUI
 struct PlanCard: View {
 
     let isSelected: Bool
-    let title: String
-    let subtitle: String
-    let badge: String?
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey
+    let badge:  LocalizedStringKey?
     let action: () -> Void
 
     var body: some View {

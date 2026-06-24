@@ -69,4 +69,14 @@ final class AuthRepositoryImpl: AuthRepository {
         try await service.logout(request: request)
         sessionManager.logout()
     }
+    
+    // MARK: - Forgot Password
+    func forgotPassword(email: String) async throws {
+        try await service.forgotPassword(email: email)
+    }
+    
+    // MARK: - Reset Password
+    func resetPassword(token: String,password: String) async throws {
+        try await service.resetPassword(token: token,password: password)
+    }
 }

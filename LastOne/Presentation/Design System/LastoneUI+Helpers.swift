@@ -29,8 +29,8 @@ extension View {
 
 // MARK: - Field label
 struct AuthFieldLabel: View {
-    let text: String
-    init(_ text: String) { self.text = text }
+    let text: LocalizedStringKey
+    init(_ text: String) { self.text = LocalizedStringKey(text) }
 
     var body: some View {
         Text(text)

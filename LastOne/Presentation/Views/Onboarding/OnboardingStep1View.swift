@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingStep1View: View {
     
+    @EnvironmentObject private var languageManager: LanguageManager
     @ObservedObject var viewModel: OnboardingViewModel
 
     private var recommendedPerDay: Int {
@@ -57,7 +58,7 @@ struct OnboardingStep1View: View {
             
         } message: {
             
-            Text(viewModel.errorMessage ?? "")
+            Text((viewModel.errorMessage ?? ""))
         }
     }
 }
@@ -159,7 +160,7 @@ private extension OnboardingStep1View {
             Text("A gentle taper, not a cliff")
                 .font(.headline)
                 .foregroundStyle(.primaryText)
-            Text("We'll suggest \(recommendedPerDay)/day next week, easing down ~10% at a time.")
+            Text(String(format: "We'll suggest %lld/day next week, easing down ~10%% at a time.", recommendedPerDay))
                 .font(.bodyText)
                 .foregroundStyle(.secondaryText)
         }

@@ -25,6 +25,10 @@ struct RootView: View {
             OnboardingView(setupProfileUseCase: SetupProfileUseCaseImpl(repository: UserRepositoryImpl(service: ProfileService())))
         case .main:
             MainTabView()
+        case .forgotPassword:
+            ForgotPasswordView(forgotPasswordUseCase: ForgotPasswordUseCaseImpl(repository: AuthRepositoryImpl(service: AuthService())))
+        case .resetPassword(token: let token):
+            ResetPasswordView(token: token, resetPasswordUseCase: ResetPasswordUseCaseImpl(repository: AuthRepositoryImpl(service: AuthService())))
         }
     }
 }

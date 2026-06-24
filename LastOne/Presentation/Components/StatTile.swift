@@ -10,7 +10,7 @@ import SwiftUI
 
 struct StatTile: View {
 
-    let title: String
+    let title: LocalizedStringKey
     let value: String
     let valueColor: Color
 

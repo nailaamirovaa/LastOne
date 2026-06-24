@@ -3,6 +3,7 @@ import SwiftUI
 struct LoginView: View {
     
     @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var languageManager: LanguageManager
     @StateObject private var viewModel: LoginViewModel
     
     @State private var showPassword = false
@@ -47,11 +48,11 @@ struct LoginView: View {
                         .padding(.bottom, AppSpacing.xl)
                     
                     // Email
-                    AuthFieldLabel("EMAIL")
+                    AuthFieldLabel("email")
                     
                     ZStack(alignment: .leading) {
                    
-                        TextField("you\u{200B}@example.com", text: $viewModel.email)
+                        TextField("you@example․com", text: $viewModel.email)
                             .tint(.tertiaryText)
                             .foregroundColor(.primaryText)
                             .autocapitalization(.none)
@@ -62,7 +63,7 @@ struct LoginView: View {
                     .padding(.bottom, AppSpacing.md)
                     
                     // Password
-                    AuthFieldLabel("PASSWORD")
+                    AuthFieldLabel("password")
                     HStack {
                         Group {
                             if showPassword {
@@ -88,7 +89,9 @@ struct LoginView: View {
                     // Forgot password
                     HStack {
                         Spacer()
-                        Button("Forgot password?") {}
+                        Button("Forgot password?") {
+                            coordinator.route = .forgotPassword
+                        }
                             .font(.footnote)
                             .foregroundColor(.primaryAccent)
                     }

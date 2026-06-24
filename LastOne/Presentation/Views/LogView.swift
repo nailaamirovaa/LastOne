@@ -12,13 +12,14 @@ struct LogView: View {
     
     @StateObject private var viewModel: LogViewModel
     
-    init(getTriggersUseCase: GetTriggersUseCase,getTodayLogsUseCase: GetTodaysLogsUseCase, logCigaretteUseCase: LogCigaretteUseCase) {
+    init(getTriggersUseCase: GetTriggersUseCase,getTodayLogsUseCase: GetTodaysLogsUseCase, logCigaretteUseCase: LogCigaretteUseCase, createTriggerUseCase: CreateTriggerUseCase) {
         
         _viewModel = StateObject(
             wrappedValue: LogViewModel(
                 getTriggersUseCase: getTriggersUseCase,
                 getTodayLogsUseCase: getTodayLogsUseCase,
-                logCigaretteUseCase: logCigaretteUseCase
+                logCigaretteUseCase: logCigaretteUseCase,
+                createTriggerUseCase: createTriggerUseCase
             )
         )
     }
@@ -36,6 +37,18 @@ struct LogView: View {
             } else {
                contentView
             }
+        }
+        .sheet(isPresented: $viewModel.showCreateTriggerSheet) {
+            
+            CreateTriggerSheet(
+                triggerName: $viewModel.customTriggerName
+            ) {
+                Task {
+                    await viewModel.createTrigger()
+                }
+            }
+            .presentationDetents([.height(280)])
+            .presentationDragIndicator(.visible)
         }
         .alert(
             "Error",
@@ -79,7 +92,7 @@ private extension LogView {
                         Text("\(viewModel.todayCount)")
                             .foregroundStyle(.primaryText)
                             .font(.display)
-                        Text("of \(viewModel.todayCount + viewModel.remaining)")
+                        Text("/ \(viewModel.todayCount + viewModel.remaining)")
                             .foregroundStyle(.tertiaryText)
                             .font(.heading3)
                     }
@@ -105,12 +118,12 @@ private extension LogView {
         HStack(spacing: AppSpacing.md) {
             
             LogStatCard(
-                title: "Last one",
+                title: "last_one",
                 value: viewModel.lastLogText
             )
 
             LogStatCard(
-                title: "Left today",
+                title: "left_today",
                 value: "\(viewModel.remaining)",
                 valueColor: .primaryAccent
             )
@@ -121,7 +134,7 @@ private extension LogView {
 
         VStack(alignment: .leading, spacing: AppSpacing.md) {
 
-            Text("What's the trigger? (optional)")
+            Text("whats_trigger")
                 .font(.headline)
                 .foregroundStyle(.secondaryText)
 
@@ -141,6 +154,14 @@ private extension LogView {
                         }
                     }
                 }
+                
+                Button {
+                    viewModel.showCreateTriggerSheet = true
+                } label: {
+                    Label("Custom", systemImage: "plus")
+                        .foregroundStyle(.tertiaryText)
+                }
+                .clipShape(Capsule())
             }
         }
     }

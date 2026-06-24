@@ -8,6 +8,7 @@ import SwiftUI
 struct RegisterView: View {
    
     @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var languageManager: LanguageManager
     @StateObject private var viewModel: RegisterViewModel
 
     @State private var confirmPassword = ""
@@ -54,8 +55,8 @@ struct RegisterView: View {
                         .padding(.bottom, AppSpacing.xl)
 
                     // Email
-                    AuthFieldLabel("EMAIL")
-                    TextField("you\u{200B}@example.com", text: $viewModel.email)
+                    AuthFieldLabel("email")
+                    TextField("you@example․com", text: $viewModel.email)
                         .tint(.tertiaryText)
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
@@ -67,7 +68,7 @@ struct RegisterView: View {
                     }
 
                     // Password
-                    AuthFieldLabel("PASSWORD")
+                    AuthFieldLabel("password")
                     HStack {
                         Group {
                             if showPassword {
@@ -94,7 +95,7 @@ struct RegisterView: View {
                     }
 
                     // Confirm password
-                    AuthFieldLabel("CONFIRM PASSWORD")
+                    AuthFieldLabel("confirm_password")
                     SecureField("Re-enter your password", text: $confirmPassword)
                         .tint(.tertiaryText)
                         .autocapitalization(.none)
@@ -128,13 +129,13 @@ struct RegisterView: View {
                             
                             Text("I agree to the ")
                                 .foregroundStyle(.secondaryText)
-
+                            Text(" ")
                             Text("Terms of Service")
                                 .foregroundStyle(.primaryAccent)
-
-                            Text(" and ")
+                            Text(" ")
+                            Text("and")
                                 .foregroundStyle(.secondaryText)
-
+                            Text(" ")
                             Text("Privacy Policy")
                                 .foregroundStyle(.primaryAccent)
 
@@ -208,7 +209,7 @@ struct RegisterView: View {
             newErrors["email"] = "Enter a valid email."
         }
         if viewModel.password.count < 8{
-            newErrors["password"] = "At least 8 characters."
+            newErrors["password"] = "At least 8 characters"
         }
         if viewModel.password != confirmPassword{
             newErrors["confirm"]  = "Passwords don't match."

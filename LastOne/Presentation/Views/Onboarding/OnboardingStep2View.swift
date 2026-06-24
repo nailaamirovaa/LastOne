@@ -12,6 +12,7 @@ import SwiftUI
  
 struct OnboardingStep2View: View {
     
+    @EnvironmentObject private var languageManager: LanguageManager
     @ObservedObject var viewModel: OnboardingViewModel
  
     var body: some View {

@@ -26,20 +26,16 @@ Entities
  app icon elave ele+
  insights hesablasin umumi seyleri+
  todays logs see all sehifesi+
- mumkunduse fontu yaz
  starting, ending goal deyise bilsin profilede +
+ parameters hissesini deyis aze eng bele dil deyissin+
  forgot password ( hele ki mumkun deyil )
- parameters hissesini deyis aze eng bele dil deyissin
+ mumkunduse fontu yaz +
  
  
  PROBLEMS
  - token expire olur cox tez
  - mavi textfield +
  - her hefte currentGoal azalmalidi o harda olur
- 
- 
- 
- 
  
 */
 

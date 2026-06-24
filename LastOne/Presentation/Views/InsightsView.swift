@@ -97,10 +97,11 @@ struct InsightsView: View {
 
             } else {
 
-                ForEach(
-                    viewModel.triggerStats,
-                    id: \.triggerID
-                ) { trigger in
+                ForEach(viewModel.triggerStats, id: \.triggerID) { trigger in
+                    let _ = print(
+                        trigger.triggerName,
+                        trigger.percentage
+                    )
 
                     TriggerStatRow(
                         name: trigger.triggerName,
@@ -141,13 +142,15 @@ struct InsightsView: View {
 struct TriggerStatRow: View {
     let name: String
     let percentage: Int
-    
+
     var body: some View {
         HStack {
-            Text(name)
+            Text(LocalizedStringKey(name))
                 .font(.bodyText)
                 .foregroundStyle(.primaryText)
+
             Spacer()
+
             Text("\(percentage)%")
                 .font(.bodyText)
                 .foregroundStyle(.secondaryText)

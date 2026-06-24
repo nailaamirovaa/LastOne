@@ -106,8 +106,8 @@ extension UpgradeView {
         PlanCard(
             isSelected: selectedPlan == .yearly,
             title: "Yearly",
-            subtitle: "$29.99/yr • $2.50/mo",
-            badge: "Save 40%"
+            subtitle: "upgrade_plan_sub_year",
+            badge: "upgrade_badge"
         ) {
             selectedPlan = .yearly
         }
@@ -118,7 +118,7 @@ extension UpgradeView {
         PlanCard(
             isSelected: selectedPlan == .monthly,
             title: "Monthly",
-            subtitle: "$3.99/mo",
+            subtitle: "upgrade_plan_sub_month",
             badge: nil
         ) {
             selectedPlan = .monthly

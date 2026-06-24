@@ -11,6 +11,7 @@ import SwiftUI
  
 struct OnboardingStep3View: View {
     
+    @EnvironmentObject private var languageManager: LanguageManager
     @ObservedObject var viewModel: OnboardingViewModel
  
     private let options = [2, 4, 8, 12]

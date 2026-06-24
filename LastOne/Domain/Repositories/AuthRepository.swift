@@ -7,4 +7,8 @@ protocol AuthRepository {
     func refresh(token: String) async throws -> RefreshTokenDataDTO
 
     func logout(request: TokenRequestDTO) async throws
+    
+    func forgotPassword(email: String) async throws
+    
+    func resetPassword(token: String, password: String) async throws
 }

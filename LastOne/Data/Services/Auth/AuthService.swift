@@ -47,4 +47,22 @@ public final class AuthService {
             responseType:LogoutDataDTO.self
         )
     }
+    
+    // MARK: - Forgot Password
+    func forgotPassword(email: String) async throws {
+        
+        _ = try await networkManager.requestWrapped(
+            AuthRequest.forgotPassword(ForgotPasswordRequestDTO(email: email)),
+            responseType: ForgotPasswordResponseDTO.self
+        )
+    }
+    
+    // MARK: - Reset Password
+    func resetPassword(token: String,password: String) async throws {
+
+        _ = try await networkManager.requestWrapped(
+            AuthRequest.resetPassword(ResetPasswordRequestDTO(token: token,password: password)),
+            responseType: ResetPasswordResponseDTO.self
+        )
+    }
 }

@@ -1,18 +1,29 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    " and " : {
+    " " : {
+      "shouldTranslate" : false
+    },
+    "." : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "və"
+            "value" : "."
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "/ %lld" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " /%lld"
           }
         }
       }
-    },
-    "." : {
-
     },
     "%lld" : {
       "localizations" : {
@@ -24,22 +35,68 @@
         }
       }
     },
-    "%lld left — you're pacing well" : {
+    "%lld - day streak" : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld qalıb - yaxşı irəliləyirsiniz"
+            "value" : "%lld gün ardıcıl"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld - day streak"
           }
         }
       }
     },
-    "%lld-day streak" : {
+    "%lld h %lld m ago" : {
+      "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld - günlük ardıcıllıq"
+            "value" : "%lld saat %lld dəq əvvəl"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld h %lld m ago"
+          }
+        }
+      }
+    },
+    "%lld left -- you're pacing well" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld qalıb — yaxşı irəliləyirsən"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld left — you're pacing well"
+          }
+        }
+      }
+    },
+    "%lld m ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dəq əvvəl"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld m ago"
           }
         }
       }
@@ -49,7 +106,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$lld%1$lld"
+            "value" : "%lld%%"
           }
         }
       }
@@ -65,7 +122,7 @@
       }
     },
     "🔥" : {
-
+      "shouldTranslate" : false
     },
     "A gentle taper, not a cliff" : {
       "localizations" : {
@@ -73,6 +130,33 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kəskin deyil, mərhələli azalma"
+          }
+        }
+      }
+    },
+    "Adaptive taper plans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uyğunlaşan azaltma planları"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adaptive taper plans"
+          }
+        }
+      }
+    },
+    "Add a custom trigger that matches your habits." : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vərdişlərinizə uyğun xüsusi tətikləyici əlavə edin."
           }
         }
       }
@@ -158,6 +242,23 @@
         }
       }
     },
+    "Avg / day this week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu həftə gündəlik orta"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avg / day this week"
+          }
+        }
+      }
+    },
     "avg_day" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -185,6 +286,26 @@
         }
       }
     },
+    "AZE" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AZE"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geri"
+          }
+        }
+      }
+    },
     "boredom" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -202,6 +323,16 @@
         }
       }
     },
+    "Choose a new password for your account." : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesabınız üçün yeni şifrə yaradın."
+          }
+        }
+      }
+    },
     "cigarettes / day" : {
       "localizations" : {
         "az" : {
@@ -212,19 +343,46 @@
         }
       }
     },
-    "coffee" : {
+    "Coffee" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kofe"
+            "value" : "Qəhvə"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coffee"
+          }
+        }
+      }
+    },
+    "confirm_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ŞİFRƏNİ YENİDƏN DAXİL EDİN"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CONFIRM PASSWORD"
+          }
+        }
+      }
+    },
+    "Create" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yarat"
           }
         }
       }
@@ -249,6 +407,26 @@
         }
       }
     },
+    "Create new password" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni şifrə yaradın"
+          }
+        }
+      }
+    },
+    "Create Trigger" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tətikləyici yarat"
+          }
+        }
+      }
+    },
     "create_account" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -262,6 +440,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create account"
+          }
+        }
+      }
+    },
+    "Custom" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xüsusi"
           }
         }
       }
@@ -289,23 +477,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Danger Zone"
-          }
-        }
-      }
-    },
-    "day_streak" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "gün ardıcıl"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "day streak"
           }
         }
       }
@@ -354,6 +525,16 @@
         }
       }
     },
+    "e.g. Driving" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "məs. Tıxac"
+          }
+        }
+      }
+    },
     "Edit Plan" : {
       "localizations" : {
         "az" : {
@@ -377,6 +558,66 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit Plan"
+          }
+        }
+      }
+    },
+    "email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-POÇT ÜNVANI"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "Email Sent" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-poçt göndərildi"
+          }
+        }
+      }
+    },
+    "email_exists" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu e-poçt ünvanı artıq istifadə olunub"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email already in use"
+          }
+        }
+      }
+    },
+    "email_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zəhmət olmasa e-poçt ünvanınızı qeyd edin"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your email"
           }
         }
       }
@@ -408,12 +649,71 @@
         }
       }
     },
+    "ENG" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ENG"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ENG"
+          }
+        }
+      }
+    },
+    "Enter a valid email." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Düzgün e-poçt ünvanı daxil edin"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a valid email."
+          }
+        }
+      }
+    },
+    "Enter your email and we'll send you a password reset link." : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-piçt ünvanınızı qeyd edin və sizə şifrə yeniləmə linki göndəriləcək."
+          }
+        }
+      }
+    },
     "Error" : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Xəta"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "Every cigarette, every trend, forever." : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hər siqaret, hər trend — həmişə əlçatan."
           }
         }
       }
@@ -441,6 +741,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Şifrəni unutmusunuz?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgot password?"
           }
         }
       }
@@ -486,6 +792,29 @@
             "state" : "translated",
             "value" : "Öz sürətinizlə irəliləyin"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go further,\nat your own pace."
+          }
+        }
+      }
+    },
+    "Goals that adjust to your real week." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Real həftənizə uyğunlaşan hədəflər."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goals that adjust to your real week."
+          }
         }
       }
     },
@@ -495,6 +824,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Axşamınız xeyir"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good evening"
           }
         }
       }
@@ -506,6 +841,12 @@
             "state" : "translated",
             "value" : "Hansı sürətlə irəliləmək istəyirsiniz?"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How fast do\nyou want to go?"
+          }
         }
       }
     },
@@ -516,6 +857,12 @@
             "state" : "translated",
             "value" : "Real gündə neçə dənə?"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many\non an honest day?"
+          }
         }
       }
     },
@@ -523,8 +870,14 @@
       "localizations" : {
         "az" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Razılaşıram"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I agree to the "
           }
         }
       }
@@ -536,39 +889,21 @@
             "state" : "translated",
             "value" : "Bir siqaret çəkdim"
           }
-        }
-      }
-    },
-    "i_agree" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "oxudum və qəbul edirəm."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "I agree to the"
-          }
-        }
-      }
-    },
-    "i_smoked_one" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bir dənə çəkdim"
-          }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "I smoked one"
+          }
+        }
+      }
+    },
+    "If an account exists with this email, a reset link has been sent." : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Əgər bu e-poçt ünvanıyla hesab varsa, e-poçt göndərlibi."
           }
         }
       }
@@ -597,6 +932,12 @@
             "state" : "translated",
             "value" : "Analizlər"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insights"
+          }
         }
       }
     },
@@ -606,6 +947,44 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Analizlər yalnız LastOne+ istifadəçiləri üçün əlçatandır. Tətikləyiciləriniz və irəliləyişiniz haqqında ətraflı məlumat əldə edin."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insights are available only in LastOne+. Get detailed analysis of your triggers and progress."
+          }
+        }
+      }
+    },
+    "invalid_credentials" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-poçt ünvanı və ya şifrə yanlışdır"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid credentials"
+          }
+        }
+      }
+    },
+    "invalid_token" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sıfırlama keçidi etibarsızdır"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid token"
           }
         }
       }
@@ -633,6 +1012,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Qoşulma Tarixi"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join Date"
           }
         }
       }
@@ -712,12 +1097,24 @@
             "state" : "translated",
             "value" : "LastOne"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LastOne"
+          }
         }
       }
     },
     "LASTONE" : {
       "localizations" : {
         "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LASTONE"
+          }
+        },
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "LASTONE"
@@ -732,22 +1129,11 @@
             "state" : "translated",
             "value" : "LastOne+ azaltma prosesini davamlı etməyə kömək edən alətləri açır."
           }
-        }
-      }
-    },
-    "later" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Daha sonra"
-          }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Later"
+            "value" : "LastOne+ unlocks the tools that make reduction actually stick."
           }
         }
       }
@@ -759,39 +1145,11 @@
             "state" : "translated",
             "value" : "Daha sonra"
           }
-        }
-      }
-    },
-    "left" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "qalıb"
-          }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "left"
-          }
-        }
-      }
-    },
-    "left_extra" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "yaxşı iləriləyirsən"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "you’re pacing well"
+            "value" : "Later"
           }
         }
       }
@@ -817,14 +1175,19 @@
       "localizations" : {
         "az" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Başlayaq."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let’s get started."
           }
         }
       }
     },
-    "logout" : {
-      "extractionState" : "manual",
+    "Logout" : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -836,16 +1199,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Logout"
-          }
-        }
-      }
-    },
-    "Logout" : {
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Çıxış"
           }
         }
       }
@@ -884,6 +1237,23 @@
         }
       }
     },
+    "mo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ay"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mo"
+          }
+        }
+      }
+    },
     "moderate" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -907,6 +1277,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Normal"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderate"
           }
         }
       }
@@ -962,29 +1338,18 @@
         }
       }
     },
-    "monthly_short" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ay"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "mo"
-          }
-        }
-      }
-    },
     "No data available" : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Data yoxdur"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No data available"
           }
         }
       }
@@ -995,6 +1360,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mühakimə etmirik — sadəcə olduğunuz yerdən başlayırıq. Planınızı buna uyğun hazırlayırıq."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No judgment — just a real starting point. We build your plan from here."
+          }
+        }
+      }
+    },
+    "No logs" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qeyd yoxdur"
+          }
+        }
+      }
+    },
+    "no_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qeyd yoxdur"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Logs"
+          }
+        }
+      }
+    },
+    "no_trigger" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tətikləyici yoxdur"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No trigger"
           }
         }
       }
@@ -1050,22 +1465,18 @@
         }
       }
     },
-    "of %lld" : {
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld - dan"
-          }
-        }
-      }
-    },
     "of %lld today" : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "bugünün %lld-dən"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of %lld  today"
           }
         }
       }
@@ -1073,6 +1484,12 @@
     "OK" : {
       "localizations" : {
         "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -1085,14 +1502,14 @@
       "localizations" : {
         "az" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şifrəni unutmusunuz?"
+            "state" : "needs_review",
+            "value" : "ŞİFRƏ"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forgot password?"
+            "value" : "PASSWORD"
           }
         }
       }
@@ -1259,6 +1676,16 @@
         }
       }
     },
+    "Reset Password" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifrəni Yenilə"
+          }
+        }
+      }
+    },
     "Restore • Terms • Privacy" : {
       "localizations" : {
         "az" : {
@@ -1340,6 +1767,23 @@
         }
       }
     },
+    "See the moments that drive your count." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siqaret sayınıza təsir edən məqamları görün."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See the moments that drive your count."
+          }
+        }
+      }
+    },
     "see_all" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1353,6 +1797,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "See all"
+          }
+        }
+      }
+    },
+    "Send Reset Link" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeniləmə Linki Göndər"
           }
         }
       }
@@ -1563,7 +2017,7 @@
         }
       }
     },
-    "social" : {
+    "Social" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
@@ -1664,6 +2118,33 @@
         }
       }
     },
+    "streak" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ardıcıl"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak"
+          }
+        }
+      }
+    },
+    "Success" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uğurlu"
+          }
+        }
+      }
+    },
     "sunday" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1686,7 +2167,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Qeydə almaq üçün toxunun"
+            "value" : "QEYD ET"
           }
         }
       }
@@ -1813,6 +2294,22 @@
         }
       }
     },
+    "Today" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bugün"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
     "TODAY'S LOG" : {
       "localizations" : {
         "az" : {
@@ -1840,6 +2337,22 @@
         }
       }
     },
+    "token_expired" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sıfırlama keçidinin vaxtı bitib"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token expired"
+          }
+        }
+      }
+    },
     "total" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1857,19 +2370,36 @@
         }
       }
     },
-    "total_smoked" : {
+    "Total smoked" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ümumi çəklənlər"
+            "value" : "Ümumi çəkilən siqaret"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Total smoked"
+          }
+        }
+      }
+    },
+    "Total this month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu ay ümumi"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total this month"
           }
         }
       }
@@ -1897,6 +2427,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trendlər"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trends"
+          }
+        }
+      }
+    },
+    "Trigger insights" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tətikləyici analizləri"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trigger insights"
           }
         }
       }
@@ -1965,6 +2518,39 @@
         }
       }
     },
+    "unknown_error" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Naməlum xəta baş verdi"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown error"
+          }
+        }
+      }
+    },
+    "Unlimited history" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limitsiz tarixçə"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited history"
+          }
+        }
+      }
+    },
     "unlock" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2009,6 +2595,16 @@
         }
       }
     },
+    "Update Password" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifrəni Yenilə"
+          }
+        }
+      }
+    },
     "Upgrade Now" : {
       "localizations" : {
         "az" : {
@@ -2019,104 +2615,19 @@
         }
       }
     },
-    "upgrade_1" : {
+    "upgrade_badge" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uyğunlaşan azaltma planları"
+            "value" : "40% Qənaət Et"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adaptive taper plans"
-          }
-        }
-      }
-    },
-    "upgrade_1_subtext" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Real həftənizə uyğunlaşan hədəflər."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Goals that adjust to your real week."
-          }
-        }
-      }
-    },
-    "upgrade_2" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tətikləyici analizləri"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trigger insights"
-          }
-        }
-      }
-    },
-    "upgrade_2_subtexts" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Siqaret sayınıza təsir edən məqamları görün."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "See the moments that drive your count."
-          }
-        }
-      }
-    },
-    "upgrade_3" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Limitsiz tarixçə"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unlimited history"
-          }
-        }
-      }
-    },
-    "upgrade_3_subtext" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hər siqaret, hər trend — həmişə əlçatan."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Every cigarette, every trend, forever"
+            "value" : "Save 40%"
           }
         }
       }
@@ -2155,6 +2666,40 @@
         }
       }
     },
+    "upgrade_plan_sub_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$3.99/ay"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$3.99/mo"
+          }
+        }
+      }
+    },
+    "upgrade_plan_sub_year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$29.99/il • $2.50/ay"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$29.99/yr • $2.50/mo"
+          }
+        }
+      }
+    },
     "upgrade_subhead" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2173,6 +2718,7 @@
       }
     },
     "We'll suggest %lld/day next week, easing down ~10%% at a time." : {
+      "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -2271,6 +2817,7 @@
       }
     },
     "What's the trigger? (optional)" : {
+      "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -2324,7 +2871,7 @@
         }
       }
     },
-    "yearly" : {
+    "Yearly" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
@@ -2341,24 +2888,7 @@
         }
       }
     },
-    "yearly_short" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "il"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "yr"
-          }
-        }
-      }
-    },
-    "you" : {
+    "You" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
@@ -2395,12 +2925,22 @@
         }
       }
     },
-    "you​@example.com" : {
+    "you@example․com" : {
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "you@example.com"
+            "value" : "you@example․com"
+          }
+        }
+      }
+    },
+    "Your password has been updated." : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifrəniz Uğurla Yeniləndi."
           }
         }
       }
@@ -2445,6 +2985,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You’ve had today"
+          }
+        }
+      }
+    },
+    "yr" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "il"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yr"
           }
         }
       }

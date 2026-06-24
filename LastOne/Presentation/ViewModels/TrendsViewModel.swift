@@ -36,7 +36,7 @@ final class TrendsViewModel: ObservableObject {
 
     // MARK: - Formatted Properties
 
-    var summaryTitle: String {
+    var summaryTitle: LocalizedStringKey {
         switch selectedRange {
         case .week: return "Avg / day this week"
         case .month: return "Total this month"
@@ -58,38 +58,40 @@ final class TrendsViewModel: ObservableObject {
         }
     }
 
-    var tile1: (title: String, value: String)? {
+    var tile1: (title: LocalizedStringKey, value: String)? {
         switch selectedRange {
         case .week:
             let val = weeklyStats?.total ?? 0
-            return ("Total", "\(val)")
+            return ("total", "\(val)")
         case .month:
             let val = monthlyStats?.total ?? 0
-            return ("Total", "\(val)")
+            return ( "total", "\(val)")
         case .year:
             let val = overallStats?.totalCigarettesSmoked ?? 0
-            return ("Total", "\(val)")
+            return ("total", "\(val)")
         }
     }
-
-    var tile2: (title: String, value: String)? {
+    
+    var tile2: (title: LocalizedStringKey, value: String)? {
         switch selectedRange {
         case .week:
             let val = weeklyStats?.dailyAverage ?? 0
-            return ("Avg / day", String(format: "%.1f", val))
+            return ("avg_day",String(format: "%.1f", val))
+
         case .month:
             let val = monthlyStats?.days.count ?? 0
-            return ("Days", "\(val)")
+            return ("days", "\(val)")
+
         case .year:
             let val = overallStats?.currentStreak ?? 0
-            return ("Streak", "\(val)")
+            return ("streak", "\(val)")
         }
     }
 
-    var tile3: (title: String, value: String)? {
+    var tile3: (title: LocalizedStringKey, value: String)? {
         if selectedRange == .year {
             let val = overallStats?.reductionPercent ?? 0
-            return ("Reduction", "\(val)%")
+            return ("reduction", "\(val)%")
         }
         return nil
     }

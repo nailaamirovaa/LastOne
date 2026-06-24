@@ -45,7 +45,8 @@ struct MainTabView: View {
             case .add:
                 LogView(getTriggersUseCase: GetTriggersUseCaseImpl(repository: TriggerRepositoryImpl(service: TriggersService())),
                         getTodayLogsUseCase: GetTodaysLogsUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())),
-                        logCigaretteUseCase: LogCigaretteUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())))
+                        logCigaretteUseCase: LogCigaretteUseCaseImpl(repository: LogRepositoryImpl(service: CigaretteLogsService())),
+                        createTriggerUseCase: CreateTriggerUseCaseImpl(repository: TriggerRepositoryImpl(service: TriggersService())))
 
             case .insights:
                 InsightsView(getTriggerAnalysisUseCase: GetTriggerAnalysisUseCaseImpl(repository: StatsRepositoryImpl(service: StatsService())))

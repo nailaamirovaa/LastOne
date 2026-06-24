@@ -10,6 +10,7 @@ import SwiftUI
 struct TodayView: View {
     
     @StateObject private var viewModel: TodayViewModel
+    @EnvironmentObject private var languageManager: LanguageManager
     
     @State private var showAllLogs = false
     
@@ -31,6 +32,7 @@ struct TodayView: View {
     
     private var todayText: String {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: languageManager.currentLanguage)
         formatter.dateFormat = "EEEE • MMM d"
         return formatter.string(from: Date())
     }
@@ -91,7 +93,7 @@ private extension TodayView {
 
     var header: some View {
 
-        HStack(alignment: .top) {
+        HStack(alignment: .center) {
 
             VStack(alignment: .leading, spacing: 4) {
 
@@ -106,16 +108,36 @@ private extension TodayView {
 
             Spacer()
 
-            Button {
-
-            } label: {
-
-                Image(systemName: "gearshape")
-                    .font(.headline)
-                    .foregroundStyle(.secondaryText)
-                    .frame(width: 56, height: 56)
-                    .background(Color.surface)
-                    .clipShape(Circle())
+            HStack(spacing: 0) {
+                Text("AZE")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(languageManager.currentLanguage == "az" ? Color.white : Color.secondaryText)
+                    .frame(width: 44, height: 32)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(languageManager.currentLanguage == "az" ? Color.primaryAccent : Color.clear)
+                    )
+                
+                Text("ENG")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(languageManager.currentLanguage == "en" ? Color.white : Color.secondaryText)
+                    .frame(width: 44, height: 32)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(languageManager.currentLanguage == "en" ? Color.primaryAccent : Color.clear)
+                    )
+            }
+            .padding(2)
+            .background(Color.surface)
+            .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(Color.hairline, lineWidth: 1)
+            )
+            .onTapGesture {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    languageManager.toggle()
+                }
             }
         }
     }
@@ -133,9 +155,9 @@ private extension TodayView {
                 target: viewModel.dailyGoal
             )
 
-            Text("\(viewModel.remaining) left — you're pacing well")
-                .font(.title3)
-                .foregroundStyle(.primaryAccent)
+            Text("\(viewModel.remaining) left -- you're pacing well")
+            .font(.title3)
+            .foregroundStyle(.primaryAccent)
         }
     }
 }
@@ -163,7 +185,8 @@ private extension TodayView {
                 spacing: 4
             ) {
 
-                Text("\(viewModel.currentStreak)-day streak")
+                
+                Text("\(viewModel.currentStreak) - day streak")
                     .foregroundStyle(.primaryText)
                     .font(.headline)
 
@@ -256,6 +279,7 @@ private extension TodayView {
 // MARK: - LOG ROW
 struct LogRowView: View {
 
+    @EnvironmentObject private var languageManager: LanguageManager
     let time: String
     let trigger: String?
 
@@ -276,7 +300,7 @@ struct LogRowView: View {
                     .font(.subhead.bold())
                     .foregroundStyle(.primaryText)
 
-                Text(trigger ?? "No trigger")
+                Text(LocalizedStringKey( trigger ?? "no_trigger"))
                     .font(.footnote)
                     .foregroundStyle(.secondaryText)
             }

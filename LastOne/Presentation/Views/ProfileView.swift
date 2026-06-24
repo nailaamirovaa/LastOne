@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var languageManager: LanguageManager
     @StateObject private var viewModel: ProfileViewModel
     
     @State private var showEditPlan = false

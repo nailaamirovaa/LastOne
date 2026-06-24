@@ -9,8 +9,8 @@ import SwiftUI
 
 struct FeatureRow: View {
 
-    let title: String
-    let subtitle: String
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey
 
     var body: some View {
 
