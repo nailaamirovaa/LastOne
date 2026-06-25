@@ -33,6 +33,14 @@ struct OnboardingView: View {
                 EmptyView()
             }
         }
+        .onChange(of: viewModel.isCompleted) { _, isCompleted in
+
+            if isCompleted {
+                coordinator.selectedTab = .today
+                coordinator.route = .main
+                print(coordinator.selectedTab)
+            }
+        }
         .alert(
             "Error",
             isPresented: Binding(
@@ -50,12 +58,6 @@ struct OnboardingView: View {
         } message: {
             
             Text(viewModel.errorMessage ?? "")
-        }
-        .onChange(of: viewModel.isCompleted) { _, isCompleted in
-
-            if isCompleted {
-                coordinator.route = .main
-            }
         }
     }
 }

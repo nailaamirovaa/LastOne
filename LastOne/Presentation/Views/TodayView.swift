@@ -43,14 +43,15 @@ struct TodayView: View {
             Color.appBackground
                 .ignoresSafeArea()
             
-            
             if viewModel.isLoading {
                 LoadingView()
             } else if let error = viewModel.errorMessage {
                 ErrorView(message: error){
                     viewModel.load()
+                    print("today")
                 }
             } else {
+                
                 contentView
             }
         }
@@ -61,6 +62,7 @@ struct TodayView: View {
             )
         }
         .onAppear() {
+            print("today")
             Task {
                 viewModel.load()
             }

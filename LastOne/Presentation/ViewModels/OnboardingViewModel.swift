@@ -74,6 +74,8 @@ final class OnboardingViewModel: ObservableObject {
                 )
 
                 isCompleted = true
+                
+                print("Onboarding completed")
 
             } catch {
 

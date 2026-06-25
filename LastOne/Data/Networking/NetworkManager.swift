@@ -50,6 +50,12 @@ final class NetworkManager: Sendable {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
+
+        /*
+        if let body = String(data: data, encoding: .utf8) {
+            print("BODY:", body)
+        }
+         */
         
         // Handle 401 Unauthorized
         if httpResponse.statusCode == 401 && !isRetry {
@@ -75,11 +81,11 @@ final class NetworkManager: Sendable {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
             
-            print("RAW JSON:")
-            print(String(data: data, encoding: .utf8) ?? "")
+            //print("RAW JSON:")
+           // print(String(data: data, encoding: .utf8) ?? "")
             
-            print("DECODING ERROR:")
-            print(error)
+           // print("DECODING ERROR:")
+          //  print(error)
             
             throw NetworkError.decodingError
         }

@@ -68,13 +68,16 @@ final class ProfileViewModel: ObservableObject {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "dd.MM.yyyy"
                 
-                joinDate = formatter.string(from:UserDefaults.standard.object(forKey: "joinDate") as! Date)
+                if let joinDateValue = UserDefaults.standard.object(forKey: "joinDate") as? Date {
+                    joinDate = formatter.string(from: joinDateValue)
+                } else {
+                    joinDate = "-"
+                }
                 
                 refreshToken = AuthSessionManager.shared.refreshToken ?? ""
                 
                 
-                if  startingGoal == 0 && reductionPace == "-" && profile == nil { hasData = false }
-                else { hasData =  true }
+                hasData = profile != nil
                 
                 
             } catch {
