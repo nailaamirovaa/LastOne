@@ -53,9 +53,7 @@ final class TodayViewModel: ObservableObject {
     // MARK: - Actions
 
     func load() {
-
         Task {
-
             isLoading = true
             errorMessage = nil
 
@@ -64,7 +62,6 @@ final class TodayViewModel: ObservableObject {
             }
 
             do {
-
                 async let profile = getProfileUseCase.execute()
                 async let logs = getTodayLogsUseCase.execute()
                 async let streak = getStreakUseCase.execute()
@@ -84,10 +81,7 @@ final class TodayViewModel: ObservableObject {
 
                 currentStreak = realStreak.currentStreak
                 longestStreak = streakResult.longestStreak
-                print("STREAK:\(currentStreak)")
-
             } catch {
-
                 errorMessage = error.localizedDescription
             }
         }

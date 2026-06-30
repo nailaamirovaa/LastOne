@@ -153,11 +153,6 @@ final class TrendsViewModel: ObservableObject {
                 case .week:
                     let stats = try await getWeeklyStatsUseCase.execute(week:currentWeek)
 
-                    print("DAYS COUNT:", stats.days.count)
-
-                    stats.days.forEach {
-                        print($0.date)
-                    }
 
                     weeklyStats = stats
                 case .month:

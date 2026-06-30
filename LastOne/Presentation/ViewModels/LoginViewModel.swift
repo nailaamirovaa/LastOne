@@ -65,6 +65,7 @@ final class LoginViewModel: ObservableObject {
                 isLoggedIn = true
                 
                 UserDefaults().set(user.subscriptionStatus, forKey: "subscription")
+                
             } catch let error as NetworkError {
                 
                 switch error {

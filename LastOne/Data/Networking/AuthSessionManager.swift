@@ -66,7 +66,6 @@ final class AuthSessionManager: ObservableObject {
                         refreshToken: response.refreshToken ?? "")
             return true
         } catch {
-            print("Refresh failed: \(error)")
             logout()
             return false
         }

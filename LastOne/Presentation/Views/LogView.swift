@@ -11,6 +11,7 @@ struct LogView: View {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel: LogViewModel
+    @State private var showAlert = false
     
     init(getTriggersUseCase: GetTriggersUseCase,getTodayLogsUseCase: GetTodaysLogsUseCase, logCigaretteUseCase: LogCigaretteUseCase, createTriggerUseCase: CreateTriggerUseCase) {
         
@@ -38,6 +39,13 @@ struct LogView: View {
                contentView
             }
         }
+        .sheet(isPresented: $viewModel.showPaywall, content: {
+            PaywallView()
+                .presentationDetents([.height(520)])
+                .frame(maxWidth: .infinity ,)
+                .presentationDragIndicator(.visible)
+                
+        })
         .sheet(isPresented: $viewModel.showCreateTriggerSheet) {
             
             CreateTriggerSheet(
@@ -50,24 +58,10 @@ struct LogView: View {
             .presentationDetents([.height(280)])
             .presentationDragIndicator(.visible)
         }
-        .alert(
-            "Error",
-            isPresented: Binding(
-                get: {
-                    viewModel.errorMessage != nil
-                },
-                set: { _ in
-                    viewModel.errorMessage = nil
-                }
-            )
-        ) {
-            
-            Button("OK") { }
-            
-        } message: {
-            
-            Text(viewModel.errorMessage ?? "")
-        }
+        .appAlert(
+            isPresented: $viewModel.showAlert,
+            alert: viewModel.alert
+        )
         .onAppear {
             viewModel.load()
         }
@@ -156,7 +150,11 @@ private extension LogView {
                 }
                 
                 Button {
-                    viewModel.showCreateTriggerSheet = true
+                    if UserDefaults.standard.object(forKey: "subscription") as! String == "PREMIUM" {
+                        viewModel.showCreateTriggerSheet = true
+                    } else{
+                        viewModel.showPaywall = true
+                    }
                 } label: {
                     Label("Custom", systemImage: "plus")
                         .foregroundStyle(.tertiaryText)

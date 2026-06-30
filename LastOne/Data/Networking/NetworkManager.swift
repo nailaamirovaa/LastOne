@@ -50,12 +50,6 @@ final class NetworkManager: Sendable {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
-
-        /*
-        if let body = String(data: data, encoding: .utf8) {
-            print("BODY:", body)
-        }
-         */
         
         // Handle 401 Unauthorized
         if httpResponse.statusCode == 401 && !isRetry {
@@ -80,13 +74,6 @@ final class NetworkManager: Sendable {
         do {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            
-            //print("RAW JSON:")
-           // print(String(data: data, encoding: .utf8) ?? "")
-            
-           // print("DECODING ERROR:")
-          //  print(error)
-            
             throw NetworkError.decodingError
         }
     }
@@ -102,11 +89,6 @@ final class NetworkManager: Sendable {
             endpoint,
             responseType: APIResponse<T>.self
         )
-        /*
-        if endpoint.path == "/stats/weekly"{
-            print(String(data: response.data as! Data, encoding: .utf8) ?? "")
-        }
-         */
 
         if response.success, let result = response.data {
             return result

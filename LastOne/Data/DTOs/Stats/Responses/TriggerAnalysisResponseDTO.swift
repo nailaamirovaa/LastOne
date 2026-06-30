@@ -10,6 +10,7 @@ import Foundation
 // MARK: - DataClass
 struct TriggerAnalysisDataDTO: Decodable {
     let triggers: [TriggerAnalysisTriggerDTO]?
+    let recommendation: RecommendationDTO?
 }
 
 // MARK: - Trigger

@@ -42,19 +42,16 @@ final class OnboardingViewModel: ObservableObject {
     // MARK: - Actions
 
     func decrease() {
-
         if dailyGoalStart > 1 {
             dailyGoalStart -= 1
         }
     }
 
     func increase() {
-
         dailyGoalStart += 1
     }
 
     func setupProfile() {
-
         Task {
 
             isLoading = true
@@ -65,7 +62,6 @@ final class OnboardingViewModel: ObservableObject {
             }
 
             do {
-
                 _ = try await setupProfileUseCase.execute(
                     dailyGoalStart: dailyGoalStart,
                     dailyGoalFinal: dailyGoalFinal,
@@ -74,11 +70,7 @@ final class OnboardingViewModel: ObservableObject {
                 )
 
                 isCompleted = true
-                
-                print("Onboarding completed")
-
             } catch {
-
                 errorMessage = error.localizedDescription
             }
         }

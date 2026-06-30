@@ -28,14 +28,15 @@ Entities
  todays logs see all sehifesi+
  starting, ending goal deyise bilsin profilede +
  parameters hissesini deyis aze eng bele dil deyissin+
- forgot password ( hele ki mumkun deyil )
+ forgot password ( hele ki mumkun deyil ) +
  mumkunduse fontu yaz +
+ good morning zad onu deyis 
  
  
  PROBLEMS
  - token expire olur cox tez
  - mavi textfield +
- - her hefte currentGoal azalmalidi o harda olur
+ - her hefte currentGoal azalmalidi o harda olur +
  
 */
 

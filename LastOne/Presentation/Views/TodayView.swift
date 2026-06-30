@@ -48,7 +48,6 @@ struct TodayView: View {
             } else if let error = viewModel.errorMessage {
                 ErrorView(message: error){
                     viewModel.load()
-                    print("today")
                 }
             } else {
                 
@@ -62,7 +61,6 @@ struct TodayView: View {
             )
         }
         .onAppear() {
-            print("today")
             Task {
                 viewModel.load()
             }
@@ -103,7 +101,7 @@ private extension TodayView {
                     .font(.subhead)
                     .foregroundStyle(.secondaryText)
 
-                Text("Good evening")
+                Text(Greeting.text)
                     .font(.headline)
                     .foregroundStyle(.primaryText)
             }

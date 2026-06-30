@@ -47,10 +47,12 @@ public final class StatsService {
     // MARK: - Daily Stats
     func getTriggerAnalysisStats() async throws -> TriggerAnalysisDataDTO {
 
-        try await networkManager.requestWrapped(
+        let dto = try await networkManager.requestWrapped(
             StatsRequest.triggerAnalysis,
             responseType:TriggerAnalysisDataDTO.self
         )
+        
+        return dto
     }
     
     // MARK: - Export CSV

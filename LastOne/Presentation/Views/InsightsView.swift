@@ -98,10 +98,6 @@ struct InsightsView: View {
             } else {
 
                 ForEach(viewModel.triggerStats, id: \.triggerID) { trigger in
-                    let _ = print(
-                        trigger.triggerName,
-                        trigger.percentage
-                    )
 
                     TriggerStatRow(
                         name: trigger.triggerName,
@@ -124,10 +120,10 @@ struct InsightsView: View {
                     .foregroundStyle(.primaryAccent)
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Avoid Coffee")
+                    Text(LocalizedStringKey(viewModel.recommendation?.title ?? ""))
                         .font(.headline)
                         .foregroundStyle(.primaryText)
-                    Text("Try drinking water or going for a 5-minute walk when you feel the urge during coffee.")
+                    Text(LocalizedStringKey(viewModel.recommendation?.message ?? ""))
                         .font(.footnote)
                         .foregroundStyle(.secondaryText)
                 }

@@ -65,7 +65,6 @@ struct ForgotPasswordView: View {
                 
                 Button {
                     viewModel.sendResetEmail()
-                    print(viewModel.errorMessage ?? "nil")
                 } label: {
 
                     if viewModel.isLoading {

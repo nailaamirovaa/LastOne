@@ -277,6 +277,7 @@
       }
     },
     "Avoid Coffee" : {
+      "extractionState" : "stale",
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -819,17 +820,86 @@
       }
     },
     "Good evening" : {
+      "extractionState" : "stale",
       "localizations" : {
         "az" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Axşamınız xeyir"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Good evening"
+            "value" : "Good Evening"
+          }
+        }
+      }
+    },
+    "good_afternoon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gününüz xeyirli olsun"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Afternoon"
+          }
+        }
+      }
+    },
+    "good_evening" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Axşamınız Xeyir"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Evening"
+          }
+        }
+      }
+    },
+    "good_morning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sabahınız Xeyir"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Morning"
+          }
+        }
+      }
+    },
+    "good_night" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Axşamınız Xeyir"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Night"
           }
         }
       }
@@ -1557,6 +1627,278 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Şifrənizi yenidən daxil edin."
+          }
+        }
+      }
+    },
+    "recommendation.afte_meal.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeməkdən sonra siqaret istəyi normaldır, lakin bunu başqa bir vərdişlə əvəz edə bilərsiniz. Yeməkdən sonra dişlərinizi fırçalayın, şəkərsiz saqqız çeynəyin və ya qısa bir gəzintiyə çıxın. Bu, zamanla siqaret istəyini azaltmağa kömək edəcək."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The urge to smoke after eating is common, but it doesn't have to become automatic. Try brushing your teeth, chewing sugar-free gum, or taking a short walk immediately after your meal to build a healthier replacement habit."
+          }
+        }
+      }
+    },
+    "recommendation.after_meal.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Rutin Yarat"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a New Routine"
+          }
+        }
+      }
+    },
+    "recommendation.alcohol.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alkoqol özünənəzarəti zəiflədə və siqaret istəyini artıra bilər. Yeni vərdişlər formalaşdırarkən alkoqol qəbulunu azaltmağa çalışın, spirtli içkiləri su ilə növbələşdirin və siqaret çəkməklə əlaqələndirdiyiniz mühitlərdən mümkün qədər uzaq durun."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alcohol lowers self-control and can make smoking feel more tempting. Consider limiting alcohol while building new habits, alternate alcoholic drinks with water, and avoid situations where smoking is strongly associated with drinking."
+          }
+        }
+      }
+    },
+    "recommendation.alcohol.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alkoqolla Ehtiyatlı Ol"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Be Careful with Alcohol"
+          }
+        }
+      }
+    },
+    "recommendation.boredom.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Darıxmaq çox vaxt lazımsız siqaret istəyinə səbəb olur. Kitab oxumaq, tapmaca həll etmək, musiqi dinləmək və ya qısa gəzintiyə çıxmaq kimi kiçik bir məşğuliyyət seçin. Cəmi beş dəqiqə diqqətinizi yayındırmaq belə siqaret istəyinin azalmasına kömək edə bilər."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boredom often creates unnecessary cravings. Find a quick activity such as reading, solving a puzzle, listening to music, or taking a short walk. Even five minutes of distraction can help the craving fade."
+          }
+        }
+      }
+    },
+    "recommendation.boredom.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beynini Məşğul Saxla"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep Your Mind Busy"
+          }
+        }
+      }
+    },
+    "recommendation.coffee.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qəhvə və siqaret çox vaxt gündəlik vərdiş kimi bir-biri ilə əlaqələnir. Əvvəlcə bir stəkan su içməyi, bəzən qəhvə əvəzinə çay seçməyi və ya qəhvənizi fərqli bir mühitdə içməyi sınayın. Gündəlik rutininizdə edəcəyiniz kiçik dəyişikliklər zamanla bu vərdişi zəiflədə bilər."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coffee and smoking often become linked through routine. Try drinking a glass of water first, switching to tea occasionally, or changing where you enjoy your coffee. Small changes in your routine can weaken the habit over time."
+          }
+        }
+      }
+    },
+    "recommendation.coffee.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qəhvə Vərdişini Tərgit"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Break the Coffee Habit"
+          }
+        }
+      }
+    },
+    "recommendation.default.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çəkmədiyiniz hər siqaret sizi hədəfinizə bir addım da yaxınlaşdırır. İrəliləyiş mükəmməl olmağı deyil, dünənkindən daha çox sağlam seçim etməyi tələb edir. Davamlı olun, kiçik uğurlarınızı qeyd edin və irəliləməyə davam edin."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every cigarette you avoid is a step toward your goal. Progress doesn't require perfection—what matters is making healthier choices more often than yesterday. Stay consistent, celebrate small wins, and keep moving forward."
+          }
+        }
+      }
+    },
+    "recommendation.default.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Davam Et"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep Going"
+          }
+        }
+      }
+    },
+    "recommendation.driving.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Əgər adətən maşın sürərkən siqaret çəkirsinizsə, yola çıxmazdan əvvəl alternativ hazırlayın. Podkast dinləyin, şəkərsiz saqqızı əlinizin altında saxlayın və ya sürərkən su için. Bu vərdişi başqa bir davranışla əvəz etmək siqaret istəyini idarə etməyi asanlaşdırır."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you usually smoke while driving, prepare an alternative before you start your trip. Listen to a podcast, keep sugar-free gum nearby, or sip water during your drive. Replacing the habit makes cravings easier to manage."
+          }
+        }
+      }
+    },
+    "recommendation.driving.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Məşğul Qal"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay Occupied"
+          }
+        }
+      }
+    },
+    "recommendation.social.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siqaret çəkən dostların yanında olmaq siqaretə qarşı durmağı çətinləşdirə bilər. Onlara siqareti azaltmağa çalışdığınızı deyin, əllərinizi içki və ya yüngül qəlyanaltı ilə məşğul saxlayın və imkan olduqca siqaret çəkilən yerlərdən uzaq durun."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Being around friends who smoke can make resisting more difficult. Let people know you're trying to reduce smoking, keep your hands busy with a drink or snack, and step away from smoking areas whenever possible."
+          }
+        }
+      }
+    },
+    "recommendation.social.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sosial Vəziyyətlərə Hazır Ol"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepare for Social Situations"
+          }
+        }
+      }
+    },
+    "recommendation.stress.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stress siqaret istəyini gücləndirə bilər, lakin bu hiss adətən bir neçə dəqiqə ərzində keçir. Siqaretə əl uzatmazdan əvvəl beş dəfə dərindən nəfəs almağı, yüngül hərəkətlər etməyi və ya qısa gəzintiyə çıxmağı sınayın. Özünüzə qısa bir fasilə vermək vəziyyəti yenidən nəzarətə almağa kömək edə bilər."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stress can make cravings feel stronger, but they usually pass within a few minutes. Try taking five deep breaths, stretching, or going for a short walk before reaching for a cigarette. Giving yourself a brief pause can help you regain control."
+          }
+        }
+      }
+    },
+    "recommendation.stress.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stressi İdarə Et"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Stress"
           }
         }
       }
@@ -2465,6 +2807,7 @@
       }
     },
     "Try drinking water or going for a 5-minute walk when you feel the urge during coffee." : {
+      "extractionState" : "stale",
       "localizations" : {
         "az" : {
           "stringUnit" : {

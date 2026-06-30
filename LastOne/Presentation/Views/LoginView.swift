@@ -157,6 +157,7 @@ struct LoginView: View {
             else { return }
 
             if user.isOnboardingComplete {
+                coordinator.selectedTab = .today
                 coordinator.route = .main
             } else {
                 coordinator.route = .onboarding

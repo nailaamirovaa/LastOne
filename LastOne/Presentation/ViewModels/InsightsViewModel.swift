@@ -14,10 +14,11 @@ final class InsightsViewModel: ObservableObject {
     // MARK: - Published Properties
 
     @Published var triggerStats: [TriggerStat] = []
-
+    @Published var recommendation: Recommendation?
     @Published var isLoading = false
     @Published var errorMessage: String?
-    
+    @Published var recommendationTitle = ""
+    @Published var recommendationMessage = ""
     @Published var hasData: Bool = false
 
     // MARK: - Dependencies
@@ -48,11 +49,11 @@ final class InsightsViewModel: ObservableObject {
 
             do {
 
-                let triggers = try await getTriggerAnalysisUseCase.execute()
+                let analysis = try await getTriggerAnalysisUseCase.execute()
 
-                let totalCount = triggers.triggers.reduce(0) { $0 + $1.count}
+                let totalCount = analysis.triggers.reduce(0) { $0 + $1.count}
 
-                let mappedTriggers: [TriggerStat] = triggers.triggers.map { trigger in
+                let mappedTriggers: [TriggerStat] = analysis.triggers.map { trigger in
 
                     let percentage = totalCount > 0 ? Int(Double(trigger.count) / Double(totalCount) * 100) : 0
 
@@ -67,6 +68,8 @@ final class InsightsViewModel: ObservableObject {
                 triggerStats = mappedTriggers.sorted { lhs, rhs in
                     lhs.count > rhs.count
                 }
+                
+                recommendation = analysis.recommendation
                 
                 if !triggerStats.isEmpty  { hasData =  true }
                 else { hasData =  false }

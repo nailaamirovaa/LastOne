@@ -38,7 +38,6 @@ struct OnboardingView: View {
             if isCompleted {
                 coordinator.selectedTab = .today
                 coordinator.route = .main
-                print(coordinator.selectedTab)
             }
         }
         .alert(

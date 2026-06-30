@@ -26,15 +26,11 @@ struct LastOneApp: App {
                 )
                 .onOpenURL { url in
                     
-                    print("DEEP LINK RECEIVED:", url.absoluteString)
-                    
                     guard url.scheme == "lastone" else {
-                        print("WRONG SCHEME")
                         return
                     }
                     
                     guard url.host == "reset-password" else {
-                        print("WRONG HOST:", url.host ?? "nil")
                         return
                     }
                     
@@ -42,8 +38,6 @@ struct LastOneApp: App {
                             $0.name == "token"
                         })?
                         .value ?? ""
-                    
-                    print("TOKEN:", token)
                     
                     coordinator.route = .resetPassword(token: token)
                 }

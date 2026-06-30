@@ -29,9 +29,9 @@ final class LogViewModel: ObservableObject {
     @Published var lastLogDate: Date?
 
     @Published var didSaveLog = false
-    
+    @Published var showAlert = false
+    @Published var alert = AppAlert(title: "", message: "")
    
-
     @Published var customTriggerName = ""
     @Published var showCreateTriggerSheet = false
     @Published var showPaywall = false
@@ -155,9 +155,6 @@ final class LogViewModel: ObservableObject {
 
                 todayCount = today.count
                 remaining = today.remaining
-                
-                print(today.count)
-
             } catch {
 
                 errorMessage = error.localizedDescription
@@ -172,23 +169,19 @@ final class LogViewModel: ObservableObject {
         guard !customTriggerName.isEmpty else { return }
 
         do {
-
-            let trigger = try await createTriggerUseCase.execute(
-                name: customTriggerName
-            )
-
+            let trigger = try await createTriggerUseCase.execute(name: customTriggerName)
             triggers.append(trigger)
-
             selectedTrigger = trigger
             customTriggerName = ""
             showCreateTriggerSheet = false
 
         } catch {
-
-            if error.localizedDescription.contains("Premium") {
+            if UserDefaults.standard.object(forKey: "subscription") as! String == "FREE" {
                 showPaywall = true
             } else {
                 errorMessage = error.localizedDescription
+                alert = AppAlert(title: "Error", message: errorMessage ?? "")
+                showAlert = true
             }
         }
     }

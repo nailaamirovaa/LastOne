@@ -12,6 +12,12 @@ extension TriggerAnalysisDataDTO {
         TriggerAnalysis(
             triggers: (triggers ?? []).map {
                 $0.toEntity()
+            },
+            recommendation: recommendation.map {_ in 
+                Recommendation(
+                    title: recommendation?.title ?? "",
+                    message: recommendation?.message ?? ""
+                )
             }
         )
     }
