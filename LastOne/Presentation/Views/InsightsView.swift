@@ -61,7 +61,8 @@ struct InsightsView: View {
             PaywallView()
                 .presentationDetents([.height(520)])
                 .frame(maxWidth: .infinity ,)
-                .presentationDragIndicator(.visible)
+                .presentationDragIndicator(.hidden)
+                .interactiveDismissDisabled()
             
         })
         .overlay {

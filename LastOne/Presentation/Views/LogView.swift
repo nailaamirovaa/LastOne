@@ -44,6 +44,7 @@ struct LogView: View {
                 .presentationDetents([.height(520)])
                 .frame(maxWidth: .infinity ,)
                 .presentationDragIndicator(.visible)
+                .interactiveDismissDisabled()
                 
         })
         .sheet(isPresented: $viewModel.showCreateTriggerSheet) {

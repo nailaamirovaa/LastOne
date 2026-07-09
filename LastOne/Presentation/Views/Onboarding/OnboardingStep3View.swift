@@ -13,6 +13,7 @@ struct OnboardingStep3View: View {
     
     @EnvironmentObject private var languageManager: LanguageManager
     @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var coordinator: AppCoordinator
  
     private let options = [2, 4, 8, 12]
  
@@ -59,6 +60,11 @@ struct OnboardingStep3View: View {
         } message: {
             
             Text(viewModel.errorMessage ?? "")
+        }
+        .onChange(of: viewModel.isCompleted) { completed in
+            if completed {
+                coordinator.route = .main
+            }
         }
     }
  
@@ -145,8 +151,9 @@ struct OnboardingStep3View: View {
  
     private var primaryButton: some View {
         Button {
-            viewModel.isCompleted = true
-            viewModel.setupProfile()
+            Task {
+                await viewModel.setupProfile()
+            }
         } label:{
             Text("Set my plan")
                 .font(.headline)

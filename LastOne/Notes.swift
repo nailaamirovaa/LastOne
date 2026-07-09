@@ -30,7 +30,9 @@ Entities
  parameters hissesini deyis aze eng bele dil deyissin+
  forgot password ( hele ki mumkun deyil ) +
  mumkunduse fontu yaz +
- good morning zad onu deyis 
+ good morning zad onu deyis +
+ csv export neynemeliyem hec bilmirem ona bax
+ 
  
  
  PROBLEMS

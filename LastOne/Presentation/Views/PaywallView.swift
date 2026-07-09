@@ -31,7 +31,7 @@ struct PaywallView: View {
                     Text("Unlock LastOne+")
                         .font(.custom("Newsreader-Bold", size: 34))
                         .foregroundStyle(.primaryText)
-
+                    
                     Text("Insights are available only in LastOne+. Get detailed analysis of your triggers and progress.")
                         .font(.bodyText)
                         .foregroundStyle(.secondaryText)
@@ -39,15 +39,15 @@ struct PaywallView: View {
                         .padding(.horizontal, 24)
                 }
             }
-
+            
             VStack(spacing: 16) {
-
+                
                 Button {
-
+                    
                     showUpgrade = true
-
+                    
                 } label: {
-
+                    
                     Text("Upgrade Now")
                         .font(.headline)
                         .foregroundStyle(.black)
@@ -56,12 +56,15 @@ struct PaywallView: View {
                         .background(Color.primaryAccent)
                         .clipShape(Capsule())
                 }
-
+                
                 Button {
                     dismiss()
-                    coordinator.selectedTab = .today
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        coordinator.selectedTab = .today
+                    }
+                    
                 } label: {
-
                     Text("Later")
                         .font(.headline)
                         .foregroundStyle(.secondaryText)
@@ -69,7 +72,7 @@ struct PaywallView: View {
                         .frame(height: 56)
                 }
             }
-
+            
             Spacer()
         }
         .padding(.horizontal, 24)

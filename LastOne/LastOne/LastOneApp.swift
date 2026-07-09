@@ -24,6 +24,7 @@ struct LastOneApp: App {
                     \.locale,
                      Locale(identifier: languageManager.currentLanguage)
                 )
+                .id(languageManager.currentLanguage)
                 .onOpenURL { url in
                     
                     guard url.scheme == "lastone" else {

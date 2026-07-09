@@ -51,28 +51,33 @@ final class OnboardingViewModel: ObservableObject {
         dailyGoalStart += 1
     }
 
-    func setupProfile() {
-        Task {
-
-            isLoading = true
-            errorMessage = nil
-
-            defer {
-                isLoading = false
-            }
-
-            do {
-                _ = try await setupProfileUseCase.execute(
-                    dailyGoalStart: dailyGoalStart,
-                    dailyGoalFinal: dailyGoalFinal,
-                    reductionPaceWeeks: reductionPaceWeeks,
-                    timezone: TimeZone.current.identifier
-                )
-
-                isCompleted = true
-            } catch {
-                errorMessage = error.localizedDescription
-            }
+    func setupProfile() async {
+        
+        
+        isLoading = true
+        errorMessage = nil
+        
+        defer {
+            isLoading = false
         }
+        
+        print("Profile setup start")
+        
+        do {
+            _ = try await setupProfileUseCase.execute(
+                dailyGoalStart: dailyGoalStart,
+                dailyGoalFinal: dailyGoalFinal,
+                reductionPaceWeeks: reductionPaceWeeks,
+                timezone: TimeZone.current.identifier
+            )
+            
+            isCompleted = true
+            
+            print("Profile setup completed")
+        } catch {
+            print("Profile setup error")
+            errorMessage = error.localizedDescription
+        }
+        
     }
 }

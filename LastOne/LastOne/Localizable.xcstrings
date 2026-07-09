@@ -23,7 +23,11 @@
             "value" : " /%lld"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
+    },
+    "%@" : {
+      "shouldTranslate" : false
     },
     "%lld" : {
       "localizations" : {
@@ -109,7 +113,8 @@
             "value" : "%lld%%"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "••••••••" : {
       "localizations" : {
@@ -119,7 +124,8 @@
             "value" : "••••••••"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "🔥" : {
       "shouldTranslate" : false
@@ -277,7 +283,7 @@
       }
     },
     "Avoid Coffee" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -786,6 +792,16 @@
         }
       }
     },
+    "general_error" : {
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xəta"
+          }
+        }
+      }
+    },
     "Go further,\nat your own pace." : {
       "localizations" : {
         "az" : {
@@ -820,7 +836,8 @@
       }
     },
     "Good evening" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -1031,14 +1048,14 @@
       "localizations" : {
         "az" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "E-poçt ünvanı və ya şifrə yanlışdır"
+            "state" : "needs_review",
+            "value" : "E-poçt ünvanı və ya şifrə yanlışdır. Zəhmət olmasa, yenidəm sınayın."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invalid credentials"
+            "value" : "Wrong email or password. Please try again."
           }
         }
       }
@@ -2807,7 +2824,7 @@
       }
     },
     "Try drinking water or going for a 5-minute walk when you feel the urge during coffee." : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
@@ -3060,16 +3077,25 @@
         }
       }
     },
-    "We'll suggest %lld/day next week, easing down ~10%% at a time." : {
+    "We'll suggest %lld/day next week, easing down ~10% at a time." : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gələn həftə günə %lld təklif edəcəyik, hər həftə ~10% azalmaqla."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
             "state" : "translated",
-            "value" : "Növbəti həftə üçün gündə %lld siqaret tövsiyə edəcəyik və hədəfi hər dəfə təxminən 10%% azaldacağıq."
+            "value" : "We'll suggest %lld/day next week, easing down ~10% at a time."
           }
         }
       }
+    },
+    "We'll suggest %lld/day next week, easing down ~10%%%% at a time." : {
+
     },
     "wednesday" : {
       "extractionState" : "manual",

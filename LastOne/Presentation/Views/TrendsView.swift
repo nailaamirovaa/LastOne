@@ -63,6 +63,7 @@ struct TrendsView: View {
                 .presentationDetents([.height(520)])
                 .frame(maxWidth: .infinity ,)
                 .presentationDragIndicator(.visible)
+                .interactiveDismissDisabled()
                 
         })
         .overlay {

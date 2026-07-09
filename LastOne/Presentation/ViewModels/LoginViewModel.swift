@@ -71,14 +71,10 @@ final class LoginViewModel: ObservableObject {
                 switch error {
                     
                 case .apiError(_, let code):
-                    
-                    switch code {
-                        
-                    case "INVALID_CREDENTIALS":
-                        errorMessage = "Invalid credentials"
-                        
-                    default:
-                        errorMessage = error.localizedDescription
+                    if let authError = AuthError(rawValue: code ?? "") {
+                        errorMessage = String(localized: "\(authError.localizedKey)")
+                    } else {
+                        errorMessage = NSLocalizedString("general_error", comment: "")
                     }
                     
                 default:
@@ -86,7 +82,6 @@ final class LoginViewModel: ObservableObject {
                 }
                 
             } catch {
-                
                 errorMessage = error.localizedDescription
             }
         }

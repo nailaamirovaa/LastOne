@@ -61,6 +61,7 @@ final class TodayViewModel: ObservableObject {
                 isLoading = false
             }
 
+            print("Get Profile START")
             do {
                 async let profile = getProfileUseCase.execute()
                 async let logs = getTodayLogsUseCase.execute()
@@ -81,7 +82,9 @@ final class TodayViewModel: ObservableObject {
 
                 currentStreak = realStreak.currentStreak
                 longestStreak = streakResult.longestStreak
+                print("Get Profile SUCCESS")
             } catch {
+                print("Get Profile ERROR")
                 errorMessage = error.localizedDescription
             }
         }

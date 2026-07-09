@@ -33,7 +33,7 @@ final class AuthSessionManager: ObservableObject {
     
     // MARK: - Session Management
     
-    /// Validates the current session and attempts refresh if needed.
+    // Validates the current session and attempts refresh if needed.
     func restoreSession() async -> Bool {
         guard let token = accessToken, let _ = refreshToken else {
             return false

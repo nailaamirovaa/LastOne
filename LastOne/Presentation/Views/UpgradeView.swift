@@ -20,6 +20,7 @@ struct UpgradeView: View {
 
             Color.appBackground
                 .ignoresSafeArea()
+            
 
             ScrollView(showsIndicators: false) {
 
@@ -38,18 +39,32 @@ struct UpgradeView: View {
                     yearlyPlan
 
                     monthlyPlan
+                    
+                    VStack(spacing: 16) {
+                        
+                        Button {
 
-                    Button {
+                        } label: {
 
-                    } label: {
-
-                        Text("Start 7-day free trial")
-                            .font(.headline)
-                            .foregroundStyle(.black)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(Color.primaryAccent)
-                            .clipShape(Capsule())
+                            Text("Start 7-day free trial")
+                                .font(.headline)
+                                .foregroundStyle(.black)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 56)
+                                .background(Color.primaryAccent)
+                                .clipShape(Capsule())
+                        }
+                        
+                        Button {
+                            dismiss()
+                            
+                        } label: {
+                            Text("Later")
+                                .font(.headline)
+                                .foregroundStyle(.secondaryText)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 56)
+                        }
                     }
 
                     HStack {

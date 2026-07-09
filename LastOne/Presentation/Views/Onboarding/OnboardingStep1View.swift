@@ -160,7 +160,7 @@ private extension OnboardingStep1View {
             Text("A gentle taper, not a cliff")
                 .font(.headline)
                 .foregroundStyle(.primaryText)
-            Text(String(format: "We'll suggest %lld/day next week, easing down ~10%% at a time.", recommendedPerDay))
+            Text("We'll suggest \(recommendedPerDay)/day next week, easing down ~10%% at a time.")
                 .font(.bodyText)
                 .foregroundStyle(.secondaryText)
         }

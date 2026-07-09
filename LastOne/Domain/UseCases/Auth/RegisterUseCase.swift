@@ -7,8 +7,7 @@
 
 
 protocol RegisterUseCase {
-
-    func execute(email: String, password: String) async throws -> User
+    func execute(email: String, password: String) async throws -> RegisterResponse
 }
 
 final class RegisterUseCaseImpl: RegisterUseCase {
@@ -19,7 +18,7 @@ final class RegisterUseCaseImpl: RegisterUseCase {
         self.repository = repository
     }
 
-    func execute(email: String, password: String) async throws -> User {
+    func execute(email: String, password: String) async throws -> RegisterResponse {
         try await repository.register(
             email: email,
             password: password

@@ -130,14 +130,14 @@ struct RegisterView: View {
                             Text("I agree to the ")
                                 .foregroundStyle(.secondaryText)
                             Text(" ")
-                            Text("Terms of Service")
-                                .foregroundStyle(.primaryAccent)
+                            Link("Terms of Service",
+                                 destination: URL(string:"https://gist.github.com/nailaamirovaa/d393073f42a6e8bbf5ae44def7f079b2")!)
                             Text(" ")
                             Text("and")
                                 .foregroundStyle(.secondaryText)
                             Text(" ")
-                            Text("Privacy Policy")
-                                .foregroundStyle(.primaryAccent)
+                            Link("Privacy Policy",
+                                 destination: URL(string:"https://gist.github.com/nailaamirovaa/c5fce255773fba0b9601fd704ce67c59")!)
 
                             Text(".")
                                 .foregroundStyle(.secondaryText)
@@ -221,7 +221,8 @@ struct RegisterView: View {
         guard errors.isEmpty else { return }
         
         viewModel.register()
-        coordinator.route = .login
+        coordinator.route = .onboarding
+        print("Navigate to Onboarding")
     }
 }
 

@@ -55,18 +55,18 @@ final class RegisterViewModel: ObservableObject {
                 isLoading = false
             }
             do {
-                let user = try await registerUseCase.execute(
+                let result = try await registerUseCase.execute(
                     email: email,
                     password: password
                 )
-
+                
                 self.user = user
 
                 isRegistered = true
                 
                 UserDefaults.standard.set(Date(), forKey: "joinDate")
                 
-                UserDefaults().set(user.subscriptionStatus, forKey: "subscription")
+                UserDefaults().set(user?.subscriptionStatus, forKey: "subscription")
 
             } catch let error as NetworkError {
 

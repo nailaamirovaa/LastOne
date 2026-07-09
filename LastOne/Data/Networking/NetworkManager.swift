@@ -52,21 +52,18 @@ final class NetworkManager: Sendable {
         }
         
         // Handle 401 Unauthorized
-        if httpResponse.statusCode == 401 && !isRetry {
+        if httpResponse.statusCode == 401 && !isRetry && AuthSessionManager.shared.accessToken != nil {
+
             let refreshSuccess = await AuthSessionManager.shared.refreshSession()
+
             if refreshSuccess {
-                // Retry the request exactly once with new token
-                return try await self.request(apiRequest, responseType: responseType, isRetry: true)
-            } else {
-                // Refresh failed, logout is already called inside refreshSession()
-                throw NetworkError.serverError(401)
+                return try await self.request(apiRequest, responseType: responseType,isRetry: true)
             }
         }
         
         guard 200...299 ~= httpResponse.statusCode else {
             if let apiError = try? JSONDecoder().decode(APIError.self, from: data) {
-                throw NetworkError.apiError(message: apiError.error ?? "Server error",
-                                             code: apiError.code)
+                throw NetworkError.apiError(message: apiError.error ?? "Server error",code: apiError.code)
             }
             throw NetworkError.serverError(httpResponse.statusCode)
         }

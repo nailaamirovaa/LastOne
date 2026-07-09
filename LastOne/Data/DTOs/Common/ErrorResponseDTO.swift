@@ -9,6 +9,6 @@
 struct ErrorResponseDTO: Decodable {
 
     let success: Bool?
-    let message: String?
     let error: String?
+    let code: String?
 }

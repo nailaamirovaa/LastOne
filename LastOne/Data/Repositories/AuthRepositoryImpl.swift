@@ -19,7 +19,7 @@ final class AuthRepositoryImpl: AuthRepository {
     }
 
     // MARK: - Register
-    func register( email: String, password: String) async throws -> User {
+    func register( email: String, password: String) async throws -> RegisterResponse {
 
         let dto = try await service.register(
             request: RegisterRequestDTO(
@@ -35,7 +35,7 @@ final class AuthRepositoryImpl: AuthRepository {
         sessionManager.saveSession(accessToken: dto.accessToken ?? "", 
                                    refreshToken: dto.refreshToken ?? "")
         
-        return user.toEntity()
+        return RegisterResponse(accessToken: dto.accessToken ?? "", refreshToken: dto.refreshToken ?? "", user: user.toEntity())
     }
 
     // MARK: - Login
